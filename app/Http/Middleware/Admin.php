@@ -20,10 +20,15 @@ class Admin
             return redirect()->route('adminLogin');
         }
 
+        $isAdmin = false;
         // Check if user does not have admin role than redirect it back to its origin
-        if(Auth::user()->name == 'First') {
-            return redirect()->intended();
+        foreach(Auth::user()->roles as $role) {
+            if($role->role_name == 'admin')
+                $isAdmin = true;
         }
+        if(!$isAdmin)
+            return redirect()->intended();
+
         return $next($request);
     }
 }

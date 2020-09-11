@@ -33,14 +33,19 @@
                     <a class="nav-link" href="{{ url('beneficiary/') }}">Beneficiary</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">What we do</a>
+                    <a class="nav-link" href="{{ url('/what-we-do') }}">What we do</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Blog</a>
+                    <a class="nav-link" href="{{ url('/blog') }}">Blog</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Contact us</a>
+                    <a class="nav-link" href="{{ url('/contact-us') }}">Contact us</a>
                 </li>
+                @if(\Illuminate\Support\Facades\Auth::check())
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url('logout') }}">Logout</a>
+                    </li>
+                @endif
             </ul>
         </div>
     </div>

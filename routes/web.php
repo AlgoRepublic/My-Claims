@@ -43,3 +43,15 @@ Route::get('/beneficiary/login', function() {
 })->name('beneficiaryLogin');
 
 Route::post('/policyHolder/login', 'PolicyHolderController@login');
+Route::get('/logout', 'BaseController@logout');
+Route::get('/what-we-do', function(){
+    return view('what_we_do');
+});
+
+Route::get('/blog', function(){
+    return view('blog');
+});
+
+Route::get('/contact-us', function(){
+    return view('contact_us');
+});

@@ -1,7 +1,13 @@
 
+html, body {
+ height: 100vh;
+ 
+}
+
 body {
 	overflow-x: hidden;
 	font-family: 'Roboto', sans-serif;
+	
 }
 
 p {
@@ -241,6 +247,14 @@ header.masthead .intro-text .intro-heading {
 /*********** Custom CSS **********/
 /*********************************/
 
+.custom_section_bg_img{
+	 background: url(../img/background-img.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
 header.masthead a{
 	text-decoration: none;
 }
@@ -258,6 +272,19 @@ header.masthead a{
 .custom_header_btn .custom_btn_header:hover{
 	border-radius: 50px;
 }
+
+.custom_page_heading{
+	text-align: center;
+	margin-bottom: 50px;
+	border-bottom: 1px solid #eee;
+}
+
+.custom_page_heading h4{
+	color: #fe3636;
+	margin-bottom: 20px;
+}
+
+
 
 /*********************************/
 
@@ -350,11 +377,9 @@ header.masthead a{
 }
 
 
-@media (max-width: 767px) {
- .custom_data_table div.dataTables_wrapper div.dataTables_paginate ul.pagination {
-    -ms-flex-pack: center !important;
-    justify-content: center !important;
-    margin-top: 1rem;
+@media all and (max-width: 1024px) and (min-width: 375px) {
+ .custom_data_table .custom_data_table_responsive{
+ 	 overflow: auto;
   }
 }
 
@@ -413,6 +438,7 @@ header.masthead a{
     margin: 100px 0px 50px;
     padding: 50px;
     border-top: 3px solid #fe3636;
+    background-color: #fff;
 }
 
 .custom_logo_card{
@@ -462,12 +488,58 @@ span.custom_card_bottom_text a:hover{
 }
 
 /*********************************/
+
+.custom_whatWeDo_section{
+	-webkit-box-shadow:0 17px 17px 0 rgb(0 0 0 / 0%), 0 10px 25px 0 rgb(0 0 0 / 15%);
+    box-shadow:0 17px 17px 0 rgb(0 0 0 / 0%), 0 10px 25px 0 rgb(0 0 0 / 15%);
+    margin: 150px 0px 50px;
+    padding: 50px;
+    border-top: 3px solid #fe3636;
+}
+
+/*********************************/
+
+.custom_contact_section{
+	-webkit-box-shadow:0 17px 17px 0 rgb(0 0 0 / 0%), 0 10px 25px 0 rgb(0 0 0 / 15%);
+    box-shadow:0 17px 17px 0 rgb(0 0 0 / 0%), 0 10px 25px 0 rgb(0 0 0 / 15%);
+    margin: 150px 0px 50px;
+    padding: 50px;
+    border-top: 3px solid #fe3636;
+}
+
+/*********************************/
+
+.custom_blog_section{
+	-webkit-box-shadow:0 17px 17px 0 rgb(0 0 0 / 0%), 0 10px 25px 0 rgb(0 0 0 / 15%);
+    box-shadow:0 17px 17px 0 rgb(0 0 0 / 0%), 0 10px 25px 0 rgb(0 0 0 / 15%);
+    margin: 150px 0px 50px;
+    padding: 50px;
+    border-top: 3px solid #fe3636;
+}
+
+.custom_blog_section .card-deck .card{
+	border-radius: 0px !important;
+	transition: 0.5s;
+}
+
+.custom_blog_section .card-deck .card:hover{
+	-webkit-box-shadow:0 17px 17px 0 rgb(0 0 0 / 0%), 0 10px 25px 0 rgb(0 0 0 / 15%);
+    box-shadow:0 17px 17px 0 rgb(0 0 0 / 0%), 0 10px 25px 0 rgb(0 0 0 / 15%);
+
+}
+
+
+/*********************************/
 /*********** Footer CSS **********/
 /*********************************/
 
 .footer {
 	padding: 25px 0;
-	text-align: center
+	text-align: center;
+/* 	bottom: 0;
+    position: absolute;
+    width: 100%;*/
+
 }
 
 .footer span.copyright {
@@ -476,33 +548,4 @@ span.custom_card_bottom_text a:hover{
 	text-transform: none;
 }
 
-.footer ul.quicklinks {
-	font-size: 90%;
-	line-height: 40px;
-	margin-bottom: 0;
-	text-transform: none;
-}
-
-ul.social-buttons {
-	margin-bottom: 0
-}
-
-ul.social-buttons li a {
-	font-size: 20px;
-	line-height: 50px;
-	display: block;
-	width: 50px;
-	height: 50px;
-	-webkit-transition: all .3s;
-	transition: all .3s;
-	color: #fff;
-	border-radius: 100%;
-	outline: 0;
-	background-color: #212529
-}
-
-ul.social-buttons li a:active,
-ul.social-buttons li a:focus,
-ul.social-buttons li a:hover {
-	background-color: #fe3636
-}
+  
