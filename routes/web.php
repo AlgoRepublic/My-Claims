@@ -55,3 +55,10 @@ Route::get('/blog', function(){
 Route::get('/contact-us', function(){
     return view('contact_us');
 });
+
+Route::get('/policyHolder/register/', function () {
+    return view('policyholder.register');
+});
+
+Route::post('/policyHolder/register/', "PolicyHolderController@register");
+Route::post('/policyHolder/checkCell/', "PolicyHolderController@checkCell");

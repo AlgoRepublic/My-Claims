@@ -1,19 +1,48 @@
 @extends('app')
 @section('title', 'Home Page')
 @section('mainbody')
-    <header class="masthead">
-        <div class="container">
-            {{--<div class="intro-text">
-                <div class="intro-lead-in">Helping you claim what is due to you</div>
-                <div class="intro-heading">Don’t let your beneficiaries struggle while you have worked all your life to take care of them. Make sure they claim from all the policies they are beneficiaries to.</div>
-                <div class="intro-lead-in">Business Insider article revealed that there is currently more than R17 billion in unclaimed or forgotten unit trusts and policies in South Africa.</div>
-                <div class="custom_header_btn">
-                    <a class="custom_btn_header" href="#">Policy Holder</a>
-                    <a class="custom_btn_header" href="#">Beneficiary</a>
-                </div>--}}
-            <p>We are in Policy Holder view.</p>
+
+    <div class="container">
+        <div class="custom_form_section">
+            <div class="custom_page_heading">
+                <h4>Manage Policy Documents</h4>
             </div>
+            <form>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for=" ">Name</label>
+                        <hr>
+                        <h5>John Deo</h5>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for=" ">Identity Document Number</label>
+                        <hr>
+                        <h5>8202255695023</h5>
+                    </div>
+                </div>
+                <div class="custom_form_heading"><span>Active Policies/Will</span></div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="validatedCustomFile" required >
+                            <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <div class="custom_btn_row text-center">
+                            <a type="submit" class="custom_btn_add">Add</a>
+                            <a type="submit" class="custom_btn_delete">Delete</a>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="form-row justify-content-center">
+                    <div class="form-group">
+                        <span>Please update your profile regularly to avoid incorrect information.</span>
+                    </div>
+                </div>
+            </form>
         </div>
-    </header>
+    </div>
 @endsection
 
