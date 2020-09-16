@@ -12,7 +12,11 @@ class PolicyHolderController extends Controller
 {
     public function index()
     {
-        return view('policyholder.home');
+        // Get the logged in user data to show in it the view
+        $userData = Auth::user();
+        $username = $userData->name .' '. $userData->surname;
+
+        return view('policyholder.home')->with(['username' => $username]);
     }
 
     public function login(Request $request)
@@ -72,5 +76,10 @@ class PolicyHolderController extends Controller
         else
             print_r(json_encode(array('status' => 'success', 'msg' => 'Cell Number Verified!')));
         die;
+    }
+
+    public function addPolicy(Request $request)
+    {
+        die('we do');
     }
 }

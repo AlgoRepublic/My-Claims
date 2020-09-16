@@ -12,6 +12,7 @@
     <link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
     <!-- Roboto Font -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css" rel="stylesheet">
     <!-- Custom styles -->
     <link href="{{ asset('css/style.min.css') }}" rel="stylesheet">
 </head>
@@ -68,7 +69,10 @@
 <!-- Bootstrap JavaScript -->
 <script src="{{ asset('/vendor/jquery/jquery.min.js') }}"></script>
 <script src="{{ asset('/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+<script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
 <!-- Custom JS -->
 <script src="{{ asset('/js/main.min.js') }}"></script>
+<script src="{{ asset('/js/custom.js') }}"></script>
 </body>
 </html>
