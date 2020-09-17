@@ -62,6 +62,10 @@
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
+                    <label for=" ">South African Identity Document Number*</label>
+                    <input type="number" class="form-control" id=" " placeholder="123456789" name="identity_document_number" required>
+                </div>
+                <div class="form-group col-md-6">
                     <label>Billing method</label>
                     <select class="form-control" name="package">
                         <option value="">-Select Package-</option>

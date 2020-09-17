@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUsersTable extends Migration
+class CreatePoliciesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,13 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('policies', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('surname');
-            $table->string('email')->nullable();
-            $table->string('mobile');
-            $table->string('password');
-            $table->string('identity_document_number');
-            $table->integer('role_id');
-            $table->rememberToken();
+            $table->string('type');
+            $table->string('document');
+            $table->string('document_original_name');
+            $table->integer('added_by');
             $table->timestamps();
         });
     }
@@ -34,6 +31,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('policies');
     }
 }

@@ -1,6 +1,7 @@
 $(document).ready(function() {
 
     $("#manage-policy-tbl").DataTable();
+    $("#add-policy-ben").select2();
 
     // Check user cell number uniqueness
     $(document).on('keyup','#reg-contact-no',function(){

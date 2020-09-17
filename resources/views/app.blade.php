@@ -15,6 +15,7 @@
     <link href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css" rel="stylesheet">
     <!-- Custom styles -->
     <link href="{{ asset('css/style.min.css') }}" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
 </head>
 <body id="page-top">
 <!-- Navigation -->
@@ -71,6 +72,7 @@
 <script src="{{ asset('/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
 <!-- Custom JS -->
 <script src="{{ asset('/js/main.min.js') }}"></script>
 <script src="{{ asset('/js/custom.js') }}"></script>
