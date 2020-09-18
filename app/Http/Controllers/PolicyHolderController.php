@@ -94,7 +94,6 @@ class PolicyHolderController extends Controller
         $postData = $request->input();
         $path = '';
 
-
         if(!empty($_FILES['doc_file']['name']))
             $path = Storage::putFile('public/policies', $request->file('doc_file'));
 

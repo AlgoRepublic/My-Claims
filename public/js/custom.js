@@ -44,4 +44,36 @@ $(document).ready(function() {
             }
         });
     });
+
+    $("#creat-new-ben").on('click', function() {
+        var htmlFields = '<div class="bene-wrap"><h3>New Beneficiary<i class="fa fa-times-circle attr-close"></i></h3>\n' +
+            '                    <hr>\n' +
+            '                    <div class="form-row">\n' +
+            '                        <div class="form-group col-md-6">\n' +
+            '                            <label for=" ">Name<span class="text-danger"><b>*</b></span></label>\n' +
+            '                            <input type="text" class="form-control" name="bene_name[]" placeholder="Enter Name" required>\n' +
+            '                        </div>\n' +
+            '                        <div class="form-group col-md-6">\n' +
+            '                            <label for=" ">Surname<span class="text-danger"><b>*</b></span></label>\n' +
+            '                            <input type="text" class="form-control" name="bene_surname[]" placeholder="Enter Surname" required>\n' +
+            '                        </div>\n' +
+            '                    </div>\n' +
+            '                    <div class="form-row">\n' +
+            '                        <div class="form-group col-md-6">\n' +
+            '                            <label for=" ">South African Identity Document Number<span class="text-danger"><b>*</b></span></label>\n' +
+            '                            <input type="number" class="form-control" name="bene_document_number[]" placeholder="Enter Document Number" required>\n' +
+            '                        </div>\n' +
+            '                        <div class="form-group col-md-6">\n' +
+            '                            <label for=" ">Cell Phone Number<span class="text-danger"><b>*</b></span></label>\n' +
+            '                            <input type="text" class="form-control" name="bene_cell_number[]" placeholder="Enter Cell Number" required>\n' +
+            '                        </div>\n' +
+            '                    </div>\n' +
+            '                </div>';
+        $(".opp-attr-div").append(htmlFields);
+    });
+
+    // Removes the attorney html upon click
+    $(document).on('click', '.attr-close', function() {
+        $(this).parent().parent().html('');
+    });
 });

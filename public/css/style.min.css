@@ -527,7 +527,8 @@ span.custom_card_bottom_text a:hover{
     box-shadow:0 17px 17px 0 rgb(0 0 0 / 0%), 0 10px 25px 0 rgb(0 0 0 / 15%);
 
 }
-
+.attr-close{cursor: pointer}
+.attr-close:hover{color: red}
 
 /*********************************/
 /*********** Footer CSS **********/

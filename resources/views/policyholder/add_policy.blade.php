@@ -50,29 +50,9 @@
                         </select>
                     </div>
                 </div>
-                <a href="#" id="creat-new-cons">Create New Beneficiary</a>
+                <div class="opp-attr-div"></div>
+                <a id="creat-new-ben" style="color: red;cursor: pointer;">Create New Beneficiary</a>
 
-                <hr>
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for=" ">Name<span class="text-danger"><b>*</b></span></label>
-                        <input type="text" class="form-control" name="name" placeholder="Enter Name" required>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for=" ">Surname<span class="text-danger"><b>*</b></span></label>
-                        <input type="text" class="form-control" name="surname" placeholder="Enter Surname" required>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for=" ">South African Identity Document Number<span class="text-danger"><b>*</b></span></label>
-                        <input type="number" class="form-control" name="document_number" placeholder="Enter Document Number" required>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for=" ">Cell Phone Number<span class="text-danger"><b>*</b></span></label>
-                        <input type="text" class="form-control" name="cell_number" placeholder="Enter Cell Number" required>
-                    </div>
-                </div>
                 <div class="form-row justify-content-center">
                     <div class="form-group">
                         <input type="submit" class="btn custom_btn_form" value="Save" />
