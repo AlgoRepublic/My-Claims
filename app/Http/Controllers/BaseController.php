@@ -49,7 +49,7 @@ class BaseController extends Controller
         // Get policy holder information
         $user = User::with('Policies')->where('identity_document_number', $postData['policyholder_number'])->first();
         if(empty($user)) {
-            Session::flash('message', 'Sorry, no policy holder exists in our system having this Identity number!');
+            Session::flash('message', 'Sorry, no policy holder having this Identity number exists in our system !');
             Session::flash('alert-class', 'alert-danger');
             return redirect('/beneficiary');
         }
@@ -57,7 +57,7 @@ class BaseController extends Controller
         // Now check the beneficiary
         $beneficiary = Beneficiaries::where('identity_document_number', $postData['beneficiary_number'])->first();
         if(empty($beneficiary)) {
-            Session::flash('message', 'Sorry, no beneficiary exists in our system with this Identity number!');
+            Session::flash('message', 'Sorry, no beneficiary with this Identity number exists in our system !');
             Session::flash('alert-class', 'alert-danger');
             return redirect('/beneficiary');
         }
