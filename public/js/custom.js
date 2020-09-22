@@ -1,7 +1,9 @@
 $(document).ready(function() {
 
     $("#manage-policy-tbl").DataTable();
-    $("#add-policy-ben").select2();
+    $("#add-policy-ben").select2({
+        placeholder: "Choose Beneficiaries",
+    });
 
     // Check user cell number uniqueness
     $(document).on('keyup','#reg-contact-no',function(){
@@ -76,4 +78,12 @@ $(document).ready(function() {
     $(document).on('click', '.attr-close', function() {
         $(this).parent().parent().html('');
     });
+
+    $('#upPolicyDoc').on('change',function(){
+        //get the file name
+        var fileName = $(this).val();
+        alert(fileName);return;
+        //replace the "Choose a file" label
+        $(this).next('.custom-file-label').html(fileName);
+    })
 });

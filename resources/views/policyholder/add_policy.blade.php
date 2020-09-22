@@ -42,11 +42,9 @@
                     <div class="form-group col-md-6">
                         <label>Select Beneficiaries<span class="text-danger"><b>*</b></span></label>
                         <select class="form-control" id="add-policy-ben" name="beneficiaries[]" multiple>
-                            <option value="life_cover">Life cover</option>
-                            <option value="funeral_cover">Funeral cover</option>
-                            <option value="investment">Investment </option>
-                            <option value="will">Will</option>
-                            <option value="other">Other</option>
+                            @foreach($benList as $ben)
+                                <option value="{{ $ben->id }}">{{ $ben->name . ' '. $ben->surname }}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>

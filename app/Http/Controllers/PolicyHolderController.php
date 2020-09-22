@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Beneficiaries;
+use App\beneficiary_policy;
 use App\Policies;
 use App\User;
 use Illuminate\Http\Request;
@@ -93,10 +95,26 @@ class PolicyHolderController extends Controller
     {
         $postData = $request->input();
         $path = '';
+        $beneficiaryData = $policyBen = array();
+        $benIDs = array();
 
         if(!empty($_FILES['doc_file']['name']))
             $path = Storage::putFile('public/policies', $request->file('doc_file'));
 
+        if(!empty($postData['bene_name'])) {
+
+            for($i=0; $i < count($postData['bene_name']); $i++) {
+                $beneficiaryData['name'] = $postData['bene_name'][$i];
+                $beneficiaryData['surname'] = $postData['bene_surname'][$i];
+                $beneficiaryData['identity_document_number'] = $postData['bene_document_number'][$i];
+                $beneficiaryData['cell_number'] = $postData['bene_cell_number'][$i];
+                $beneficiaryData['added_by'] = Auth::user()->id;
+                $beneficiary = Beneficiaries::create($beneficiaryData);
+                $benIDs[] = $beneficiary->id;
+            }
+        }
+
+        $allBeneficiaries = array_merge($postData['beneficiaries'],$benIDs);
         $data = array(
             'name' => $postData['doc_name'],
             'type' => $postData['policy_type'],
@@ -108,9 +126,27 @@ class PolicyHolderController extends Controller
         $newPolicy = Policies::create($data);
         $newPolicy->save();
 
+        $policyID = $newPolicy->id;
+        $n = 0;
+        foreach ($allBeneficiaries as $ben) {
+            $policyBen[$n]['policy_id'] = $policyID;
+            $policyBen[$n]['beneficiary_id'] = $ben;
+            $n++;
+        }
+
+        if(!empty($policyBen))
+            beneficiary_policy::insert($policyBen);
+
         Session::flash('message', 'Policy added successfully!');
         Session::flash('alert-class', 'alert-success');
         return redirect('policyHolder/');
+    }
+
+    public function addPolicyView()
+    {
+        // Get the beneficiaries list to show to user
+        $benList = Beneficiaries::where('added_by', Auth::user()->id)->get();
+        return view('policyholder.add_policy')->with('benList', $benList);
     }
 
     private function createFileUrl($path)

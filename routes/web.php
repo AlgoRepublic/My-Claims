@@ -24,15 +24,16 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
 
 Route::group(['prefix' => 'policyHolder', 'middleware' => 'policyholder'], function() {
     Route::get('/', 'PolicyHolderController@index');
-    Route::get('/addPolicy', function() {
+    /*Route::get('/addPolicy', function() {
         return view('policyholder.add_policy');
-    });
+    });*/
+    Route::get('/addPolicy', 'PolicyHolderController@addPolicyView');
     Route::post('/addPolicy', 'PolicyHolderController@addPolicy');
 });
 
-Route::group(['prefix' => 'beneficiary', 'middleware' => 'beneficiary'], function() {
+/*Route::group(['prefix' => 'beneficiary', 'middleware' => 'beneficiary'], function() {
     Route::get('/', 'BeneficiaryController@index');
-});
+});*/
 
 Route::get('/admin/login', function() {
     return view('admin.login');
@@ -45,6 +46,9 @@ Route::get('/policyHolder/login', function() {
 Route::get('/beneficiary/login', function() {
     return view('beneficiary.login');
 })->name('beneficiaryLogin');
+
+Route::get('/beneficiary', 'BaseController@beneficiary');
+Route::post('/beneficiary/find-policy', 'BaseController@findPolicy');
 
 Route::post('/policyHolder/login', 'PolicyHolderController@login');
 Route::get('/logout', 'BaseController@logout');

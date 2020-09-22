@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Beneficiaries;
+use App\beneficiary_policy;
+use App\Policies;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -31,5 +35,58 @@ class BaseController extends Controller
         Auth::logout();
         Session::flush();
         return Redirect::to('/');
+    }
+
+    public function beneficiary(Request $request)
+    {
+        return view('beneficiary.home');
+    }
+
+    public function findPolicy(Request $request)
+    {
+        $postData = $request->input();
+
+        // Get policy holder information
+        $user = User::with('Policies')->where('identity_document_number', $postData['policyholder_number'])->first();
+        if(empty($user)) {
+            Session::flash('message', 'Sorry, no policy holder exists in our system having this Identity number!');
+            Session::flash('alert-class', 'alert-danger');
+            return redirect('/beneficiary');
+        }
+
+        // Now check the beneficiary
+        $beneficiary = Beneficiaries::where('identity_document_number', $postData['beneficiary_number'])->first();
+        if(empty($beneficiary)) {
+            Session::flash('message', 'Sorry, no beneficiary exists in our system with this Identity number!');
+            Session::flash('alert-class', 'alert-danger');
+            return redirect('/beneficiary');
+        }
+
+        $policyType = array();
+
+        // As both of the users are verified, now check link of the document
+        foreach($user->policies as $policy) {
+            $linked = beneficiary_policy::where(['policy_id' => $policy->id,'beneficiary_id' => $beneficiary->id])->first();
+            if(!empty($linked)) {
+                // Add the policy type to show the user
+                $policyType[] = $policy->type;
+            }
+        }
+
+        if(empty($policyType)) {
+            Session::flash('message', 'Sorry, this policy holder have not registered you as a beneficiary!');
+            Session::flash('alert-class', 'alert-danger');
+            return redirect('/beneficiary');
+        }
+
+        $data = array(
+            'policy_type' => $policyType,
+            'name' => $user->name .' '. $user->surname,
+            'policyholder_number' => $postData['policyholder_number'],
+            'beneficiary_number' => $postData['beneficiary_number']
+        );
+        return view('beneficiary.check_policies')->with($data);
+
+
     }
 }

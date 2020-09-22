@@ -41,4 +41,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo('App\Roles', 'role_id');
     }
+
+    public function policies()
+    {
+        return $this->hasMany('App\Policies', 'added_by', 'id');
+    }
 }
