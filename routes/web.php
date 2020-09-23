@@ -49,6 +49,11 @@ Route::get('/beneficiary/login', function() {
 
 Route::get('/beneficiary', 'BaseController@beneficiary');
 Route::post('/beneficiary/find-policy', 'BaseController@findPolicy');
+Route::post('/beneficiary/policy-request', 'BaseController@policyRequest');
+Route::get('/beneficiary/add', function(){
+    return view('beneficiary.add_beneficiary');
+});
+Route::post('/beneficiary/add', 'BaseController@addBeneficiary');
 
 Route::post('/policyHolder/login', 'PolicyHolderController@login');
 Route::get('/logout', 'BaseController@logout');

@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 
 class BaseController extends Controller
 {
@@ -83,10 +84,62 @@ class BaseController extends Controller
             'policy_type' => $policyType,
             'name' => $user->name .' '. $user->surname,
             'policyholder_number' => $postData['policyholder_number'],
-            'beneficiary_number' => $postData['beneficiary_number']
+            'beneficiary_number' => $postData['beneficiary_number'],
+            'ben_id' => $beneficiary->id
         );
         return view('beneficiary.check_policies')->with($data);
+    }
 
+    public function policyRequest(Request $request)
+    {
+        $postData = $request->input();
+        if(empty($postData['ben_id'])) {
+            Session::flash('message', 'Oops, invalid request!');
+            Session::flash('alert-class', 'alert-danger');
+            return redirect('/beneficiary');
+        }
 
+        $benDoc = $holderDoc = '';
+
+        if(!empty($_FILES['beneficiary_identity']['name']))
+            $benDoc = Storage::putFile('public/beneficiaries_uploads', $request->file('beneficiary_identity'));
+
+        if(!empty($_FILES['policy_identity']['name']))
+            $holderDoc = Storage::putFile('public/beneficiaries_uploads', $request->file('policy_identity'));
+
+        $data = array(
+            'beneficiary_identity' => $benDoc,
+            'policyholder_death_proof' => $holderDoc,
+            'beneficiary_request_date' => date('Y-m-d H:i:s')
+        );
+
+        $beneficiary = Beneficiaries::where('id', $postData['ben_id'])->update($data);
+        if($beneficiary) {
+            Session::flash('message', 'Request submitted successfully!<br>Please Note that Verification will Take up to 5 Working Days. You will Receive an Email with the Policy / Funeral cover / Investment / will.');
+            Session::flash('alert-class', 'alert-success');
+        }else {
+            Session::flash('message', 'Oops. Something went wrong!');
+            Session::flash('alert-class', 'alert-danger');
+        }
+        return redirect('/beneficiary');
+    }
+
+    public function addBeneficiary(Request $request)
+    {
+        $postData = $request->input();
+        $beneficiaryData['name'] = $postData['bene_name'];
+        $beneficiaryData['surname'] = $postData['bene_surname'];
+        $beneficiaryData['identity_document_number'] = $postData['bene_document_number'];
+        $beneficiaryData['cell_number'] = $postData['bene_cell_number'];
+        $beneficiaryData['added_by'] = Auth::user()->id;
+        $beneficiary = Beneficiaries::create($beneficiaryData);
+        if($beneficiary) {
+            Session::flash('message', 'Beneficiary has been created successfully!');
+            Session::flash('alert-class', 'alert-success');
+        }else {
+            Session::flash('message', 'Oops. Something went wrong!');
+            Session::flash('alert-class', 'alert-danger');
+        }
+        return redirect('/policyHlder');
     }
 }

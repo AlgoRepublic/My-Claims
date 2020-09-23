@@ -23,10 +23,12 @@ class PolicyHolderController extends Controller
 
         // Get list of added policies by this user
         $policies = Policies::where('added_by', $userData->id)->get();
+        $beneficiaries = Beneficiaries::where('added_by', $userData->id)->get();
         $data = array(
             'username' => $username,
             'documentNumber' => $documentNumber,
-            'policies' => $policies
+            'policies' => $policies,
+            'beneficiaries' => $beneficiaries
         );
         return view('policyholder.home')->with($data);
     }

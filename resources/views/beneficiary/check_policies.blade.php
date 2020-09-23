@@ -26,8 +26,9 @@
                 </div>
             </div>
 
-            <form action="{{ url('/beneficiary/') }}" method="post">
+            <form action="{{ url('/beneficiary/policy-request') }}" method="post" enctype="multipart/form-data">
                 @csrf
+                <input type="hidden" name="ben_id" value="{{ $ben_id }}" />
                 <div class="custom_form_heading">
                     <span>
                         <b>{{ $name }}</b> has existing policies
@@ -41,7 +42,7 @@
                 <div class="form-row">
                     <div class="form-group col-md-12">
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="validatedCustomFile" required>
+                            <input type="file" class="custom-file-input" id="validatedCustomFile" name="beneficiary_identity" required>
                             <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
                         </div>
                     </div>
@@ -51,17 +52,17 @@
                 <div class="form-row">
                     <div class="form-group col-md-12">
                         <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="validatedCustomFile" required>
+                            <input type="file" class="custom-file-input" id="validatedCustomFile" name="policy_identity" required>
                             <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
                         </div>
                     </div>
                 </div>
                 <div class="form-row justify-content-center">
                     <div class="form-group">
-                        <a type="submit" class="custom_btn_form">Save</a>
+                        <input type="submit" class="btn custom_btn_form">
                     </div>
                 </div>
-                <hr>
+                {{--<hr>
                 <div class="form-row justify-content-center">
                     <div class="form-group">
                         <span>Please Note that Verification will Take up to 5 Working Days. You will Receive an Email with the Policy / Funeral cover / Investment / will</span>
@@ -72,7 +73,7 @@
                     <div class="form-group">
                         <input type="submit" class="btn custom_btn_form" value="Check">
                     </div>
-                </div>
+                </div>--}}
             </form>
         </div>
     </div>

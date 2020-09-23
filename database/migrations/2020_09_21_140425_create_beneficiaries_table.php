@@ -20,6 +20,11 @@ class CreateBeneficiariesTable extends Migration
             $table->string('identity_document_number');
             $table->string('cell_number');
             $table->string('added_by');
+            $table->string('beneficiary_identity')->nullable();
+            $table->string('policyholder_death_proof')->nullable();
+            $table->integer('is_approved')->default(0);
+            $table->integer('approved_by')->nullable();
+            $table->timestamp('beneficiary_request_date')->nullable();
             $table->timestamps();
         });
     }
