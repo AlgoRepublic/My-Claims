@@ -39,6 +39,7 @@ Route::get('/admin/login', function() {
     return view('admin.login');
 })->name('adminLogin');
 
+Route::get('/policyHolder/delete', 'PolicyHolderController@deletePolicy')->name('deletePolicy');
 Route::get('/policyHolder/login', function() {
     return view('policyholder.login');
 })->name('policyLogin');
@@ -47,6 +48,7 @@ Route::get('/beneficiary/login', function() {
     return view('beneficiary.login');
 })->name('beneficiaryLogin');
 
+Route::get('/beneficiary/delete', 'BaseController@deleteBeneficiary')->name('deleteBeneficiary');
 Route::get('/beneficiary', 'BaseController@beneficiary');
 Route::post('/beneficiary/find-policy', 'BaseController@findPolicy');
 Route::post('/beneficiary/policy-request', 'BaseController@policyRequest');

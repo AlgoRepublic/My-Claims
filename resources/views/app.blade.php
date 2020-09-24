@@ -29,6 +29,9 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav text-uppercase ml-auto">
                 <li class="nav-item">
+                    <a class="nav-link" href="{{ url('/') }}">Home</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="{{ url('policyHolder/') }}">Policy Holder</a>
                 </li>
                 <li class="nav-item">
@@ -51,11 +54,25 @@
                             <li class="dropdown-item"><a href="{{ url('logout') }}">Logout</a></li>
                         </ul>
                     </li>
+                @else
+                    <li class="nav-item">
+                        <a class="btn nav-link custom_nav_btn" style="background-color: #fe3636;color: #fff !important;margin: 0px 5px;padding: 8px !important;" href="{{ url('policyHolder/') }}">LOGIN</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="btn nav-link custom_nav_btn" style="background-color: #fe3636;color: #fff !important;margin: 0px 5px;padding: 8px !important;" href="{{ url('policyHolder/register') }}">REGISTER</a>
+                    </li>
                 @endif
             </ul>
         </div>
     </div>
 </nav>
+@if(\Illuminate\Support\Facades\Session::has('message'))
+    <div class="alert {{ \Illuminate\Support\Facades\Session::get('alert-class', 'alert-info') }} alert-dismissible">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        {{ \Illuminate\Support\Facades\Session::get('message') }}
+    </div>
+    {{--<p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</p>--}}
+@endif
 @yield('mainbody')
 <!-- Footer -->
 <footer class="footer">

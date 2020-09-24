@@ -76,6 +76,7 @@
             </div>
             <div class="form-row justify-content-center">
                 <div class="form-group">
+                    <a class="btn btn-lg btn-warning" href="{{ url('/') }}">Back</a>
                     <input type="submit" id="reg-sub-btn" class="btn custom_btn_form" type="submit" value="Send" />
                 </div>
             </div>

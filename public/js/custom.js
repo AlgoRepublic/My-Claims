@@ -1,7 +1,11 @@
 $(document).ready(function() {
 
-    $("#manage-policy-tbl").DataTable();
-    $("#manage-bene-tbl").DataTable();
+    $("#manage-policy-tbl").DataTable({
+        "bFilter": false
+    });
+    $("#manage-bene-tbl").DataTable({
+        "bFilter": false
+    });
     $("#add-policy-ben").select2({
         placeholder: "Choose Beneficiaries",
     });

@@ -57,6 +57,7 @@
                     </div>
                     <div class="form-row justify-content-center">
                         <div class="form-group">
+                            <a class="btn btn-lg btn-warning" href="{{ url('/') }}">Back</a>
                             <input type="submit" class="btn custom_btn_form" type="submit" value="Login" />
                         </div>
                     </div>

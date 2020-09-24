@@ -48,7 +48,7 @@ class PolicyHolderController extends Controller
 
         // Authenticate user here
         Auth::login($user);
-        return redirect()->intended();
+        return redirect('/policyHolder');
     }
 
     public function register(Request $request)
@@ -149,6 +149,18 @@ class PolicyHolderController extends Controller
         // Get the beneficiaries list to show to user
         $benList = Beneficiaries::where('added_by', Auth::user()->id)->get();
         return view('policyholder.add_policy')->with('benList', $benList);
+    }
+
+    public function deletePolicy(Request $request)
+    {
+        $postData = $request->input();
+        if(!empty($postData['id'])){
+            $policy = Policies::find($postData['id']);
+            $policy->delete();
+        }
+        Session::flash('message', 'The selected policy has been deleted successfully!');
+        Session::flash('alert-class', 'alert-success');
+        return redirect()->back();
     }
 
     private function createFileUrl($path)

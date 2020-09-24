@@ -55,6 +55,7 @@
                                                     <th>Identity Document Number</th>
                                                     <th>Cell Number</th>
                                                     <th>Added Date</th>
+                                                    <th>Action</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -66,6 +67,9 @@
                                                         <td>{{ $beneficiary->identity_document_number }}</td>
                                                         <td>{{ $beneficiary->cell_number }}</td>
                                                         <td>{{ date('Y-m-d', strtotime($beneficiary->created_at)) }}</td>
+                                                        <td>
+                                                            <a onclick="return confirm('Are you sure?')" href="{{ route('deleteBeneficiary',['id' => $beneficiary->id]) }}" class="btn btn-sm btn-danger">Delete</a>
+                                                        </td>
                                                     </tr>
                                                 @endforeach
                                                 </tbody>
@@ -96,6 +100,7 @@
                                                     <th>Type</th>
                                                     <th>Document</th>
                                                     <th>Added Date</th>
+                                                    <th>Action</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -110,6 +115,9 @@
                                                             </a>
                                                         </td>
                                                         <td>{{ date('Y-m-d', strtotime($policy->created_at)) }}</td>
+                                                        <td>
+                                                            <a onclick="return confirm('Are you sure?')" href="{{ route('deletePolicy',['id' => $policy->id]) }}" class="btn btn-sm btn-danger">Delete</a>
+                                                        </td>
                                                     </tr>
                                                 @endforeach
                                                 </tbody>

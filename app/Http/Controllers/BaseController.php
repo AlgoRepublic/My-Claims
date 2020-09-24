@@ -142,4 +142,17 @@ class BaseController extends Controller
         }
         return redirect('/policyHlder');
     }
+
+    public function deleteBeneficiary(Request $request)
+    {
+        $postData = $request->input();
+        if(!empty($postData['id'])){
+            $ben = Beneficiaries::find($postData['id']);
+            $ben->delete();
+        }
+
+        Session::flash('message', 'The selected beneficiary has been deleted successfully!');
+        Session::flash('alert-class', 'alert-success');
+        return redirect('/policyHolder');
+    }
 }
