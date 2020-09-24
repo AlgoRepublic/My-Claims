@@ -49,7 +49,7 @@
                     </div>
                 </div>
                 <div class="opp-attr-div"></div>
-                <a id="creat-new-ben" style="color: red;cursor: pointer;">Create New Beneficiary</a>
+                {{--<a id="creat-new-ben" style="color: red;cursor: pointer;">Create New Beneficiary</a>--}}
 
                 <div class="form-row justify-content-center">
                     <div class="form-group">

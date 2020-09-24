@@ -140,7 +140,7 @@ class BaseController extends Controller
             Session::flash('message', 'Oops. Something went wrong!');
             Session::flash('alert-class', 'alert-danger');
         }
-        return redirect('/policyHlder');
+        return redirect('/policyHolder');
     }
 
     public function deleteBeneficiary(Request $request)
