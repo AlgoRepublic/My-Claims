@@ -35,6 +35,12 @@
                     <div class="tab-content" id="pills-tabContent">
                         <div class="tab-pane fade show active" id="pills-beneficiaries" role="tabpanel" aria-labelledby="pills-home-tab">
                             <div class="custom_form_heading text-center"><span>All Beneficiaries</span></div>
+                            @if(Session::has('message'))
+                                <div class="alert {{ Session::get('alert-class', 'alert-info') }} alert-dismissible">
+                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                    {{ Session::get('message') }}
+                                </div>
+                            @endif
                             <div class="form-row">
                                 <div class="form-group col-md-12">
                                     <div class="custom_btn_row text-right">
@@ -67,7 +73,8 @@
                                                         <td>{{ $beneficiary->identity_document_number }}</td>
                                                         <td>{{ $beneficiary->cell_number }}</td>
                                                         <td>{{ date('Y-m-d', strtotime($beneficiary->created_at)) }}</td>
-                                                        <td>
+                                                        <td style="display: inline-flex;">
+                                                            <a href="{{ route('editBeneficiary',['id' => $beneficiary->id]) }}" class="btn btn-sm btn-info">Edit</a>&nbsp;&nbsp;
                                                             <a onclick="return confirm('Are you sure you would like to delete this beneficiary')" href="{{ route('deleteBeneficiary',['id' => $beneficiary->id]) }}" class="btn btn-sm btn-danger">Delete</a>
                                                         </td>
                                                     </tr>
@@ -129,27 +136,11 @@
                         </div>
                     </div>
                 </div>
-
                 <hr>
-
-                {{--<div class="form-row">
-                    <div class="form-group col-md-6">
-                        <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="validatedCustomFile" required >
-                            <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
-                        </div>
-                    </div>
-                    <div class="form-group col-md-6">
-                        <div class="custom_btn_row text-center">
-                            <a type="submit" class="custom_btn_add">Add</a>
-                            <a type="submit" class="custom_btn_delete">Delete</a>
-                        </div>
-                    </div>
-                </div>--}}
                 <hr>
                 <div class="form-row justify-content-center">
                     <div class="form-group">
-                        <span>Please update your profile regularly to avoid incorrect information.</span>
+                        <span>Please ensure that your beneficiary's cell phone number(s) are always correct. This will help when they download the policy holder's documents as we will call them for security purposes.</span>
                     </div>
                 </div>
             </form>

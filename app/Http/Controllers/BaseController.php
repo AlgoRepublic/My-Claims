@@ -182,4 +182,40 @@ class BaseController extends Controller
         Session::flash('alert-class', 'alert-success');
         return redirect('/contact-us');
     }
+
+    public function editBeneficiary(Request $request)
+    {
+        $postData = $request->input();
+        if(empty($postData['id'])) {
+            Session::flash('message', 'Oops, something went wrong!');
+            Session::flash('alert-class', 'alert-danger');
+            return redirect()->back();
+        }
+        // Now get data from this table for this id
+        $beneficiary = Beneficiaries::find($postData['id']);
+        return view('beneficiary.edit_beneficiary')->with('beneficiary',$beneficiary);
+    }
+
+    public function updateBen(Request $request)
+    {
+        $postData = $request->input();
+        if(empty($postData['ben_id'])) {
+            Session::flash('message', 'Oops, something went wrong!');
+            Session::flash('alert-class', 'alert-danger');
+            return redirect('policyHolder/');
+        }
+
+        $data = array(
+            'name' => $postData['bene_name'],
+            'surname' => $postData['bene_surname'],
+            'cell_number' => $postData['bene_cell_number'],
+            'identity_document_number' => $postData['bene_document_number']
+        );
+
+        Beneficiaries::where('id',$postData['ben_id'])->update($data);
+
+        Session::flash('message', 'Beneficiary has been updated successfully!');
+        Session::flash('alert-class', 'alert-success');
+        return redirect('policyHolder/');
+    }
 }

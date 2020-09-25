@@ -53,6 +53,8 @@ Route::get('/beneficiary/login', function() {
 })->name('beneficiaryLogin');
 
 Route::get('/beneficiary/delete', 'BaseController@deleteBeneficiary')->name('deleteBeneficiary');
+Route::get('/beneficiary/edit', 'BaseController@editBeneficiary')->name('editBeneficiary');
+Route::post('/beneficiary/edit', 'BaseController@updateBen');
 Route::get('/beneficiary', 'BaseController@beneficiary');
 Route::post('/beneficiary/find-policy', 'BaseController@findPolicy');
 Route::post('/beneficiary/policy-request', 'BaseController@policyRequest');
