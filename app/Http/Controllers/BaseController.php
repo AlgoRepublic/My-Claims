@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Beneficiaries;
 use App\beneficiary_policy;
+use App\Contact;
 use App\Policies;
 use App\User;
 use Illuminate\Http\Request;
@@ -161,6 +162,15 @@ class BaseController extends Controller
     {
         $postData = $request->input();
 
+        $data = array(
+            'user_name' => $postData['user_name'],
+            'email' => $postData['user_email'],
+            'contact_number' => $postData['contact_number'],
+            'message' => $postData['msg'],
+            'send_to' => 'salman.rahimi@algorepublic.com',
+        );
+
+        Contact::create($data);
         Mail::send('mail_contact_us', $postData, function($message) {
             $message->to('salman.rahimi@algorepublic.com', 'Show My Claims')->subject
             ('Contact Request - Show My Claims');
