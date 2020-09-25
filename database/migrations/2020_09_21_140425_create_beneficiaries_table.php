@@ -25,6 +25,7 @@ class CreateBeneficiariesTable extends Migration
             $table->integer('is_approved')->default(0);
             $table->integer('approved_by')->nullable();
             $table->timestamp('beneficiary_request_date')->nullable();
+            $table->timestamp('email_preference')->nullable();
             $table->timestamps();
         });
     }

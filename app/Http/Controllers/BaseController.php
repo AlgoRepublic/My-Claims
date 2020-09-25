@@ -112,12 +112,13 @@ class BaseController extends Controller
         $data = array(
             'beneficiary_identity' => $benDoc,
             'policyholder_death_proof' => $holderDoc,
+            'email_preference' => $postData['email_preference'],
             'beneficiary_request_date' => date('Y-m-d H:i:s')
         );
 
         $beneficiary = Beneficiaries::where('id', $postData['ben_id'])->update($data);
         if($beneficiary) {
-            Session::flash('message', 'Request submitted successfully!<br>Please Note that Verification will Take up to 5 Working Days. You will Receive an Email with the Policy / Funeral cover / Investment / will.');
+            Session::flash('message', 'Request submitted successfully!<br>Please Note that Verification will Take up to 5 Working Days. You will Receive an Email with the Policy / Funeral cover / Investment / Will.');
             Session::flash('alert-class', 'alert-success');
         }else {
             Session::flash('message', 'Oops. Something went wrong!');

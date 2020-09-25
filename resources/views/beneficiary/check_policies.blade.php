@@ -4,7 +4,7 @@
     <div class="container">
         <div class="custom_form_section">
             <div class="custom_page_heading">
-                <h4>Check Policies</h4>
+                <h4>Authorised Beneficiaries</h4>
             </div>
             @if(Session::has('message'))
                 <div class="alert {{ Session::get('alert-class', 'alert-info') }} alert-dismissible">
@@ -57,23 +57,19 @@
                         </div>
                     </div>
                 </div>
+                <span>Enter an email address you wish these documents to be sent to</span>
+                <br>
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <input type="email" class="form-control" placeholder="john_deo@xyz.com" name="email_preference">
+                    </div>
+                </div>
                 <div class="form-row justify-content-center">
                     <div class="form-group">
                         <input type="submit" class="btn custom_btn_form">
                     </div>
                 </div>
-                {{--<hr>
-                <div class="form-row justify-content-center">
-                    <div class="form-group">
-                        <span>Please Note that Verification will Take up to 5 Working Days. You will Receive an Email with the Policy / Funeral cover / Investment / will</span>
-                    </div>
-                </div>
 
-                <div class="form-row justify-content-center">
-                    <div class="form-group">
-                        <input type="submit" class="btn custom_btn_form" value="Check">
-                    </div>
-                </div>--}}
             </form>
         </div>
     </div>
