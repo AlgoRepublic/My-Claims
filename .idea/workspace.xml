@@ -5,13 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a79b8480-6763-41a3-a42c-4377be64caca" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Beneficiaries.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Beneficiaries.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/BaseController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/BaseController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_09_21_140425_create_beneficiaries_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_09_21_140425_create_beneficiaries_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/beneficiary/check_policies.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/beneficiary/check_policies.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/beneficiary/home.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/beneficiary/home.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/policyholder/edit_profile.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/policyholder/edit_profile.blade.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -41,8 +35,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/BaseController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="459">
-              <caret line="120" column="213" selection-start-line="120" selection-start-column="213" selection-end-line="120" selection-end-column="213" />
+            <state relative-caret-position="402">
+              <caret line="120" column="208" selection-start-line="120" selection-start-column="208" selection-end-line="120" selection-end-column="208" />
               <folding>
                 <element signature="e#40#62#0#PHP" expanded="true" />
               </folding>
@@ -453,12 +447,12 @@
       <workItem from="1600857424772" duration="12044000" />
       <workItem from="1600928876656" duration="1259000" />
       <workItem from="1600959747810" duration="4195000" />
-      <workItem from="1601032846160" duration="12983000" />
+      <workItem from="1601032846160" duration="13177000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="152786000" />
+    <option name="totallyTimeSpent" value="152980000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1358" y="-8" width="1936" height="1056" extended-state="6" />
@@ -843,8 +837,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/BaseController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="120" column="213" selection-start-line="120" selection-start-column="213" selection-end-line="120" selection-end-column="213" />
+        <state relative-caret-position="402">
+          <caret line="120" column="208" selection-start-line="120" selection-start-column="208" selection-end-line="120" selection-end-column="208" />
           <folding>
             <element signature="e#40#62#0#PHP" expanded="true" />
           </folding>

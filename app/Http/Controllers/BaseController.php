@@ -60,7 +60,7 @@ class BaseController extends Controller
         // Now check the beneficiary
         $beneficiary = Beneficiaries::where('identity_document_number', $postData['beneficiary_number'])->first();
         if(empty($beneficiary)) {
-            Session::flash('message', 'Sorry, no beneficiary with this Identity number exists in our system !');
+            Session::flash('message', 'ID number not found. <br> This means that there is no account registered with this ID number. If you believe this could be a mistake, please contact us.');
             Session::flash('alert-class', 'alert-danger');
             return redirect('/beneficiary');
         }
@@ -118,7 +118,7 @@ class BaseController extends Controller
 
         $beneficiary = Beneficiaries::where('id', $postData['ben_id'])->update($data);
         if($beneficiary) {
-            Session::flash('message', 'Request submitted successfully!<br>Please Note that Verification will Take up to 5 Working Days. You will Receive an Email with the Policy / Funeral cover / Investment / Will.');
+            Session::flash('message', 'Request submitted successfully!<br>Please note that verification will take 1 to 24 hours. Once verification is complete, you will receive an email with all the documents.');
             Session::flash('alert-class', 'alert-success');
         }else {
             Session::flash('message', 'Oops. Something went wrong!');
