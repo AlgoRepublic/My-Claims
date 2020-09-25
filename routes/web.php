@@ -70,6 +70,7 @@ Route::get('/blog', function(){
 Route::get('/contact-us', function(){
     return view('contact_us');
 });
+Route::post('/contact-us', 'BaseController@contactUs');
 
 Route::get('/policyHolder/register/', function () {
     return view('policyholder.register');

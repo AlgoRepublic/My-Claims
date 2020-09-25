@@ -8,6 +8,7 @@ use App\Policies;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
@@ -154,5 +155,20 @@ class BaseController extends Controller
         Session::flash('message', 'The selected beneficiary has been deleted successfully!');
         Session::flash('alert-class', 'alert-success');
         return redirect('/policyHolder');
+    }
+
+    public function contactUs(Request $request)
+    {
+        $postData = $request->input();
+
+        Mail::send('mail_contact_us', $postData, function($message) {
+            $message->to('salman.rahimi@algorepublic.com', 'Show My Claims')->subject
+            ('Contact Request - Show My Claims');
+            $message->from('info@myclaims.com','My Claims');
+        });
+
+        Session::flash('message', 'Your contact request has been sent!');
+        Session::flash('alert-class', 'alert-success');
+        return redirect('/contact-us');
     }
 }

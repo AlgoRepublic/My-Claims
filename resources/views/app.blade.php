@@ -93,5 +93,6 @@
 <!-- Custom JS -->
 <script src="{{ asset('/js/main.min.js') }}"></script>
 <script src="{{ asset('/js/custom.js') }}"></script>
+<script src="https://use.fontawesome.com/452826394c.js"></script>
 </body>
 </html>

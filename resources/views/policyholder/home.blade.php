@@ -68,7 +68,7 @@
                                                         <td>{{ $beneficiary->cell_number }}</td>
                                                         <td>{{ date('Y-m-d', strtotime($beneficiary->created_at)) }}</td>
                                                         <td>
-                                                            <a onclick="return confirm('Are you sure?')" href="{{ route('deleteBeneficiary',['id' => $beneficiary->id]) }}" class="btn btn-sm btn-danger">Delete</a>
+                                                            <a onclick="return confirm('Are you sure you would like to delete this beneficiary')" href="{{ route('deleteBeneficiary',['id' => $beneficiary->id]) }}" class="btn btn-sm btn-danger">Delete</a>
                                                         </td>
                                                     </tr>
                                                 @endforeach
@@ -116,7 +116,7 @@
                                                         </td>
                                                         <td>{{ date('Y-m-d', strtotime($policy->created_at)) }}</td>
                                                         <td>
-                                                            <a onclick="return confirm('Are you sure?')" href="{{ route('deletePolicy',['id' => $policy->id]) }}" class="btn btn-sm btn-danger">Delete</a>
+                                                            <a onclick="return confirm('Are you sure you would like to delete this document?')" href="{{ route('deletePolicy',['id' => $policy->id]) }}" class="btn btn-sm btn-danger">Delete</a>
                                                         </td>
                                                     </tr>
                                                 @endforeach

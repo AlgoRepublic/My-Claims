@@ -506,7 +506,37 @@ span.custom_card_bottom_text a:hover{
     padding: 50px;
     border-top: 3px solid #fe3636;
 }
+.custom_contact_support ul{
+	padding: 0px;
+}
 
+.custom_contact_support ul li{
+	list-style: none;
+}
+
+.custom_contact_support ul li span{
+	margin-right: 20px;
+	font-weight: 500;
+}
+
+.custom_contact_support ul li i{
+	padding-right: 10px;
+	color: #444;
+	transition: 0.5s;
+}
+
+.custom_contact_support ul li a i:hover{
+	color: #fe3636;
+}
+
+.custom_social_link{
+	padding-bottom: 25px;
+}
+
+.custom_social_link ul li{
+	float: left;
+	margin: 10px;
+}
 /*********************************/
 
 .custom_blog_section{
