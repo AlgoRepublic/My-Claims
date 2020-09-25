@@ -163,6 +163,55 @@ class PolicyHolderController extends Controller
         return redirect()->back();
     }
 
+    public function editProfile(Request $request)
+    {
+        $postData = $request->input();
+        // First of all check if the provided password matches or not
+        if(empty($postData['old_password'])) {
+            $errors = array('error' => "Please provide password!");
+            return redirect()->back()->withInput()->withErrors($errors);
+        }
+        if(empty($postData['id'])) {
+            $errors = array('error' => "Oops, incomplete information provided!");
+            return redirect()->back()->withInput()->withErrors($errors);
+        }
+
+        if(!empty($postData['new_password'])) {
+            if($postData['new_password'] !== $postData['re_pwd']) {
+                $errors = array('error' => "Password and Confirm Password fields doesn't match!");
+                return redirect()->back()->withInput()->withErrors($errors);
+            }
+        }
+
+        $where = array(
+            'id' => $postData['id'],
+            'password' => md5($postData['old_password'])
+        );
+
+        $user = User::where($where)->first();
+        if(empty($user)) {
+            $errors = array('error' => "Oops, wrong password provided!");
+            return redirect()->back()->withInput()->withErrors($errors);
+        }
+
+        $data = array(
+            'name' => $postData['name'],
+            'surname' => $postData['surname'],
+            'mobile' => $postData['mobile'],
+            'email' => !empty($postData['email']) ? $postData['email'] : NULL,
+            'identity_document_number' => $postData['identity_document_number']
+        );
+
+        if(!empty($postData['new_password']))
+            $data['password'] = md5($postData['new_password']);
+
+        $user = User::where('id',$postData['id'])->update($data);
+
+        Session::flash('message', 'Your profile has been updated successfully!');
+        Session::flash('alert-class', 'alert-success');
+        return redirect('policyHolder/edit');
+    }
+
     private function createFileUrl($path)
     {
         return URL::to('/').Storage::url($path);

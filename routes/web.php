@@ -29,6 +29,10 @@ Route::group(['prefix' => 'policyHolder', 'middleware' => 'policyholder'], funct
     });*/
     Route::get('/addPolicy', 'PolicyHolderController@addPolicyView');
     Route::post('/addPolicy', 'PolicyHolderController@addPolicy');
+    Route::post('/edit', 'PolicyHolderController@editProfile');
+    Route::get('/edit', function() {
+        return view('policyholder.edit_profile', ['userData' => \Illuminate\Support\Facades\Auth::user()]);
+    });
 });
 
 /*Route::group(['prefix' => 'beneficiary', 'middleware' => 'beneficiary'], function() {

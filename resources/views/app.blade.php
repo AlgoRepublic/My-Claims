@@ -50,7 +50,7 @@
                     <li class="nav-item dropdown" style="cursor: pointer">
                         <a class="nav-link dropdown-toggle" data-toggle="dropdown">Profile</a>
                         <ul class="dropdown-menu">
-                            <li class="dropdown-item"><a href="{{ url('/') }}">Edit Profile</a></li>
+                            <li class="dropdown-item"><a href="{{ url('/policyHolder/edit') }}">Edit Profile</a></li>
                             <li class="dropdown-item"><a href="{{ url('logout') }}">Logout</a></li>
                         </ul>
                     </li>
