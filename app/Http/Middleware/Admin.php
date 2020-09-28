@@ -22,10 +22,9 @@ class Admin
 
         $isAdmin = false;
         // Check if user does not have admin role than redirect it back to its origin
-        foreach(Auth::user()->roles as $role) {
-            if($role->role_name == 'admin')
-                $isAdmin = true;
-        }
+        if(Auth::user()->roles->role_name == 'admin')
+            $isAdmin = true;
+
         if(!$isAdmin)
             return redirect()->intended();
 

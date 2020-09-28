@@ -46,4 +46,9 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Policies', 'added_by', 'id');
     }
+
+    public function beneficiaries()
+    {
+        return $this->hasMany('App\Beneficiaries', 'added_by', 'id');
+    }
 }

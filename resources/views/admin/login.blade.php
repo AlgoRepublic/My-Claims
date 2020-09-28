@@ -46,7 +46,7 @@
                     </div>
                     @enderror
 
-                    <form action="" method="post">
+                    <form action="{{ url('admin/login') }}" method="post">
                         @csrf
                         <div class="form-group">
                             <input type="text" class="form-control" placeholder="Email" name="email" value="{{ old('email') }}" required>

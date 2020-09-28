@@ -20,6 +20,8 @@ Route::get('/login', function() {
 
 Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
     Route::get('/', 'AdminController@index');
+    Route::get('/policyHolders', 'AdminController@policyHolder');
+    Route::get('/beneficiaries', 'AdminController@beneficiaries');
 });
 
 Route::group(['prefix' => 'policyHolder', 'middleware' => 'policyholder'], function() {
@@ -42,6 +44,7 @@ Route::group(['prefix' => 'policyHolder', 'middleware' => 'policyholder'], funct
 Route::get('/admin/login', function() {
     return view('admin.login');
 })->name('adminLogin');
+Route::post('/admin/login', 'AdminController@login');
 
 Route::get('/policyHolder/delete', 'PolicyHolderController@deletePolicy')->name('deletePolicy');
 Route::get('/policyHolder/login', function() {
