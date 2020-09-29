@@ -12,21 +12,19 @@
                     {{ Session::get('message') }}
                 </div>
             @endif
-
-            <div class="form-row">
-                <div class="form-group col-md-12">
-                    <label for=" ">Enter Policyholder’s Identity Number</label>
-                    <input type="text" class="form-control" value="{{ $policyholder_number }}" disabled>
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group col-md-12">
-                    <label for=" ">Enter Your(Beneficiary) Identity Number</label>
-                    <input type="text" class="form-control" value="{{ $beneficiary_number }}" disabled>
-                </div>
-            </div>
-
             <form action="{{ url('/beneficiary/policy-request') }}" method="post" enctype="multipart/form-data">
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for=" ">Enter Policyholder’s Identity Number</label>
+                        <input type="text" class="form-control" value="{{ $policyholder_number }}" name="policyholder_idn" readonly>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for=" ">Enter Your(Beneficiary) Identity Number</label>
+                        <input type="text" class="form-control" value="{{ $beneficiary_number }}" name="beneficiary_idn" readonly>
+                    </div>
+                </div>
                 @csrf
                 <input type="hidden" name="ben_id" value="{{ $ben_id }}" />
                 <div class="custom_form_heading">

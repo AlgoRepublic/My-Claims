@@ -128,20 +128,27 @@
                         </div>
 
                         <div class="nav-item has-sub">
-                            <a href="javascript:void(0)"><i class="ik ik-layers"></i><span>User Management</span> <span class="badge badge-danger">@yield('product_count')</span></a>
+                            <a href="javascript:void(0)"><i class="ik ik-layers"></i><span>User Management</span></a>
                             <div class="submenu-content">
                                 <a href="{{ url('admin/policyHolders') }}" class="menu-item">Policy Holders</a>
                             </div>
                         </div>
 
                         <div class="nav-item has-sub">
-                            <a href="javascript:void(0)"><i class="ik ik-layers"></i><span>Beneficiary Management</span> <span class="badge badge-danger">@yield('product_count')</span></a>
+                            <a href="javascript:void(0)"><i class="ik ik-layers"></i><span>Beneficiary Management</span></a>
                             <div class="submenu-content">
                                 <a href="{{ url('admin/beneficiaries') }}" class="menu-item">Beneficiaries</a>
                             </div>
                         </div>
 
                         <div class="nav-item has-sub">
+                            <a href="javascript:void(0)"><i class="ik ik-layers"></i><span>Claims Management</span></a>
+                            <div class="submenu-content">
+                                <a href="{{ url('admin/beneficiaries') }}" class="menu-item">Beneficiaries</a>
+                            </div>
+                        </div>
+
+                        <{{--div class="nav-item has-sub">
                             <a href="javascript:void(0)"><i class="ik ik-layers"></i><span>Products</span> <span class="badge badge-danger">@yield('product_count')</span></a>
                             <div class="submenu-content">
                                 <a href="{{ url('admin/products') }}" class="menu-item">View</a>
@@ -153,7 +160,7 @@
                             <div class="submenu-content">
                                 <a href="{{ url('admin/loyalty-store') }}" class="menu-item">View</a>
                             </div>
-                        </div>
+                        </div>--}}
 
                         {{--<div class="nav-item">
                             <a href="pages/navbar.html"><i class="ik ik-menu"></i><span>Navigation</span> <span class="badge badge-success">New</span></a>

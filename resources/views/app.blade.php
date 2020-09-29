@@ -46,7 +46,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url('/contact-us') }}">Contact us</a>
                 </li>
-                @if(\Illuminate\Support\Facades\Auth::check())
+                @if(\Illuminate\Support\Facades\Auth::check() && \Illuminate\Support\Facades\Auth::user()->roles->role_name == 'policyholder')
                     <li class="nav-item dropdown" style="cursor: pointer">
                         <a class="nav-link dropdown-toggle" data-toggle="dropdown">Profile</a>
                         <ul class="dropdown-menu">

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Beneficiaries;
 use App\beneficiary_policy;
 use App\Contact;
+use App\Mail\BeneficiaryVerification;
 use App\Policies;
 use App\User;
 use Illuminate\Http\Request;
@@ -101,13 +102,18 @@ class BaseController extends Controller
             return redirect('/beneficiary');
         }
 
-        $benDoc = $holderDoc = '';
-
-        if(!empty($_FILES['beneficiary_identity']['name']))
+        $benDoc = $holderDoc = $benFileName = $polFileName = $benFileExt = $polFileExt = '';
+        if(!empty($_FILES['beneficiary_identity']['name'])) {
             $benDoc = Storage::putFile('public/beneficiaries_uploads', $request->file('beneficiary_identity'));
+            $benFileName = basename($benDoc);
+            $benFileExt = $request->file('beneficiary_identity')->extension();
+        }
 
-        if(!empty($_FILES['policy_identity']['name']))
+        if(!empty($_FILES['policy_identity']['name'])) {
             $holderDoc = Storage::putFile('public/beneficiaries_uploads', $request->file('policy_identity'));
+            $polFileName = basename($holderDoc);
+            $polFileExt = $request->file('policy_identity')->extension();
+        }
 
         $data = array(
             'beneficiary_identity' => $benDoc,
@@ -118,6 +124,15 @@ class BaseController extends Controller
 
         $beneficiary = Beneficiaries::where('id', $postData['ben_id'])->update($data);
         if($beneficiary) {
+            $data['policyholder_idn'] = $postData['policyholder_idn'];
+            $data['beneficiary_idn'] = $postData['beneficiary_idn'];
+            $data['beneficiary_identity_file'] = $benFileName;
+            $data['policyholder_death_proof_file'] = $polFileName;
+            $data['ben_file_ext'] = $benFileExt;
+            $data['pol_file_ext'] = $polFileExt;
+
+            Mail::to('mashood.ali@algorepublic.com')->send(new BeneficiaryVerification($data));
+
             Session::flash('message', 'Request submitted successfully!<br>Please note that verification will take 1 to 24 hours. Once verification is complete, you will receive an email with all the documents.');
             Session::flash('alert-class', 'alert-success');
         }else {

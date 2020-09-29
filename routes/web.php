@@ -26,9 +26,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
 
 Route::group(['prefix' => 'policyHolder', 'middleware' => 'policyholder'], function() {
     Route::get('/', 'PolicyHolderController@index');
-    /*Route::get('/addPolicy', function() {
-        return view('policyholder.add_policy');
-    });*/
     Route::get('/addPolicy', 'PolicyHolderController@addPolicyView');
     Route::post('/addPolicy', 'PolicyHolderController@addPolicy');
     Route::post('/edit', 'PolicyHolderController@editProfile');
