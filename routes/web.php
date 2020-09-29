@@ -22,6 +22,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
     Route::get('/', 'AdminController@index');
     Route::get('/policyHolders', 'AdminController@policyHolder');
     Route::get('/beneficiaries', 'AdminController@beneficiaries');
+    Route::get('/pending-claims', 'AdminController@pendingClaims');
 });
 
 Route::group(['prefix' => 'policyHolder', 'middleware' => 'policyholder'], function() {

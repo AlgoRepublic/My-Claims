@@ -89,4 +89,10 @@ class AdminController extends Controller
 
         return view('admin.beneficiaries')->with($data);
     }
+
+    public function pendingClaims(Request $request)
+    {
+        $claims = Beneficiaries::whereNotNull('beneficiary_request_date')->where('is_approved', 0)->get();
+        return view('admin.pending_claims')->with(array('claims' => $claims));
+    }
 }

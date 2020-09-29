@@ -144,7 +144,7 @@
                         <div class="nav-item has-sub">
                             <a href="javascript:void(0)"><i class="ik ik-layers"></i><span>Claims Management</span></a>
                             <div class="submenu-content">
-                                <a href="{{ url('admin/beneficiaries') }}" class="menu-item">Beneficiaries</a>
+                                <a href="{{ url('admin/pending-claims') }}" class="menu-item">Pending Claims</a>
                             </div>
                         </div>
 
