@@ -22,8 +22,9 @@ class CreateBeneficiariesTable extends Migration
             $table->string('added_by');
             $table->string('beneficiary_identity')->nullable();
             $table->string('policyholder_death_proof')->nullable();
-            $table->integer('is_approved')->default(0);
+            $table->integer('is_approved')->default(0)->comment('0=no action,1 = approved ,2 = declined ');
             $table->integer('approved_by')->nullable();
+            $table->integer('approved_date')->nullable();
             $table->timestamp('beneficiary_request_date')->nullable();
             $table->timestamp('email_preference')->nullable();
             $table->timestamps();

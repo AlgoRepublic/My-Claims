@@ -7,6 +7,7 @@ use App\beneficiary_policy;
 use App\Contact;
 use App\Mail\BeneficiaryVerification;
 use App\Policies;
+use App\Settings;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -232,5 +233,11 @@ class BaseController extends Controller
         Session::flash('message', 'Beneficiary has been updated successfully!');
         Session::flash('alert-class', 'alert-success');
         return redirect('policyHolder/');
+    }
+
+    public function whatWeDo()
+    {
+        $settings = Settings::first();
+        return view('what_we_do')->with(['settings' => $settings]);
     }
 }

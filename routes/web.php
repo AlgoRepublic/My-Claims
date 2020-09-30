@@ -23,6 +23,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
     Route::get('/policyHolders', 'AdminController@policyHolder');
     Route::get('/beneficiaries', 'AdminController@beneficiaries');
     Route::get('/pending-claims', 'AdminController@pendingClaims');
+    Route::get('/approved-claims', 'AdminController@approvedClaims');
+    Route::get('/declined-claims', 'AdminController@declinedClaims');
+    Route::get('/updateClaim', 'AdminController@updateBeneficiaryClaimStatus')->name('update-claim');
+    Route::get('/user-feedback', 'AdminController@contactRequests');
+    Route::get('/what-we-do', 'AdminController@whatWeDo');
+    Route::post('/what-we-do', 'AdminController@updateWhatWeDo');
 });
 
 Route::group(['prefix' => 'policyHolder', 'middleware' => 'policyholder'], function() {
@@ -66,9 +72,7 @@ Route::post('/beneficiary/add', 'BaseController@addBeneficiary');
 
 Route::post('/policyHolder/login', 'PolicyHolderController@login');
 Route::get('/logout', 'BaseController@logout');
-Route::get('/what-we-do', function(){
-    return view('what_we_do');
-});
+Route::get('/what-we-do', 'BaseController@whatWeDo');
 
 Route::get('/blog', function(){
     return view('blog');

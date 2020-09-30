@@ -1,5 +1,17 @@
 $(document).ready(function() {
 
+    $(document).on('click', '.admin-msg-btn', function() {
+        var msg = atob($(this).attr('data-msg'));
+        $("#admin-contac-msg").val(msg);
+    });
+
+
+    ClassicEditor
+        .create( document.querySelector( '#editor' ) )
+        .catch( error => {
+            console.error( error );
+        } );
+
     $("#manage-policy-tbl").DataTable({
         "bFilter": false
     });

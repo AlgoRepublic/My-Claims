@@ -145,9 +145,24 @@
                             <a href="javascript:void(0)"><i class="ik ik-layers"></i><span>Claims Management</span></a>
                             <div class="submenu-content">
                                 <a href="{{ url('admin/pending-claims') }}" class="menu-item">Pending Claims</a>
+                                <a href="{{ url('admin/approved-claims') }}" class="menu-item">Approved Claims</a>
+                                <a href="{{ url('admin/declined-claims') }}" class="menu-item">Declined Claims</a>
                             </div>
                         </div>
 
+                        <div class="nav-item has-sub">
+                            <a href="javascript:void(0)"><i class="ik ik-layers"></i><span>Contact Us</span></a>
+                            <div class="submenu-content">
+                                <a href="{{ url('admin/user-feedback') }}" class="menu-item">User Feedback</a>
+                            </div>
+                        </div>
+
+                        <div class="nav-item has-sub">
+                            <a href="javascript:void(0)"><i class="ik ik-layers"></i><span>What We Do</span></a>
+                            <div class="submenu-content">
+                                <a href="{{ url('admin/what-we-do') }}" class="menu-item">Content Management</a>
+                            </div>
+                        </div>
                         <{{--div class="nav-item has-sub">
                             <a href="javascript:void(0)"><i class="ik ik-layers"></i><span>Products</span> <span class="badge badge-danger">@yield('product_count')</span></a>
                             <div class="submenu-content">
@@ -575,6 +590,7 @@
 <script src="{{ asset('js/widgets.js') }}"></script>
 <script src="{{ asset('js/charts.js') }}"></script>
 <script src="{{ asset('dist/js/theme.min.js') }}"></script>
+<script src="https://cdn.ckeditor.com/ckeditor5/22.0.0/classic/ckeditor.js"></script>
 <script src="{{ asset('js/custom.js') }}"></script>
 
 </body>

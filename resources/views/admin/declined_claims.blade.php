@@ -1,7 +1,7 @@
 @extends('admin.app')
 @section('title', 'Beneficiaries')
 @section('maincontent')
-<h2>Pending Claims List</h2>
+<h2>Denied Claims List</h2>
 <div class="card">
     <div class="card-header row">
         <div class="col col-sm-3">
@@ -29,7 +29,7 @@
                 <th>Policy Holder Death Proof</th>
                 <th>Email Preference</th>
                 <th>Claim Date</th>
-                <th>Actions</th>
+                <th>Declined Date</th>
             </tr>
             </thead>
             <tbody>
@@ -44,12 +44,7 @@
                     <td><a class="text-blue" href="{{ \Illuminate\Support\Facades\URL::to('/').\Illuminate\Support\Facades\Storage::url($claim->policyholder_death_proof) }}" download>PolicyHolder Death Proof</a></td>
                     <td>{{ $claim->email_preference }}</td>
                     <td>{{ date('Y-m-d', strtotime($claim->beneficiary_request_date)) }}</td>
-                    <td class="d-inline-flex">
-                        <a class="btn btn-xs btn-success" href="{{ route('update-claim', ['id' => $claim->id,'type' => 'approved']) }}" onclick="return confirm('Are you sure you want to approve this?')">Approve</a>
-                        &nbsp;
-                        &nbsp;
-                        <a class="btn btn-xs btn-danger" href="" onclick="return confirm('Are you sure you want to decline this?')">Decline</a>
-                    </td>
+                    <td>{{ date('Y-m-d', strtotime($claim->approved_date)) }}</td>
                 </tr>
             @endforeach
             </tbody>

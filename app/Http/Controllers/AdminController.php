@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Beneficiaries;
+use App\Contact;
 use App\Roles;
+use App\Settings;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 
 class AdminController extends Controller
 {
@@ -94,5 +97,83 @@ class AdminController extends Controller
     {
         $claims = Beneficiaries::whereNotNull('beneficiary_request_date')->where('is_approved', 0)->get();
         return view('admin.pending_claims')->with(array('claims' => $claims));
+    }
+
+    public function approvedClaims(Request $request)
+    {
+        $claims = Beneficiaries::where('is_approved', 1)->get();
+        return view('admin.approved_claims')->with(array('claims' => $claims));
+    }
+
+    public function declinedClaims(Request $request)
+    {
+        $claims = Beneficiaries::where('is_approved', 2)->get();
+        return view('admin.declined_claims')->with(array('claims' => $claims));
+    }
+
+    public function updateBeneficiaryClaimStatus(Request $request)
+    {
+        $postData = $request->input();
+        if(empty($postData['id']) || empty($postData['type'])) {
+
+            Session::flash('message', 'Oops, something went wrong!');
+            Session::flash('alert-class', 'alert-danger');
+            return redirect()->back();
+        }
+
+        $status = 0;
+        if($postData['type'] == 'approved')
+            $status = 1;
+        elseif ($postData['type'] == 'declined')
+            $status = 2;
+
+        $updateData = array(
+            'is_approved' => $status,
+            'approved_by' => Auth::user()->id,
+            'approved_date' => date("Y-m-d H:i:s")
+        );
+
+        $ben = Beneficiaries::where('id',$postData['id'])->update($updateData);
+        if($ben) {
+            Session::flash('message', 'Claims status updated successfully!');
+            Session::flash('alert-class', 'alert-success');
+        } else {
+            Session::flash('message', 'Oops, something went wrong!');
+            Session::flash('alert-class', 'alert-danger');
+        }
+
+        return redirect()->back();
+    }
+
+    public function contactRequests(Request $request)
+    {
+        $contactRequests = Contact::orderBy('id', 'DESC')->get();
+        return view('admin.contact_requests')->with(array('requests' => $contactRequests));
+    }
+
+    public function whatWeDo(Request $request)
+    {
+        $settings = Settings::first();
+        return view('admin.what_we_do')->with(array('settings' => $settings));
+    }
+
+    public function updateWhatWeDo(Request $request)
+    {
+        $postData = $request->input();
+        $data = array('what_we_do' => $postData['what_we_do']);
+        if(empty($postData['id'])) {
+            $settings = Settings::create($data);
+        }else {
+            $settings = Settings::where('id',$postData['id'])->update($data);
+        }
+
+        if($settings) {
+            Session::flash('message', 'Content updated successfully!');
+            Session::flash('alert-class', 'alert-success');
+        } else {
+            Session::flash('message', 'Oops, something went wrong!');
+            Session::flash('alert-class', 'alert-danger');
+        }
+        return redirect()->back();
     }
 }
