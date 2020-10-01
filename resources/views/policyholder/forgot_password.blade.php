@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Policy Holder Login | Show My Claims</title>
+    <title>Show My Claims - Forgot Password</title>
     <meta name="description" content="">
     <meta name="keywords" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -27,7 +27,7 @@
                     <img src="{{ asset('storage/img/web_logo.png') }}">
                 </div>
                 <hr>
-                <h3 class="text-center">LOGIN</h3>
+                <h3 class="text-center">Forgot Password</h3>
                 <br>
                 @if(Session::has('message'))
                     <div class="alert {{ Session::get('alert-class', 'alert-info') }} alert-dismissible">
@@ -40,7 +40,7 @@
                     <strong>{{ $message }}</strong>
                 </div>
                 @enderror
-                <form method="post" action="{{ url('/policyHolder/login') }}">
+                <form method="post" action="{{ url('/policyHolder/forgotPassword') }}">
                     @csrf
                     <div class="form-row">
                         <div class="form-group col-md-12">
@@ -48,22 +48,15 @@
                             <input type="number" name="cell_number" class="form-control" minlength="9" maxlength="9" placeholder="123456789" required>
                         </div>
                     </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-12">
-                            <label for=" ">Password</label>
-                            <input type="password" name="password" class="form-control" id=" " placeholder="**********" required>
-                            <span class="custom_forgot_password"><a href="{{ url('/forgot-password') }}"> Forgot Password?</a></span>
-                        </div>
-                    </div>
                     <div class="form-row justify-content-center">
                         <div class="form-group">
                             <a class="btn btn-lg btn-warning" href="{{ url('/') }}">Back</a>
-                            <input type="submit" class="btn custom_btn_form" type="submit" value="Login" />
+                            <input type="submit" class="btn custom_btn_form" type="submit" value="Send" />
                         </div>
                     </div>
                     <hr>
                     <div class="custom_btn_form_text">
-                        <span class="bottom_card_line custom_card_bottom_text"><a href="{{ url('/policyHolder/register') }}"> Register</a></span>
+                        {{--<span class="bottom_card_line custom_card_bottom_text"><a href="{{ url('/policyHolder/register') }}"> Register</a></span>--}}
                     </div>
                 </form>
             </div>

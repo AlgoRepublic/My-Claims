@@ -212,6 +212,85 @@ class PolicyHolderController extends Controller
         return redirect('policyHolder/edit');
     }
 
+    public function forgotPassword(Request $request)
+    {
+        $postData = $request->input();
+        $policyHolder = User::where('mobile', $postData['cell_number'])->with('roles')->whereHas('roles', function($q){
+            $q->where('role_name','=','policyholder');
+        })->first();
+
+        if(empty($policyHolder)) {
+
+            $errors = array('error' => "Oops, wrong cell number provided!");
+            return redirect()->back()->withInput()->withErrors($errors);
+        }
+
+        // Create a random 4 digit code to send to user for verification
+        $token = strtoupper(substr(md5(rand()), 0, 5));
+
+        // Send this token to the user and also save it in the system for verification
+        $upData = array(
+            'reset_password_token' => $token,
+            'reset_password_token_date' => date('Y-m-d H:i:s')
+        );
+        $update = User::where('mobile', $postData['cell_number'])->update($upData);
+        if($update) {
+            Session::flash('message', 'A code has been sent to your cell number. Please enter it in the below field');
+            Session::flash('alert-class', 'alert-success');
+        } else {
+            Session::flash('message', 'Oops, something went wrong!');
+            Session::flash('alert-class', 'alert-danger');
+        }
+
+        return view('policyholder.reset_password')->with(['id' => $policyHolder['id']]);
+    }
+
+    public function verifyToken(Request $request)
+    {
+        $postData = $request->input();
+        $where = array('id' => $postData['user_id'], 'reset_password_token' => $postData['verification_code']);
+        $user = User::where($where)->first();
+        if(empty($user)) {
+            $errors = array('error' => "Oops, wrong token provided!");
+            return redirect()->back()->withInput()->withErrors($errors);
+        }
+
+        $tokenTime = new \DateTime($user['reset_password_token_date']);
+        $difference = $tokenTime->diff(new \DateTime(date('Y-m-d H:i:s')));
+        if($difference->i > 15) {
+            $errors = array('error' => "Oops, your token has been expired. Please request it again!");
+            return redirect()->back()->withInput()->withErrors($errors);
+        }
+
+        return view('policyholder.change_password')->with(['id' => $user['id']]);
+    }
+
+    public function updatePassword(Request $request)
+    {
+
+        $postData = $request->input();
+        if($postData['password'] !== $postData['re_password']) {
+            $errors = array('error' => "Oops, password and confirm password does not match!");
+            return redirect()->back()->withInput()->withErrors($errors);
+        }
+
+        if(empty($postData['id'])) {
+            Session::flash('message', 'Oops, something went wrong!');
+            Session::flash('alert-class', 'alert-danger');
+            return redirect('policyHolder/');
+        }
+
+        $user = User::where('id', $postData['id'])->update(array('password' => md5($postData['password'])));
+        if($user) {
+            Session::flash('message', 'Your password has been updated successfully!');
+            Session::flash('alert-class', 'alert-success');
+        } else {
+            Session::flash('message', 'Oops, something went wrong!');
+            Session::flash('alert-class', 'alert-danger');
+        }
+        return redirect('policyholder/login');
+    }
+
     private function createFileUrl($path)
     {
         return URL::to('/').Storage::url($path);

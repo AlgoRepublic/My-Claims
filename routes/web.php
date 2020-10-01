@@ -93,5 +93,12 @@ Route::get('/policyHolder/register/', function () {
     return view('policyholder.register');
 });
 
+Route::get('/forgot-password/', function () {
+    return view('policyholder.forgot_password');
+});
+Route::post('/policyHolder/forgotPassword/', "PolicyHolderController@forgotPassword");
+Route::post('/policyHolder/verifyToken/', "PolicyHolderController@verifyToken");
+Route::post('/policyHolder/updatePassword/', "PolicyHolderController@updatePassword");
+
 Route::post('/policyHolder/register/', "PolicyHolderController@register");
 Route::post('/policyHolder/checkCell/', "PolicyHolderController@checkCell");
