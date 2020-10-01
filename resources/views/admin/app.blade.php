@@ -163,6 +163,13 @@
                                 <a href="{{ url('admin/what-we-do') }}" class="menu-item">Content Management</a>
                             </div>
                         </div>
+
+                        <div class="nav-item has-sub">
+                            <a href="javascript:void(0)"><i class="ik ik-layers"></i><span>Blog Management</span></a>
+                            <div class="submenu-content">
+                                <a href="{{ url('admin/blogs') }}" class="menu-item">Blog List</a>
+                            </div>
+                        </div>
                         <{{--div class="nav-item has-sub">
                             <a href="javascript:void(0)"><i class="ik ik-layers"></i><span>Products</span> <span class="badge badge-danger">@yield('product_count')</span></a>
                             <div class="submenu-content">

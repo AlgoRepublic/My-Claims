@@ -601,3 +601,4 @@ span.custom_card_bottom_text a:hover{
 .custom_policy_tab_wrapper .nav-pills.pills-dark .nav-link:not(.active):hover {
 	color: #1d1e22;
 }
+.card{height: 500px;}

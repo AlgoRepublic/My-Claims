@@ -2256,3 +2256,6 @@ hr { box-sizing: content-box; height: 0; margin-top: 1rem; border: 0; border-top
 .swal-modal .swal-footer { text-align: center; }
 
 /*# sourceMappingURL=theme.css.map */
+.ck-editor__editable {
+  min-height: 500px;
+}

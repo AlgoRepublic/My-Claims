@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Beneficiaries;
+use App\Blogs;
 use App\Contact;
 use App\Roles;
 use App\Settings;
@@ -11,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 
 class AdminController extends Controller
 {
@@ -175,5 +177,65 @@ class AdminController extends Controller
             Session::flash('alert-class', 'alert-danger');
         }
         return redirect()->back();
+    }
+
+    public function blogs(Request $request)
+    {
+        $postData = $request->input();
+        if(!empty($postData['id'])) { // Blog detail request
+            // Get blog other details
+            $blog = Blogs::find($postData['id']);
+            return view('admin.add_blog')->with(['blog' => $blog]);
+        }
+
+        $blogs = Blogs::orderBy('id', 'DESC')->get();
+        return view('admin.blogs')->with(array('blogs' => $blogs));
+    }
+
+    public function addBlog(Request $request)
+    {
+        $postData = $request->input();
+        $blogImage = '';
+        $verb = 'created';
+
+        if(!empty($_FILES['image']['name']))
+            $blogImage = Storage::putFile('public/blogs', $request->file('image'));
+
+        $data = array(
+            'title' => $postData['title'],
+            'content' => $postData['content'],
+            'added_by' => Auth::user()->id
+        );
+
+        if(!empty($blogImage))
+            $data['image'] = $blogImage;
+
+        if(!empty($postData['id'])) {
+            $blog = Blogs::where('id', $postData['id'])->update($data);
+            $verb = 'updated';
+        } else
+            $blog = Blogs::create($data);
+
+        if($blog) {
+            Session::flash('message', "Blog $verb successfully!");
+            Session::flash('alert-class', 'alert-success');
+        } else {
+            Session::flash('message', "Oops, something went wrong!");
+            Session::flash('alert-class', 'alert-danger');
+        }
+        return redirect('admin/blogs');
+    }
+
+    public function deleteBlog(Request $request)
+    {
+        $postData = $request->input();
+        if(!empty($postData['id'])){
+            $blog = Blogs::find($postData['id']);
+            $blog->delete();
+        }
+
+        Session::flash('message', 'The selected blog has been deleted successfully!');
+        Session::flash('alert-class', 'alert-success');
+        return redirect('/admin/blogs');
     }
 }

@@ -1,5 +1,5 @@
 @extends('admin.app')
-@section('title', 'Beneficiaries')
+@section('title', 'What We Do')
 @section('maincontent')
 <h2>What We Do</h2>
 <div class="card">

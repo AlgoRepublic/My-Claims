@@ -29,6 +29,13 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
     Route::get('/user-feedback', 'AdminController@contactRequests');
     Route::get('/what-we-do', 'AdminController@whatWeDo');
     Route::post('/what-we-do', 'AdminController@updateWhatWeDo');
+    Route::get('/blogs', 'AdminController@blogs')->name('blogs');
+    Route::get('/add-blog', function() {
+        return view('admin.add_blog');
+    });
+    Route::post('/add-blog', 'AdminController@addBlog');
+    Route::get('/delete-blog', 'AdminController@deleteBlog')->name('deleteBlog');
+    //Route::get('/blogs', 'AdminController@blogs')->name('blogs');
 });
 
 Route::group(['prefix' => 'policyHolder', 'middleware' => 'policyholder'], function() {
@@ -74,9 +81,8 @@ Route::post('/policyHolder/login', 'PolicyHolderController@login');
 Route::get('/logout', 'BaseController@logout');
 Route::get('/what-we-do', 'BaseController@whatWeDo');
 
-Route::get('/blog', function(){
-    return view('blog');
-});
+Route::get('/blog', 'BaseController@blog');
+Route::get('/blog', 'BaseController@blog')->name('blog-detail');
 
 Route::get('/contact-us', function(){
     return view('contact_us');

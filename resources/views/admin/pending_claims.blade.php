@@ -48,7 +48,7 @@
                         <a class="btn btn-xs btn-success" href="{{ route('update-claim', ['id' => $claim->id,'type' => 'approved']) }}" onclick="return confirm('Are you sure you want to approve this?')">Approve</a>
                         &nbsp;
                         &nbsp;
-                        <a class="btn btn-xs btn-danger" href="" onclick="return confirm('Are you sure you want to decline this?')">Decline</a>
+                        <a class="btn btn-xs btn-danger" href="{{ route('update-claim', ['id' => $claim->id,'type' => 'declined']) }}" onclick="return confirm('Are you sure you want to decline this?')">Decline</a>
                     </td>
                 </tr>
             @endforeach

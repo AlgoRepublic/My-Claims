@@ -12,6 +12,14 @@ $(document).ready(function() {
             console.error( error );
         } );
 
+    $(document).on('change', '#blog-img', function() {
+        var ext = $(this).val().split('.').pop().toLowerCase();
+        if($.inArray(ext, ['gif','png','jpg','jpeg']) == -1) {
+            $(this).val('');
+            alert('Invalid extension! Only images are allowed.');
+        }
+    });
+
     $("#manage-policy-tbl").DataTable({
         "bFilter": false
     });

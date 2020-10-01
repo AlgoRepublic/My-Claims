@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Beneficiaries;
 use App\beneficiary_policy;
+use App\Blogs;
 use App\Contact;
 use App\Mail\BeneficiaryVerification;
 use App\Policies;
@@ -239,5 +240,17 @@ class BaseController extends Controller
     {
         $settings = Settings::first();
         return view('what_we_do')->with(['settings' => $settings]);
+    }
+
+    public function blog(Request $request)
+    {
+        $postData = $request->input();
+        if(!empty($postData['id'])) {
+            $blog = Blogs::find($postData['id']);
+            return view('blog_detail')->with(['blog' => $blog]);
+        }
+        // Get blog list from db
+        $blogs = Blogs::orderBy('id', 'DESC')->get();
+        return view('blog')->with(['blogs' => $blogs]);
     }
 }
