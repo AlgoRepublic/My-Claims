@@ -40,19 +40,33 @@
                     <strong>{{ $message }}</strong>
                 </div>
                 @enderror
-                <form method="POST" action="{{ url('/policyHolder/verifyToken') }}">
+                <form method="POST" action="{{ url('/policyHolder/updatePassword') }}">
                     @csrf
                     <div class="form-row">
                         <div class="form-group col-md-12">
                             <label for=" ">Verification Token</label>
-                            <input type="text" name="verification_code" class="form-control" required>
+                            <input type="text" name="verification_code" class="form-control" id="verificaion-token" required>
+                            <p id="reset-pwd-error"></p>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <label for=" ">New Password</label>
+                            <input type="password" name="password" id="reset-password" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-12">
+                            <label for=" ">Confirm New Password</label>
+                            <input type="password" name="verification_code" id="reset-re-password" class="form-control" id="verificaion-token" required>
+                            <p id="reset-re-password-error"></p>
                         </div>
                         <input type="hidden" name="user_id" value="{{ $id }}" />
                     </div>
                     <div class="form-row justify-content-center">
                         <div class="form-group">
                             <a class="btn btn-lg btn-warning" href="{{ url('/') }}">Back</a>
-                            <input type="submit" class="btn custom_btn_form" value="Verify" />
+                            <input type="submit" id="token-verify-btn" class="btn custom_btn_form" value="Verify" disabled />
                         </div>
                     </div>
                     <hr>
@@ -69,5 +83,6 @@
 <script src="{{ asset('/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <!-- Custom JS -->
 <script src="{{ asset('/js/main.min.js') }}"></script>
+<script src="{{ asset('/js/reset.js') }}"></script>
 </body>
 </html>

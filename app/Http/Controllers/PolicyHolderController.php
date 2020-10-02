@@ -9,6 +9,7 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 
@@ -228,6 +229,33 @@ class PolicyHolderController extends Controller
         // Create a random 4 digit code to send to user for verification
         $token = strtoupper(substr(md5(rand()), 0, 5));
 
+        /*--------------------------SENDING SMS ALERT(TEMP CODE) STARTS---------------------------------*/
+        $message = "Show My Claims: Your password reset code is: $token";
+        $message = urlencode($message);
+
+        $postFields = array(
+            'key' => 'gHWVUW15',
+            'type' => 'text',
+            'contacts' => $postData['cell_number'],
+            'senderid' => 'WITSPREP',
+            'msg' => $message
+        );
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL,"http://148.251.196.36/app/smsjsonapi");
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($postFields));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $response = curl_exec($ch);
+        curl_close ($ch);
+        $response = json_decode($response, true);
+
+        if(empty($response[0]) || $response[0]->status !== 'success') {
+            Session::flash('message', 'Oops, something went wrong!');
+            Session::flash('alert-class', 'alert-danger');
+        }
+        /*--------------------------SENDING SMS ALERT(TEMP CODE) ENDS-----------------------------------*/
+
         // Send this token to the user and also save it in the system for verification
         $upData = array(
             'reset_password_token' => $token,
@@ -245,7 +273,7 @@ class PolicyHolderController extends Controller
         return view('policyholder.reset_password')->with(['id' => $policyHolder['id']]);
     }
 
-    public function verifyToken(Request $request)
+    /*public function verifyToken(Request $request)
     {
         $postData = $request->input();
         $where = array('id' => $postData['user_id'], 'reset_password_token' => $postData['verification_code']);
@@ -263,24 +291,20 @@ class PolicyHolderController extends Controller
         }
 
         return view('policyholder.change_password')->with(['id' => $user['id']]);
-    }
+    }*/
 
     public function updatePassword(Request $request)
     {
 
         $postData = $request->input();
-        if($postData['password'] !== $postData['re_password']) {
-            $errors = array('error' => "Oops, password and confirm password does not match!");
-            return redirect()->back()->withInput()->withErrors($errors);
-        }
 
-        if(empty($postData['id'])) {
+        if(empty($postData['user_id'])) {
             Session::flash('message', 'Oops, something went wrong!');
             Session::flash('alert-class', 'alert-danger');
             return redirect('policyHolder/');
         }
 
-        $user = User::where('id', $postData['id'])->update(array('password' => md5($postData['password'])));
+        $user = User::where('id', $postData['user_id'])->update(array('password' => md5($postData['password'])));
         if($user) {
             Session::flash('message', 'Your password has been updated successfully!');
             Session::flash('alert-class', 'alert-success');
@@ -288,7 +312,33 @@ class PolicyHolderController extends Controller
             Session::flash('message', 'Oops, something went wrong!');
             Session::flash('alert-class', 'alert-danger');
         }
-        return redirect('policyholder/login');
+        return redirect('policyHolder/login');
+    }
+
+    public function verifyToken(Request $request)
+    {
+        $postData = $request->input();
+        if(empty($postData) || empty($postData['token'])) {
+            print_r(json_encode(array('status' => 'error', 'msg' => 'Token field is required!')));
+            die;
+        }
+
+        $where = array('id' => $postData['user_id'], 'reset_password_token' => $postData['token']);
+        $user = User::where($where)->first();
+        if(empty($user)) {
+            print_r(json_encode(array('status' => 'error', 'msg' => 'Oops, wrong token provided!')));
+            die;
+        }
+
+        $tokenTime = new \DateTime($user['reset_password_token_date']);
+        $difference = $tokenTime->diff(new \DateTime(date('Y-m-d H:i:s')));
+        if($difference->i > 15 || $difference->d > 0) { // Token expiration time is set for 15 minutes
+            print_r(json_encode(array('status' => 'error', 'msg' => 'Oops, your token has been expired. Please request a new one!')));
+            die;
+        }
+
+        print_r(json_encode(array('status' => 'success', 'msg' => 'Token verified!')));
+        die;
     }
 
     private function createFileUrl($path)
