@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Beneficiaries;
 use App\Blogs;
 use App\Contact;
+use App\Policies;
 use App\Roles;
 use App\Settings;
 use App\User;
@@ -75,6 +76,22 @@ class AdminController extends Controller
 
     public function policyHolder(Request $request)
     {
+        $postData = $request->input();
+        if(!empty($postData['id'])) { // Detail Page Request
+            $policyHolder = User::find($postData['id']);
+            // Get the list of beneficiaries
+            $beneficiaries = Beneficiaries::where('added_by', $postData['id'])->get();
+            //Get the list of policies added by this policyholder
+            $policies = Policies::where('added_by', $postData['id'])->get();
+
+            $data = array(
+                'username' => $policyHolder['name'] . ' ' . $policyHolder['surname'],
+                'documentNumber' => $policyHolder['identity_document_number'],
+                'beneficiaries' => $beneficiaries,
+                'policies' => $policies
+            );
+            return view('admin.policyholder_detail')->with($data);
+        }
         $policyHolders = User::with('roles')->whereHas('roles', function($q){
             $q->where('role_name','=','policyholder');
         })->get();

@@ -21,6 +21,7 @@ Route::get('/login', function() {
 Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
     Route::get('/', 'AdminController@index');
     Route::get('/policyHolders', 'AdminController@policyHolder');
+    Route::get('/policyHolders', 'AdminController@policyHolder')->name('policyHoldersDetail');
     Route::get('/beneficiaries', 'AdminController@beneficiaries');
     Route::get('/pending-claims', 'AdminController@pendingClaims');
     Route::get('/approved-claims', 'AdminController@approvedClaims');

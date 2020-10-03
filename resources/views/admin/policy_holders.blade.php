@@ -27,6 +27,7 @@
                 <th>Mobile</th>
                 <th>IDN</th>
                 <th>Creation Date</th>
+                <th>Action</th>
             </tr>
             </thead>
             <tbody>
@@ -39,6 +40,9 @@
                     <td>{{ $policyHolder->mobile }}</td>
                     <td>{{ $policyHolder->identity_document_number }}</td>
                     <td>{{ date('Y-m-d', strtotime($policyHolder->created_at)) }}</td>
+                    <td>
+                        <a href="{{ route('policyHoldersDetail', ['id' => $policyHolder->id]) }}" class="btn btn-info">View Details</a>
+                    </td>
                 </tr>
             @endforeach
             </tbody>
