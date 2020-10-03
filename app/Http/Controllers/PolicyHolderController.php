@@ -408,12 +408,12 @@ class PolicyHolderController extends Controller
             'm_payment_id' => rand(100,1000), //Unique payment ID to pass through to notify_url
             'amount' => number_format( sprintf( '%.2f', $cartTotal ), 2, '.', '' ),
             'item_name' => $productName,
+            'custom_int1' => (int) $userID,
             'payment_method' => 'eft',
             'subscription_type' => 1,
             'billing_date' => date('Y-m-d'),
             'frequency' => (int) $frequency,
-            'cycles' => 0,
-            'custom_int' => $userID
+            'cycles' => 0
         );
 
         $signature = $this->generateSignature($data, 'Testpassphrase123');

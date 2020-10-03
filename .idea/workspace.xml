@@ -5,11 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a79b8480-6763-41a3-a42c-4377be64caca" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PolicyHolderController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/PolicyHolderController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_10_02_142617_create_payment_packages_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_10_02_142617_create_payment_packages_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/policyholder/register.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/policyholder/register.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -39,8 +36,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/PolicyHolderController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="250">
-              <caret line="385" column="8" selection-start-line="385" selection-start-column="8" selection-end-line="385" selection-end-column="8" />
+            <state relative-caret-position="497">
+              <caret line="410" column="36" selection-start-line="410" selection-start-column="36" selection-end-line="410" selection-end-column="36" />
               <folding>
                 <element signature="e#40#62#0#PHP" expanded="true" />
               </folding>
@@ -430,12 +427,12 @@
       <workItem from="1601156214170" duration="20656000" />
       <workItem from="1601308876471" duration="19266000" />
       <workItem from="1601449602177" duration="17198000" />
-      <workItem from="1601535868743" duration="47760000" />
+      <workItem from="1601535868743" duration="48748000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="260476000" />
+    <option name="totallyTimeSpent" value="261464000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1358" y="-8" width="1936" height="1176" extended-state="6" />
@@ -831,8 +828,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/PolicyHolderController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="250">
-          <caret line="385" column="8" selection-start-line="385" selection-start-column="8" selection-end-line="385" selection-end-column="8" />
+        <state relative-caret-position="497">
+          <caret line="410" column="36" selection-start-line="410" selection-start-column="36" selection-end-line="410" selection-end-column="36" />
           <folding>
             <element signature="e#40#62#0#PHP" expanded="true" />
           </folding>
