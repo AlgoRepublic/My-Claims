@@ -384,7 +384,7 @@ class PolicyHolderController extends Controller
         $fileTxt .= 'Request Content: '. $lineBreak . json_encode($_REQUEST);
         $fileTxt .= $lineBreak;
         $fileTxt .= '***********************************' . $lineBreak;
-
+        echo $fileTxt;
         file_put_contents(base_path().'/storage/app/public/img/myclaims-payfast-logs-sandbox.txt', $fileTxt, FILE_APPEND);
     }
 
