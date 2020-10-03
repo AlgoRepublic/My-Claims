@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Beneficiaries;
 use App\beneficiary_policy;
+use App\PaymentLogs;
 use App\PaymentPackages;
 use App\Policies;
 use App\User;
@@ -384,7 +385,8 @@ class PolicyHolderController extends Controller
         $fileTxt .= 'Request Content: '. $lineBreak . json_encode($_REQUEST);
         $fileTxt .= $lineBreak;
         $fileTxt .= '***********************************' . $lineBreak;
-        echo $fileTxt;
+
+        PaymentLogs::create(array('request' => $fileTxt));
         file_put_contents(base_path().'/storage/app/public/img/myclaims-payfast-logs-sandbox.txt', $fileTxt, FILE_APPEND);
     }
 
