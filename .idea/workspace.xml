@@ -36,7 +36,7 @@
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/PolicyHolderController.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="427">
-              <caret line="387" column="39" selection-start-line="387" selection-start-column="39" selection-end-line="387" selection-end-column="39" />
+              <caret line="387" column="63" selection-start-line="387" selection-start-column="63" selection-end-line="387" selection-end-column="63" />
               <folding>
                 <element signature="e#40#62#0#PHP" expanded="true" />
               </folding>
@@ -426,12 +426,12 @@
       <workItem from="1601156214170" duration="20656000" />
       <workItem from="1601308876471" duration="19266000" />
       <workItem from="1601449602177" duration="17198000" />
-      <workItem from="1601535868743" duration="49686000" />
+      <workItem from="1601535868743" duration="49939000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="262402000" />
+    <option name="totallyTimeSpent" value="262655000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1358" y="-8" width="1936" height="1176" extended-state="6" />
@@ -828,7 +828,7 @@
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/PolicyHolderController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="427">
-          <caret line="387" column="39" selection-start-line="387" selection-start-column="39" selection-end-line="387" selection-end-column="39" />
+          <caret line="387" column="63" selection-start-line="387" selection-start-column="63" selection-end-line="387" selection-end-column="63" />
           <folding>
             <element signature="e#40#62#0#PHP" expanded="true" />
           </folding>

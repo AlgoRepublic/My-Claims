@@ -385,7 +385,7 @@ class PolicyHolderController extends Controller
         $fileTxt .= $lineBreak;
         $fileTxt .= '***********************************' . $lineBreak;
 
-        file_put_contents(base_path().'\myclaims-payfast-logs-sandbox.txt', $fileTxt, FILE_APPEND);
+        file_put_contents(base_path().'/storage/app/public/img/myclaims-payfast-logs-sandbox.txt', $fileTxt, FILE_APPEND);
     }
 
     private function payfastPayment($cartTotal, $name, $surname,$cellNumber,$productName, $frequency, $userID)
