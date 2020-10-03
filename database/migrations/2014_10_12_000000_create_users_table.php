@@ -25,6 +25,7 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->string('reset_password_token', 10);
             $table->timestamp('reset_password_token_date');
+            $table->integer('payment_verified')->default(0);
             $table->rememberToken();
             $table->timestamps();
         });

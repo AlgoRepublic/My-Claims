@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Beneficiaries;
 use App\beneficiary_policy;
+use App\PaymentPackages;
 use App\Policies;
 use App\User;
 use Illuminate\Http\Request;
@@ -12,6 +13,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\URL;
 
 class PolicyHolderController extends Controller
 {
@@ -52,11 +54,24 @@ class PolicyHolderController extends Controller
         return redirect('/policyHolder');
     }
 
+    public function registerView()
+    {
+        // Get list of packages added in the system
+        $packages = PaymentPackages::all();
+        return view('policyholder.register')->with(['packages' => $packages]);
+    }
+
     public function register(Request $request)
     {
         $postData = $request->input();
         if($postData['password'] !== $postData['re_pwd']) {
             $errors = array('error' => "Password and Confirm Password fields doesn't match!");
+            return redirect()->back()->withInput()->withErrors($errors);
+        }
+
+        $package = PaymentPackages::find($postData['package']);
+        if(empty($package)) {
+            $errors = array('error' => "Oops, invalid package selected!");
             return redirect()->back()->withInput()->withErrors($errors);
         }
 
@@ -67,11 +82,15 @@ class PolicyHolderController extends Controller
             'email' => !empty($postData['email']) ? $postData['email'] : NULL,
             'role_id' => 2,
             'password' => md5($postData['password']),
-            'identity_document_number' => $postData['identity_document_number']
+            'identity_document_number' => $postData['identity_document_number'],
+            'payment_verified' => 0
         );
 
         $user = User::create($data);
         $user->save();
+
+        $htmlForm = $this->payfastPayment($package['amount'], $postData['name'], $postData['surname'], $postData['mobile'], 'Shoow My Claims', $package['frequency'], $user->id);
+        return view('policyholder.payfast_pay')->with(['htmlForm' => $htmlForm]);
 
         Session::flash('message', 'User registered successfully!');
         Session::flash('alert-class', 'alert-success');
@@ -339,6 +358,94 @@ class PolicyHolderController extends Controller
 
         print_r(json_encode(array('status' => 'success', 'msg' => 'Token verified!')));
         die;
+    }
+
+    public function paymentCancel()
+    {
+        Session::flash('message', 'User not registered due to payment cancellation!');
+        Session::flash('alert-class', 'alert-danger');
+        return redirect('policyHolder/');
+    }
+
+    public function paymentSuccess()
+    {
+        Session::flash('message', 'User registered successfully. You can now login!');
+        Session::flash('alert-class', 'alert-danger');
+        return redirect('policyHolder/');
+    }
+
+    public function paymentNotify(Request $request)
+    {
+        $lineBreak = "\n\r";
+        //$fileTxt = $lineBreak . "**************** SP-ID[". $_REQUEST['custom_int1'] ."] *******************";
+        $fileTxt = $lineBreak;
+        $fileTxt .= 'Date: '.date('Y-m-d H:i:s');
+        $fileTxt .= $lineBreak;
+        $fileTxt .= 'Request Content: '. $lineBreak . json_encode($_REQUEST);
+        $fileTxt .= $lineBreak;
+        $fileTxt .= '***********************************' . $lineBreak;
+
+        file_put_contents(base_path().'\myclaims-payfast-logs-sandbox.txt', $fileTxt, FILE_APPEND);
+    }
+
+    private function payfastPayment($cartTotal, $name, $surname,$cellNumber,$productName, $frequency, $userID)
+    {
+
+        $baseUrl = URL::to('/');
+        //$cartTotal = 10.00;// This amount needs to be sourced from your application
+        $data = array(
+            // Merchant details
+            'merchant_id' => '10012141',
+            'merchant_key' => '7goueleoh3b0m',
+            'return_url' => $baseUrl . '/payfast-success',
+            'cancel_url' => $baseUrl . '/payfast-cancel',
+            'notify_url' => $baseUrl . '/payfast-notify',
+            // Buyer details
+            'name_first' => $name,
+            'name_last'  => $surname,
+            'cell_number'=> $cellNumber,
+            // Transaction details
+            'm_payment_id' => rand(100,1000), //Unique payment ID to pass through to notify_url
+            'amount' => number_format( sprintf( '%.2f', $cartTotal ), 2, '.', '' ),
+            'item_name' => $productName,
+            'payment_method' => 'eft',
+            'subscription_type' => 1,
+            'billing_date' => date('Y-m-d'),
+            'frequency' => (int) $frequency,
+            'cycles' => 0,
+            'custom_int' => $userID
+        );
+
+        $signature = $this->generateSignature($data, 'Testpassphrase123');
+        $data['signature'] = $signature;
+
+        // If in testing mode make use of either sandbox.payfast.co.za or www.payfast.co.za
+        $testingMode = true;
+        $pfHost = $testingMode ? 'sandbox.payfast.co.za' : 'www.payfast.co.za';
+        $htmlForm = '<form id="myForm" action="https://'.$pfHost.'/eng/process" method="post">';
+        foreach($data as $name=> $value)
+        {
+            $htmlForm .= '<input name="'.$name.'" type="hidden" value="'.$value.'" />';
+        }
+        $htmlForm .= '<input type="submit" class="btn custom_btn_form" value="Pay Now" /></form>';
+        return $htmlForm;
+        //echo $htmlForm;die;
+    }
+
+    private function generateSignature($data, $passPhrase = null) {
+        // Create parameter string
+        $pfOutput = '';
+        foreach( $data as $key => $val ) {
+            if(!empty($val)) {
+                $pfOutput .= $key .'='. urlencode( trim( $val ) ) .'&';
+            }
+        }
+        // Remove last ampersand
+        $getString = substr( $pfOutput, 0, -1 );
+        if( $passPhrase !== null ) {
+            $getString .= '&passphrase='. urlencode( trim( $passPhrase ) );
+        }
+        return md5( $getString );
     }
 
     private function createFileUrl($path)

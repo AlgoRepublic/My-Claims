@@ -89,9 +89,11 @@ Route::get('/contact-us', function(){
 });
 Route::post('/contact-us', 'BaseController@contactUs');
 
-Route::get('/policyHolder/register/', function () {
+/*Route::get('/policyHolder/register/', function () {
     return view('policyholder.register');
-});
+});*/
+
+Route::get('/policyHolder/register/', 'PolicyHolderController@registerView');
 
 Route::get('/forgot-password/', function () {
     return view('policyholder.forgot_password');
@@ -102,3 +104,7 @@ Route::post('/policyHolder/updatePassword/', "PolicyHolderController@updatePassw
 
 Route::post('/policyHolder/register/', "PolicyHolderController@register");
 Route::post('/policyHolder/checkCell/', "PolicyHolderController@checkCell");
+
+Route::get('/payfast-success', 'PolicyHolderController@paymentSuccess');
+Route::get('/payfast-cancel', 'PolicyHolderController@paymentCancel');
+Route::get('/payfast-notify', 'PolicyHolderController@paymentNotify');

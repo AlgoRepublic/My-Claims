@@ -69,8 +69,9 @@
                     <label>Billing method</label>
                     <select class="form-control" name="package">
                         <option value="">-Select Package-</option>
-                        <option value="1">Annually R250</option>
-                        <option value="2">Monthly R23</option>
+                        @foreach($packages as $package)
+                            <option value="{{ $package->id }}">{{ $package->name }}</option>
+                        @endforeach
                     </select>
                 </div>
             </div>
