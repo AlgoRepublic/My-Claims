@@ -85,6 +85,12 @@
                                     </div>
                                 </div>
                             </div>
+                            <hr>
+                            <div class="form-row justify-content-center">
+                                <div class="form-group">
+                                    <span>Please ensure that your beneficiary's cell phone number(s) are always correct. This will help when they download the policy holder's documents as we will call them for security purposes.</span>
+                                </div>
+                            </div>
                         </div>
                         <div class="tab-pane fade" id="pills-policy" role="tabpanel" aria-labelledby="pills-profile-tab">
                             <div class="custom_form_heading text-center"><span>Active Policies/Will</span></div>
@@ -133,14 +139,13 @@
                                     </div>
                                 </div>
                             </div>
+                            <hr>
+                            <div class="form-row justify-content-center">
+                                <div class="form-group">
+                                    <span>Please ensure that your policies are kept up to date. Show my claims will not be held liable for inactive policies.</span>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <hr>
-                <hr>
-                <div class="form-row justify-content-center">
-                    <div class="form-group">
-                        <span>Please ensure that your beneficiary's cell phone number(s) are always correct. This will help when they download the policy holder's documents as we will call them for security purposes.</span>
                     </div>
                 </div>
             </form>
