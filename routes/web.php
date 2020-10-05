@@ -31,6 +31,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
     Route::get('/what-we-do', 'AdminController@whatWeDo');
     Route::post('/what-we-do', 'AdminController@updateWhatWeDo');
     Route::get('/blogs', 'AdminController@blogs')->name('blogs');
+    Route::get('/logout', 'AdminController@logout');
     Route::get('/add-blog', function() {
         return view('admin.add_blog');
     });

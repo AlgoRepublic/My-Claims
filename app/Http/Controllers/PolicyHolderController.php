@@ -150,7 +150,7 @@ class PolicyHolderController extends Controller
         $newPolicy = Policies::create($data);
         $newPolicy->save();
 
-        $policyID = $newPolicy->id;
+        /*$policyID = $newPolicy->id;
         $n = 0;
         foreach ($allBeneficiaries as $ben) {
             $policyBen[$n]['policy_id'] = $policyID;
@@ -159,7 +159,7 @@ class PolicyHolderController extends Controller
         }
 
         if(!empty($policyBen))
-            beneficiary_policy::insert($policyBen);
+            beneficiary_policy::insert($policyBen);*/
 
         Session::flash('message', 'Policy added successfully!');
         Session::flash('alert-class', 'alert-success');

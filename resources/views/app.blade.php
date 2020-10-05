@@ -56,10 +56,10 @@
                     </li>
                 @else
                     <li class="nav-item">
-                        <a class="btn nav-link custom_nav_btn" style="background-color: #fe3636;color: #fff !important;margin: 0px 5px;padding: 8px !important;" href="{{ url('policyHolder/') }}">LOGIN</a>
+                        <a class="btn nav-link custom_nav_btn custom-nav-log" style="" href="{{ url('policyHolder/') }}">LOGIN</a>
                     </li>
                     <li class="nav-item">
-                        <a class="btn nav-link custom_nav_btn" style="background-color: #fe3636;color: #fff !important;margin: 0px 5px;padding: 8px !important;" href="{{ url('policyHolder/register') }}">REGISTER</a>
+                        <a class="btn nav-link custom_nav_btn custom-nav-log" style="" href="{{ url('policyHolder/register') }}">REGISTER</a>
                     </li>
                 @endif
             </ul>

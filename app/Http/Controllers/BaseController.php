@@ -60,8 +60,12 @@ class BaseController extends Controller
             return redirect('/beneficiary');
         }
 
+        $benWhere = array(
+            'identity_document_number' => $postData['beneficiary_number'],
+            'added_by' => $user->id
+        );
         // Now check the beneficiary
-        $beneficiary = Beneficiaries::where('identity_document_number', $postData['beneficiary_number'])->first();
+        $beneficiary = Beneficiaries::where($benWhere)->first();
         if(empty($beneficiary)) {
             Session::flash('message', 'Please note that the ID number entered of Beneficiary is not registered on our system, if you think this is a mistake, please call our support team for assistance.');
             Session::flash('alert-class', 'alert-danger');
@@ -72,18 +76,21 @@ class BaseController extends Controller
 
         // As both of the users are verified, now check link of the document
         foreach($user->policies as $policy) {
-            $linked = beneficiary_policy::where(['policy_id' => $policy->id,'beneficiary_id' => $beneficiary->id])->first();
+            /*$linked = beneficiary_policy::where(['policy_id' => $policy->id,'beneficiary_id' => $beneficiary->id])->first();
             if(!empty($linked)) {
                 // Add the policy type to show the user
                 $policyType[] = $policy->type;
-            }
+            }*/
+
+            if(!in_array($policy->type, $policyType))
+                $policyType[] = $policy->type;
         }
 
-        if(empty($policyType)) {
+        /*if(empty($policyType)) {
             Session::flash('message', 'Sorry, this policy holder have not registered you as a beneficiary!');
             Session::flash('alert-class', 'alert-danger');
             return redirect('/beneficiary');
-        }
+        }*/
 
         $data = array(
             'policy_type' => $policyType,

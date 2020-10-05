@@ -243,6 +243,13 @@ class AdminController extends Controller
         return redirect('admin/blogs');
     }
 
+    public function logout(Request $request) {
+
+        Auth::logout();
+        Session::flush();
+        return redirect('admin/');
+    }
+
     public function deleteBlog(Request $request)
     {
         $postData = $request->input();

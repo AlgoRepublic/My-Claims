@@ -692,3 +692,25 @@ ul.social-buttons li a:active, ul.social-buttons li a:focus, ul.social-buttons l
   min-height: 500px;
 }
 .card{height: 500px;}
+.custom_data_table_responsive{
+  overflow: auto;
+}
+.custom-nav-log{background-color: #fe3636;color: #fff !important;margin: 0px 5px;padding: 8px !important;}
+
+
+
+@media only screen and (max-width: 600px) {
+  .custom_login_section {
+    -webkit-box-shadow: 0 17px 17px 0 rgb(0 0 0 / 0%), 0 10px 25px 0 rgb(0 0 0 / 15%);
+    box-shadow: 0 17px 17px 0 rgb(0 0 0 / 0%), 0 10px 25px 0 rgb(0 0 0 / 15%);
+    margin: 10px 0px 10px !important;
+    padding: 50px;
+    border-top: 3px solid #FE3636;
+    /* background-color: #fff; */
+  }
+  .custom-nav-log{
+    margin-bottom: 20px;}
+}
+@media only screen and (min-width: 600px) {
+  .custom-nav-log{margin: 10px 5px;}
+}

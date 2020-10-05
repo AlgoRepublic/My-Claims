@@ -37,7 +37,7 @@
                     </div>
                 </div>
 
-                <div class="custom_form_heading"><span>Select Beneficiaries</span></div>
+                {{--<div class="custom_form_heading"><span>Select Beneficiaries</span></div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label>Select Beneficiaries<span class="text-danger"><b>*</b></span></label>
@@ -47,7 +47,7 @@
                             @endforeach
                         </select>
                     </div>
-                </div>
+                </div>--}}
                 <div class="opp-attr-div"></div>
                 {{--<a id="creat-new-ben" style="color: red;cursor: pointer;">Create New Beneficiary</a>--}}
 
