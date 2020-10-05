@@ -22,7 +22,7 @@
 <div class="container">
     <div class="custom_form_section">
         <div class="custom_page_heading">
-            <h4>Policy Holder - Signup</h4>
+            <h4>Policy Holder - Register</h4>
         </div>
         @error('error')
         <div class="alert alert-danger" role="alert">
@@ -44,20 +44,20 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for=" ">Contact Number*</label>
-                    <input type="text" class="form-control" id="reg-contact-no" value="{{ old('mobile') }}" placeholder="+00 123456789" name="mobile" required>
+                    <input type="text" pattern="\d*" maxlength="10" minlength="10" title="10 digits minimum" class="form-control" id="reg-contact-no" value="{{ old('mobile') }}" placeholder="0123456789" name="mobile" required>
                     <p id="reg-contact-error"></p>
                 </div>
                 <div class="form-group col-md-6">
                     <label for=" ">Email</label>
-                    <input type="text" class="form-control" id=" " value="{{ old('email') }}" placeholder="john_deo@xyz.com" name="email">
+                    <input type="email" class="form-control" id=" " value="{{ old('email') }}" placeholder="john_deo@xyz.com" name="email">
                 </div>
                 <div class="form-group col-md-6">
                     <label for=" ">Password*</label>
-                    <input type="password" class="form-control" id=" " placeholder="********" name="password" required>
+                    <input type="password" pattern=".{6,}" title="6 characters minimum" class="form-control" id=" " placeholder="********" name="password" required>
                 </div>
                 <div class="form-group col-md-6">
                     <label for=" ">Repeat Password*</label>
-                    <input type="password" class="form-control" id=" " placeholder="********" name="re_pwd" required>
+                    <input type="password" pattern=".{6,}" title="6 characters minimum" class="form-control" id=" " placeholder="********" name="re_pwd" required>
                 </div>
             </div>
             <div class="form-row">
