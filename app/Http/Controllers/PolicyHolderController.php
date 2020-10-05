@@ -8,6 +8,7 @@ use App\PaymentLogs;
 use App\PaymentPackages;
 use App\Policies;
 use App\User;
+use App\UserPayment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -90,7 +91,7 @@ class PolicyHolderController extends Controller
         $user = User::create($data);
         $user->save();
 
-        $htmlForm = $this->payfastPayment($package['amount'], $postData['name'], $postData['surname'], $postData['mobile'], 'Shoow My Claims', $package['frequency'], $user->id);
+        $htmlForm = $this->payfastPayment($package['amount'], $postData['name'], $postData['surname'], $postData['mobile'], 'Shoow My Claims', $package['frequency'], $user->id, $package['id'], $package['period']);
         return view('policyholder.payfast_pay')->with(['htmlForm' => $htmlForm]);
 
         Session::flash('message', 'User registered successfully!');
@@ -388,9 +389,54 @@ class PolicyHolderController extends Controller
 
         PaymentLogs::create(array('request' => $fileTxt));
         file_put_contents(base_path().'/storage/app/public/img/myclaims-payfast-logs-sandbox.txt', $fileTxt, FILE_APPEND);
+
+        $jsonCont = json_encode($_REQUEST);
+        $content = json_decode($jsonCont, true);
+
+        $userID = $content['custom_int1'];
+        $packageID = $content['custom_int2'];
+        //$nextPayAmount = !empty($content['custom_int3']) ? $content['custom_int3'] : $content['amount_gross'];
+        //$newpackageAmount = !empty($content['custom_int4']) ? $content['custom_int4'] : null;
+        $period = $content['custom_str1'];
+        //$packageSlug = $content['custom_str2'];
+        //$paymentType = !empty($content['custom_str3']) ? $content['custom_str3'] : null;
+        //$action = !empty($content['custom_str4']) ? $content['custom_str4'] : null;
+        $billingDate = empty($content['billing_date']) ? date('Y-m-d') : date('Y-m-d', strtotime($content['billing_date']));
+
+        $userExists = false;
+        $user = UserPayment::where('user_id', $userID)->first();
+        if(!empty($user)) {
+            $currentExpirationDate = $user['expiration_date'];
+            $userExists = true;
+        } else {
+            $currentExpirationDate = $billingDate;
+        }
+        $newExpirationDate = $this->createExpirationDate($currentExpirationDate, $period);
+
+        $fileTxt .= $lineBreak;
+        $fileTxt .= "New Expiration for this user: " . $newExpirationDate;
+        $fileTxt .= $lineBreak;
+
+        if($userExists) {
+            UserPayment::where(['user_id' => $userID])->update(['expiration_date' => $newExpirationDate, 'updated_at' => date('Y-m-d')]);
+        } else {
+            $userPaymentData = array(
+                'user_id' => $userID,
+                'package_id' => $packageID,
+                'expiration_date' => $newExpirationDate
+            );
+            UserPayment::create($userPaymentData);
+        }
+
+        // Update user table
+        User::where('id', $userID)->update(['payment_verified' => 1]);
     }
 
-    private function payfastPayment($cartTotal, $name, $surname,$cellNumber,$productName, $frequency, $userID)
+    private function createExpirationDate($currentExpiry, $period) {
+        return date("Y-m-d", strtotime($currentExpiry . '+' .$period));
+    }
+
+    private function payfastPayment($cartTotal, $name, $surname,$cellNumber,$productName, $frequency, $userID, $packageID, $period)
     {
 
         $baseUrl = URL::to('/');
@@ -411,6 +457,8 @@ class PolicyHolderController extends Controller
             'amount' => number_format( sprintf( '%.2f', $cartTotal ), 2, '.', '' ),
             'item_name' => $productName,
             'custom_int1' => (int) $userID,
+            'custom_int2' => (int) $packageID,
+            'custom_str1' => $period,
             'payment_method' => 'eft',
             'subscription_type' => 1,
             'billing_date' => date('Y-m-d'),
