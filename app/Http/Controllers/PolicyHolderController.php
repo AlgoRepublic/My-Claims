@@ -388,6 +388,7 @@ class PolicyHolderController extends Controller
         $fileTxt .= '***********************************' . $lineBreak;
 
         PaymentLogs::create(array('request' => $fileTxt));
+        die('done');
         file_put_contents(base_path().'/storage/app/public/img/myclaims-payfast-logs-sandbox.txt', $fileTxt, FILE_APPEND);
 
         $jsonCont = json_encode($_REQUEST);
