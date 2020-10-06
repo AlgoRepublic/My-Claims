@@ -203,7 +203,7 @@ class PolicyHolderController extends Controller
                 return redirect('policyHolder/edit');
             }
 
-            $response = $this->updatePayfastSubscription('update', $package['amount'], 'Show My Claims', $userData->payment->token, $package['period'], $package['period'], $userData->id, $package['id']);
+            $response = $this->updatePayfastSubscription('update', $package['amount'], 'Show My Claims', $userData->payment->token, $package['period'], $package['frequency'], $userData->id, $package['id']);
             if($response) { // Update user package in user payment
                 UserPayment::where('user_id', $userData->id)->update(['package_id' => $postData['package']]);
             }
@@ -545,8 +545,8 @@ class PolicyHolderController extends Controller
                 'custom_int1' => (int) $userID,
                 'custom_int2' => (int) $newPackageID,
                 //'custom_int3' => $newAmount,
-                'custom_str1' => $period,
-                'run_date' => date("Y-m-d", strtotime(date('Y-m-d').$period))
+                'custom_str1' => $period
+                //'run_date' => date("Y-m-d", strtotime(date('Y-m-d').$period))
             );
         }
         elseif($action == 'cancel') {
