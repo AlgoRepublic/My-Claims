@@ -46,7 +46,7 @@ Route::group(['prefix' => 'policyHolder', 'middleware' => 'policyholder'], funct
     Route::post('/addPolicy', 'PolicyHolderController@addPolicy');
     Route::post('/edit', 'PolicyHolderController@editProfile');
     Route::get('/edit', function() {
-        return view('policyholder.edit_profile', ['userData' => \Illuminate\Support\Facades\Auth::user()]);
+        return view('policyholder.edit_profile', ['userData' => \Illuminate\Support\Facades\Auth::user(),'packages' => \App\PaymentPackages::all()]);
     });
 });
 

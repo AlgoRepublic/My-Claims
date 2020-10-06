@@ -63,11 +63,11 @@
                     <input type="password" class="form-control" id=" " placeholder="********" name="old_password" required>
                 </div>
                 <div class="form-group col-md-6">
-                    <label for=" ">Password</label>
+                    <label for=" ">New Password</label>
                     <input type="password" class="form-control" id=" " placeholder="********" name="new_password">
                 </div>
                 <div class="form-group col-md-6">
-                    <label for=" ">Repeat Password</label>
+                    <label for=" ">Repeat New Password</label>
                     <input type="password" class="form-control" id=" " placeholder="********" name="re_pwd">
                 </div>
             </div>
@@ -79,9 +79,9 @@
                 <div class="form-group col-md-6">
                     <label>Billing method</label>
                     <select class="form-control" name="package">
-                        <option value="">-Select Package-</option>
-                        <option value="1">Annually R250</option>
-                        <option value="2">Monthly R23</option>
+                        @foreach($packages as $package)
+                            <option {{ (!empty($userData->payment->package_id) && $userData->payment->package_id == $package->id) ? 'selected' : '' }} value="{{ $package->id }}">{{ $package->name }}</option>
+                        @endforeach
                     </select>
                 </div>
             </div>

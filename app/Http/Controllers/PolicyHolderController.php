@@ -92,7 +92,7 @@ class PolicyHolderController extends Controller
         $user = User::create($data);
         $user->save();
 
-        $htmlForm = $this->payfastPayment($package['amount'], $postData['name'], $postData['surname'], $postData['mobile'], 'Shoow My Claims', $package['frequency'], $user->id, $package['id'], $package['period']);
+        $htmlForm = $this->payfastPayment($package['amount'], $postData['name'], $postData['surname'], $postData['mobile'], 'Show My Claims', $package['frequency'], $user->id, $package['id'], $package['period']);
         return view('policyholder.payfast_pay')->with(['htmlForm' => $htmlForm]);
 
         Session::flash('message', 'User registered successfully!');
@@ -189,6 +189,26 @@ class PolicyHolderController extends Controller
     public function editProfile(Request $request)
     {
         $postData = $request->input();
+        $userData = Auth::user();
+
+        // Handle payment update(if any)
+        if(!empty($postData['package']) && $postData['package'] != $userData->payment->package_id) {
+
+            // As user have changed the package call the payfast update api
+            // Get package details
+            $package = PaymentPackages::find($postData['package']);
+            if(empty($package) || empty($userData->payment)){
+                Session::flash('message', 'Oops, could not update package!');
+                Session::flash('alert-class', 'alert-danger');
+                return redirect('policyHolder/edit');
+            }
+
+            $response = $this->updatePayfastSubscription('update', $package['amount'], 'Show My Claims', $userData->payment->token, $package['period'], $package['period']);
+            if($response) { // Update user package in user payment
+                UserPayment::where('user_id', $userData->id)->update(['package_id' => $postData['package']]);
+            }
+        }
+
         // First of all check if the provided password matches or not
         if(empty($postData['old_password'])) {
             $errors = array('error' => "Please provide password!");
@@ -503,6 +523,144 @@ class PolicyHolderController extends Controller
         $htmlForm .= '<input type="submit" class="btn custom_btn_form" value="Pay Now" /></form>';
         return $htmlForm;
         //echo $htmlForm;die;
+    }
+
+    private function updatePayfastSubscription($action, $newAmount, $itemName, $token, $period, $frequency)
+    {
+        // Add 00 as the provided amount is in cents. DONT DO THIS if you already providing correct values
+        $amount = $newAmount . '00'; // Converts amount in RAND from ZAR(cents)
+
+        if($action == 'update') {
+            $pfData = array(
+                'merchant-id' => '10012141', // Sandbox Account Merchant
+                'amount' => (int) $amount,
+                'item_name' => $itemName,
+                'item_description' => '',
+                'token' => $token,
+                'version' => 'v1',
+                'passphrase' => 'Testpassphrase123',
+                'api_action' => $action,
+                'cycles' => 0,
+                'frequency' => (int) $frequency,
+                'custom_int3' => $newAmount,
+                'run_date' => date("Y-m-d", strtotime(date('Y-m-d').$period))
+            );
+        }
+        elseif($action == 'cancel') {
+            $pfData = array(
+                'merchant-id' => '10012141', // Sandbox Account Merchant
+                'token' => $token,
+                'version' => 'v1',
+                'passphrase' => 'Testpassphrase123',
+                'api_action' => $action
+            );
+        }
+
+        //****************************************************************
+        // Set timestamp
+        $timestamp = date( 'Y-m-d' ) . 'T' . date( 'H:i:s' );
+        $pfData['timestamp'] = $timestamp;
+
+        // Sort the array alphabetically by key
+        ksort( $pfData );
+
+        // Normalise the array into a parameter string
+        $pfParamString = '';
+        foreach( $pfData as $key => $val )
+        {
+            if( !empty($val) && $key != 'api_action' && $key != 'submit' && $key != 'token' )
+            {
+                $pfParamString .= $key .'='. urlencode( trim( $val ) ) .'&';
+            }
+        }
+
+        // Remove the last '&amp;' from the parameter string
+        $pfParamString = substr( $pfParamString, 0, -1 );
+
+        // Create the hashed signature from the url-encoded string
+        $signature = md5( $pfParamString );
+
+        // Set and display action
+        $action = '';
+
+        if ( $pfData['api_action'] )
+        {
+            $action = $pfData['api_action'];
+        }
+
+        $method = $this->setMethod( $action );
+        // Check for token
+        $token = ( $pfData['token'] ? $pfData['token'] . '/' : '' );
+
+        // Ensure POSTFIELDS does not include unnecessary fields
+        $payload = '';
+        $exclude = array( 'api_action', 'submit', 'token', 'passphrase', 'version', 'merchant-id', 'timestamp');
+        foreach( $pfData as $key => $val )
+        {
+            if( !empty($val) && !in_array($key, $exclude))
+            {
+                $payload .= $key .'='. urlencode( trim( $val ) ) .'&';
+            }
+        }
+
+        // Remove the last '&amp;' from the payload string
+        $payload = substr( $payload, 0, -1 );
+
+        // Configure curl
+        $ch = curl_init( 'https://api.payfast.co.za/subscriptions/' . $token . $action . '?testing=true' );
+        //$ch = curl_init( 'https://api.payfast.co.za/subscriptions/' . $token . $action);
+        curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
+        curl_setopt( $ch, CURLOPT_HEADER, false );
+        curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, false );
+        curl_setopt( $ch, CURLOPT_TIMEOUT, 60 );
+        curl_setopt( $ch, CURLOPT_CUSTOMREQUEST, $method );
+        if(!empty($payload)) // In case of cancel,pause & unpause, we don't need to send postfields
+            curl_setopt( $ch, CURLOPT_POSTFIELDS, $payload );
+        curl_setopt( $ch, CURLOPT_VERBOSE, 1 );
+        curl_setopt( $ch, CURLOPT_HTTPHEADER, array(
+            'version: ' . $pfData['version'],
+            'merchant-id: ' . $pfData['merchant-id'],
+            'signature: ' . $signature,
+            'timestamp: ' . $timestamp
+        ) );
+
+        // Execute and close cURL
+        $response = curl_exec($ch);
+        curl_close($ch);
+
+        // Display response
+        /*echo '<strong>CURL Response: </strong><br>';
+        var_dump( $response );
+        echo '<br><br><br><br><br><br><br><br><br><br>';
+        die;*/
+        $response - json_decode($response);
+        if($response['status'] == 'success')
+            return true;
+        else
+            return false;
+    }
+
+    private function setMethod( $action )
+    {
+        switch ( $action )
+        {
+            case 'fetch':
+                return 'GET';
+                break;
+            case 'pause':
+            case 'unpause':
+            case 'cancel':
+                return 'PUT';
+                break;
+            case 'update':
+                return 'PATCH';
+                break;
+            case 'adhoc':
+                return 'POST';
+                break;
+            default:
+                break;
+        }
     }
 
     private function generateSignature($data, $passPhrase = null) {
