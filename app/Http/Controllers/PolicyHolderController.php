@@ -453,6 +453,15 @@ class PolicyHolderController extends Controller
             $currentExpirationDate = $billingDate;
         }
 
+        /****************************************************************************/
+        //This is temporary hack to the update case because of issue on payfast end
+        $grossAmount = (int) $content['amount_gross'];
+        if($grossAmount == 23)
+            $period = "1 Month";
+        elseif($grossAmount == 250)
+            $period = "1 Year";
+        /****************************************************************************/
+
         $newExpirationDate = $this->createExpirationDate($currentExpirationDate, $period);
 
         $fileTxt .= $lineBreak;
