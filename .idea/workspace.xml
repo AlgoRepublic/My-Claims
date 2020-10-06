@@ -44,8 +44,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/PolicyHolderController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="627">
-              <caret line="641" column="14" selection-start-line="641" selection-start-column="14" selection-end-line="641" selection-end-column="14" />
+            <state relative-caret-position="592">
+              <caret line="643" column="8" selection-start-line="643" selection-start-column="8" selection-end-line="643" selection-end-column="8" />
               <folding>
                 <element signature="e#40#62#0#PHP" expanded="true" />
               </folding>
@@ -84,7 +84,7 @@
         <entry file="file://$PROJECT_DIR$/routes/web.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="744">
-              <caret line="115" column="36" lean-forward="true" selection-start-line="115" selection-start-column="36" selection-end-line="115" selection-end-column="40" />
+              <caret line="115" column="36" selection-start-line="115" selection-start-column="36" selection-end-line="115" selection-end-column="40" />
             </state>
           </provider>
         </entry>
@@ -132,7 +132,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>updatePassword</find>
       <find>/register</find>
       <find>passphrase</find>
       <find>myForm</find>
@@ -162,6 +161,7 @@
       <find>setMethod</find>
       <find>updatePayfastSubscription</find>
       <find>curl_init()</find>
+      <find>curl_init</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -466,12 +466,12 @@
       <workItem from="1601755743677" duration="7641000" />
       <workItem from="1601901049341" duration="8487000" />
       <workItem from="1601915208511" duration="2524000" />
-      <workItem from="1601968401427" duration="17745000" />
+      <workItem from="1601968401427" duration="18132000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="305733000" />
+    <option name="totallyTimeSpent" value="306120000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1358" y="-8" width="1936" height="1056" extended-state="6" />
@@ -828,7 +828,7 @@
     <entry file="file://$PROJECT_DIR$/routes/web.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="744">
-          <caret line="115" column="36" lean-forward="true" selection-start-line="115" selection-start-column="36" selection-end-line="115" selection-end-column="40" />
+          <caret line="115" column="36" selection-start-line="115" selection-start-column="36" selection-end-line="115" selection-end-column="40" />
         </state>
       </provider>
     </entry>
@@ -844,8 +844,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/PolicyHolderController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="627">
-          <caret line="641" column="14" selection-start-line="641" selection-start-column="14" selection-end-line="641" selection-end-column="14" />
+        <state relative-caret-position="592">
+          <caret line="643" column="8" selection-start-line="643" selection-start-column="8" selection-end-line="643" selection-end-column="8" />
           <folding>
             <element signature="e#40#62#0#PHP" expanded="true" />
           </folding>

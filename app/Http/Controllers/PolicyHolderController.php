@@ -640,8 +640,8 @@ class PolicyHolderController extends Controller
         var_dump( $response->body() );
         echo '<br><br><br><br><br><br><br><br><br><br>';
         die;*/
-        $response - json_decode($response);
-        if($response['status'] == 'success')
+        $response = json_decode($response);
+        if($response->status == 'success')
             return true;
         else
             return false;
