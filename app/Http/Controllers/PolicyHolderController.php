@@ -544,8 +544,8 @@ class PolicyHolderController extends Controller
                 'frequency' => (int) $frequency,
                 'custom_int1' => (int) $userID,
                 'custom_int2' => (int) $newPackageID,
+                //'custom_int3' => $newAmount,
                 'custom_str1' => $period,
-                'custom_int3' => $newAmount,
                 'run_date' => date("Y-m-d", strtotime(date('Y-m-d').$period))
             );
         }
