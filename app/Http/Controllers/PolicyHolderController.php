@@ -606,14 +606,14 @@ class PolicyHolderController extends Controller
         // Remove the last '&amp;' from the payload string
         $payload = substr( $payload, 0, -1 );
 
-        $response = Http::withHeaders([
+        /*$response = Http::withHeaders([
             'X-version' => $pfData['version'],
             'merchant-id' => $pfData['merchant-id'],
             'signature' => $signature,
             'timestamp' => $timestamp
-        ])->patch('https://api.payfast.co.za/subscriptions/' . $token . $action . '?testing=true', $payload);
+        ])->patch('https://api.payfast.co.za/subscriptions/' . $token . $action . '?testing=true', $payload);*/
 
-        /*// Configure curl
+        // Configure curl
         $ch = curl_init( 'https://api.payfast.co.za/subscriptions/' . $token . $action . '?testing=true' );
         //$ch = curl_init( 'https://api.payfast.co.za/subscriptions/' . $token . $action);
         curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
@@ -633,13 +633,13 @@ class PolicyHolderController extends Controller
 
         // Execute and close cURL
         $response = curl_exec($ch);
-        curl_close($ch); */
+        curl_close($ch);
 
         // Display response
-        echo '<strong>CURL Response: </strong><br>';
+        /*echo '<strong>CURL Response: </strong><br>';
         var_dump( $response->body() );
         echo '<br><br><br><br><br><br><br><br><br><br>';
-        die;
+        die;*/
         $response - json_decode($response);
         if($response['status'] == 'success')
             return true;
