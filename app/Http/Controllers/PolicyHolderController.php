@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Beneficiaries;
 use App\beneficiary_policy;
+use App\PaymentDetails;
 use App\PaymentLogs;
 use App\PaymentPackages;
 use App\Policies;
@@ -388,7 +389,7 @@ class PolicyHolderController extends Controller
         $fileTxt .= '***********************************' . $lineBreak;
 
         PaymentLogs::create(array('request' => $fileTxt));
-        die('done');
+
         file_put_contents(base_path().'/storage/app/public/img/myclaims-payfast-logs-sandbox.txt', $fileTxt, FILE_APPEND);
 
         $jsonCont = json_encode($_REQUEST);
@@ -404,6 +405,25 @@ class PolicyHolderController extends Controller
         //$action = !empty($content['custom_str4']) ? $content['custom_str4'] : null;
         $billingDate = empty($content['billing_date']) ? date('Y-m-d') : date('Y-m-d', strtotime($content['billing_date']));
 
+        // First add all details in the table
+        $paymentDetailArr = array(
+            'user_id' => $userID,
+            'm_payment_id' => $content['m_payment_id'],
+            'pf_payment_id' => $content['pf_payment_id'],
+            'payment_status' => $content['payment_status'],
+            'item_name' => $content['item_name'],
+            'item_description' => $content['item_description'],
+            'amount_gross' => $content['amount_gross'],
+            'amount_fee' => $content['amount_fee'],
+            'amount_net' => $content['amount_net'],
+            'merchant_id' => $content['merchant_id'],
+            'token' => $content['token'],
+            'billing_date' => $billingDate,
+            'created_at' => date("Y-m-d H:i:s")
+        );
+
+        PaymentDetails::create($paymentDetailArr);
+
         $userExists = false;
         $user = UserPayment::where('user_id', $userID)->first();
         if(!empty($user)) {
@@ -412,6 +432,7 @@ class PolicyHolderController extends Controller
         } else {
             $currentExpirationDate = $billingDate;
         }
+
         $newExpirationDate = $this->createExpirationDate($currentExpirationDate, $period);
 
         $fileTxt .= $lineBreak;
@@ -424,7 +445,8 @@ class PolicyHolderController extends Controller
             $userPaymentData = array(
                 'user_id' => $userID,
                 'package_id' => $packageID,
-                'expiration_date' => $newExpirationDate
+                'expiration_date' => $newExpirationDate,
+                'token' => $content['token']
             );
             UserPayment::create($userPaymentData);
         }

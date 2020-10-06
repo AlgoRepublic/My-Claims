@@ -15,7 +15,7 @@ class CreatePaymentDetailsTable extends Migration
     {
         Schema::create('payment_details', function (Blueprint $table) {
             $table->id();
-            $table->string('email');
+            $table->string('user_id');
             $table->string('m_payment_id');
             $table->integer('pf_payment_id');
             $table->string('payment_status');

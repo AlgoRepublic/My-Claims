@@ -19,6 +19,7 @@ class CreateUserPaymentsTable extends Migration
             $table->string('email')->nullable();
             $table->integer('package_id');
             $table->string('expiration_date');
+            $table->string('token');
             $table->timestamps();
         });
     }
