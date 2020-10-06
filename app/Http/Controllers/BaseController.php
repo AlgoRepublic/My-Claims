@@ -260,4 +260,9 @@ class BaseController extends Controller
         $blogs = Blogs::orderBy('id', 'DESC')->get();
         return view('blog')->with(['blogs' => $blogs]);
     }
+
+    public function info()
+    {
+        phpinfo();
+    }
 }

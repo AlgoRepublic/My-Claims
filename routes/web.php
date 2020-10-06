@@ -113,3 +113,4 @@ Route::get('/payfast-cancel', 'PolicyHolderController@paymentCancel');
 
 
 Route::post('/payfast-notify', 'PolicyHolderController@paymentNotify');
+Route::get('/info', 'BaseController@info');
