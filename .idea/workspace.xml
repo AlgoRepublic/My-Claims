@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a79b8480-6763-41a3-a42c-4377be64caca" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PolicyHolderController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/PolicyHolderController.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -44,8 +45,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/PolicyHolderController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="592">
-              <caret line="643" column="8" selection-start-line="643" selection-start-column="8" selection-end-line="643" selection-end-column="8" />
+            <state relative-caret-position="330">
+              <caret line="205" column="202" selection-start-line="205" selection-start-column="202" selection-end-line="205" selection-end-column="202" />
               <folding>
                 <element signature="e#40#62#0#PHP" expanded="true" />
               </folding>
@@ -65,8 +66,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../servicehub2/api/payment/notify_sandbox.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2567">
-              <caret line="97" selection-start-line="87" selection-end-line="97" />
+            <state relative-caret-position="615">
+              <caret line="239" column="14" lean-forward="true" selection-start-line="239" selection-start-column="14" selection-end-line="239" selection-end-column="14" />
             </state>
           </provider>
         </entry>
@@ -74,8 +75,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/policyholder/edit_profile.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="701">
-              <caret line="80" column="48" selection-start-line="80" selection-start-column="48" selection-end-line="80" selection-end-column="48" />
+            <state relative-caret-position="796">
+              <caret line="82" column="112" selection-start-line="82" selection-start-column="102" selection-end-line="82" selection-end-column="112" />
             </state>
           </provider>
         </entry>
@@ -159,9 +160,9 @@
       <find>http</find>
       <find>n setmethod</find>
       <find>setMethod</find>
-      <find>updatePayfastSubscription</find>
       <find>curl_init()</find>
       <find>curl_init</find>
+      <find>updatePayfastSubscription</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -466,15 +467,15 @@
       <workItem from="1601755743677" duration="7641000" />
       <workItem from="1601901049341" duration="8487000" />
       <workItem from="1601915208511" duration="2524000" />
-      <workItem from="1601968401427" duration="18132000" />
+      <workItem from="1601968401427" duration="21881000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="306120000" />
+    <option name="totallyTimeSpent" value="309869000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1358" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="1358" y="-8" width="1936" height="1176" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.4951246" visible="true" weight="0.29066667" />
@@ -804,20 +805,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/policyholder/edit_profile.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="701">
-          <caret line="80" column="48" selection-start-line="80" selection-start-column="48" selection-end-line="80" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../servicehub2/api/payment/notify_sandbox.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2567">
-          <caret line="97" selection-start-line="87" selection-end-line="97" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../servicehub2/api/payment/update_subscription.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="307">
@@ -842,10 +829,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/policyholder/edit_profile.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="796">
+          <caret line="82" column="112" selection-start-line="82" selection-start-column="102" selection-end-line="82" selection-end-column="112" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../servicehub2/api/payment/notify_sandbox.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="615">
+          <caret line="239" column="14" lean-forward="true" selection-start-line="239" selection-start-column="14" selection-end-line="239" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/PolicyHolderController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="592">
-          <caret line="643" column="8" selection-start-line="643" selection-start-column="8" selection-end-line="643" selection-end-column="8" />
+        <state relative-caret-position="330">
+          <caret line="205" column="202" selection-start-line="205" selection-start-column="202" selection-end-line="205" selection-end-column="202" />
           <folding>
             <element signature="e#40#62#0#PHP" expanded="true" />
           </folding>

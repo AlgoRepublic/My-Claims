@@ -203,7 +203,7 @@ class PolicyHolderController extends Controller
                 return redirect('policyHolder/edit');
             }
 
-            $response = $this->updatePayfastSubscription('update', $package['amount'], 'Show My Claims', $userData->payment->token, $package['period'], $package['period']);
+            $response = $this->updatePayfastSubscription('update', $package['amount'], 'Show My Claims', $userData->payment->token, $package['period'], $package['period'], $userData->id, $package['id']);
             if($response) { // Update user package in user payment
                 UserPayment::where('user_id', $userData->id)->update(['package_id' => $postData['package']]);
             }
@@ -525,7 +525,7 @@ class PolicyHolderController extends Controller
         //echo $htmlForm;die;
     }
 
-    private function updatePayfastSubscription($action, $newAmount, $itemName, $token, $period, $frequency)
+    private function updatePayfastSubscription($action, $newAmount, $itemName, $token, $period, $frequency, $userID, $newPackageID)
     {
         // Add 00 as the provided amount is in cents. DONT DO THIS if you already providing correct values
         $amount = $newAmount . '00'; // Converts amount in RAND from ZAR(cents)
@@ -542,6 +542,9 @@ class PolicyHolderController extends Controller
                 'api_action' => $action,
                 'cycles' => 0,
                 'frequency' => (int) $frequency,
+                'custom_int1' => (int) $userID,
+                'custom_int2' => (int) $newPackageID,
+                'custom_str1' => $period,
                 'custom_int3' => $newAmount,
                 'run_date' => date("Y-m-d", strtotime(date('Y-m-d').$period))
             );
