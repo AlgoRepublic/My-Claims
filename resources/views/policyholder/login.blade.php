@@ -27,7 +27,7 @@
                     <img src="{{ asset('storage/img/web_logo.png') }}">
                 </div>
                 <hr>
-                <h3 class="text-center">LOGIN</h3>
+                <h3 class="text-center">PolicyHolder Login</h3>
                 <br>
                 @if(Session::has('message'))
                     <div class="alert {{ Session::get('alert-class', 'alert-info') }} alert-dismissible">
