@@ -45,12 +45,14 @@
                 <div class="form-group col-md-6">
                     <label for=" ">Cell Number*</label>
                     <input type="text" pattern="\d*" maxlength="10" minlength="10" title="10 digits minimum" class="form-control" id="reg-contact-no" value="{{ old('mobile') }}" placeholder="0123456789" name="mobile" required>
-                    <p id="reg-contact-error"></p>
+                    <span id="reg-contact-error"></span>
                 </div>
                 <div class="form-group col-md-6">
                     <label for=" ">Email</label>
                     <input type="email" class="form-control" id=" " value="{{ old('email') }}" placeholder="john_deo@xyz.com" name="email">
                 </div>
+            </div>
+            <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for=" ">Password*</label>
                     <input type="password" pattern=".{6,}" title="6 characters minimum" class="form-control" id="reg-pass" placeholder="********" name="password" required>
