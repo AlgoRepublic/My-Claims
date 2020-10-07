@@ -607,7 +607,14 @@ span.custom_card_bottom_text a:hover{
 
 .custom-nav-log{background-color: #fe3636;color: #fff !important;margin: 0px 5px;padding: 8px !important;}
 
-
+.field-icon {
+	float: right;
+	margin-left: -25px;
+	margin-top: -25px;
+	margin-right: 10px;
+	position: relative;
+	z-index: 2;
+}
 
 @media only screen and (max-width: 600px) {
 	.custom_login_section {

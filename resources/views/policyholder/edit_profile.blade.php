@@ -60,15 +60,18 @@
                 </div>
                 <div class="form-group col-md-6">
                     <label for=" ">Old Password*</label>
-                    <input type="password" class="form-control" id=" " placeholder="********" name="old_password" required>
+                    <input type="password" class="form-control" id="edit-old-pass" placeholder="********" name="old_password" required>
+                    <span toggle="#edit-old-pass" class="fa fa-fw fa-eye field-icon toggle-password"></span>
                 </div>
                 <div class="form-group col-md-6">
                     <label for=" ">New Password</label>
-                    <input type="password" class="form-control" id=" " placeholder="********" name="new_password">
+                    <input type="password" class="form-control" id="edit-new-pass" placeholder="********" name="new_password">
+                    <span toggle="#edit-new-pass" class="fa fa-fw fa-eye field-icon toggle-password"></span>
                 </div>
                 <div class="form-group col-md-6">
                     <label for=" ">Repeat New Password</label>
-                    <input type="password" class="form-control" id=" " placeholder="********" name="re_pwd">
+                    <input type="password" class="form-control" id="edit-re-new-pass" placeholder="********" name="re_pwd">
+                    <span toggle="#edit-re-new-pass" class="fa fa-fw fa-eye field-icon toggle-password"></span>
                 </div>
             </div>
             <div class="form-row">

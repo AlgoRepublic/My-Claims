@@ -53,17 +53,19 @@
                 </div>
                 <div class="form-group col-md-6">
                     <label for=" ">Password*</label>
-                    <input type="password" pattern=".{6,}" title="6 characters minimum" class="form-control" id=" " placeholder="********" name="password" required>
+                    <input type="password" pattern=".{6,}" title="6 characters minimum" class="form-control" id="reg-pass" placeholder="********" name="password" required>
+                    <span toggle="#reg-pass" class="fa fa-fw fa-eye field-icon toggle-password"></span>
                 </div>
                 <div class="form-group col-md-6">
                     <label for=" ">Repeat Password*</label>
-                    <input type="password" pattern=".{6,}" title="6 characters minimum" class="form-control" id=" " placeholder="********" name="re_pwd" required>
+                    <input type="password" pattern=".{6,}" title="6 characters minimum" class="form-control" id="reg-re-pass" placeholder="********" name="re_pwd" required>
+                    <span toggle="#reg-re-pass" class="fa fa-fw fa-eye field-icon toggle-password"></span>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for=" ">South African Identity Document Number*</label>
-                    <input type="text" pattern="\d*" maxlength="13" minlength="13" title="13 digits IDN is valid" class="form-control" id=" " placeholder="123456789" name="identity_document_number" required>
+                    <input type="text" pattern="\d*" maxlength="13" minlength="13" title="13 digits IDN is valid" class="form-control" value="{{ old('identity_document_number') }}" placeholder="0123456789000" name="identity_document_number" required>
                 </div>
                 <div class="form-group col-md-6">
                     <label>Billing method</label>
