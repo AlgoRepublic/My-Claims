@@ -22,15 +22,15 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-12">
                                         <label for=" ">Name*</label>
-                                        <input type="text" class="form-control" name="user_name" placeholder="John Deo" required>
+                                        <input type="text" pattern="[A-Za-z0-9]+" title="Only letters and numbers are allowed!" class="form-control" name="user_name" placeholder="John Deo" required>
                                     </div>
                                     <div class="form-group col-md-12">
                                         <label for=" ">Email*</label>
-                                        <input type="text" class="form-control" name="user_email" placeholder="john_deo@xyz.com" required>
+                                        <input type="email" class="form-control" name="user_email" placeholder="john_deo@xyz.com" required>
                                     </div>
                                     <div class="form-group col-md-12">
                                         <label for=" ">Contact Number*</label>
-                                        <input type="text" class="form-control" name="contact_number" placeholder="0123456789">
+                                        <input type="text" pattern="\d*" maxlength="10" minlength="10" title="10 digits minimum" class="form-control" name="contact_number" placeholder="0123456789">
                                     </div>
                                     <div class="form-group col-md-12">
                                         <label for=" ">Details*</label>

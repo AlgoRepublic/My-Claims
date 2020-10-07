@@ -6,6 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>Show My Claims | @yield('title')</title>
+    <link rel="icon" href="{{ asset('storage/img/favicon.ico') }}" type="image/x-icon"/>
     <!-- Bootstrap CSS -->
     <link href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
     <!-- Custom fonts Awesome -->

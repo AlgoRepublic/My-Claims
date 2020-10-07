@@ -34,7 +34,7 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for=" ">Name*</label>
-                    <input type="text" class="form-control" value="{{ old('name') }}" placeholder="John Deo" name="name" required>
+                    <input type="text" class="form-control" pattern="[A-Za-z0-9]+" value="{{ old('name') }}" placeholder="John Deo" name="name" required>
                 </div>
                 <div class="form-group col-md-6">
                     <label for=" ">Surname*</label>
