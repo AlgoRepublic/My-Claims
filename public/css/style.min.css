@@ -59,15 +59,15 @@ h6 {
 	}
 }
 
-::-moz-selection {
-	background: #fe3636;
-	text-shadow: none
-}
+/*::-moz-selection {*/
+	/*background: #d4d4d4;*/
+	/*text-shadow: none*/
+/*}*/
 
-::selection {
-	background: #fe3636;
-	text-shadow: none
-}
+/*::selection {*/
+	/*background: #d4d4d4;*/
+	/*text-shadow: none*/
+/*}*/
 
 img::-moz-selection {
 	background: 0 0

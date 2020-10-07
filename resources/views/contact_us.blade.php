@@ -30,7 +30,7 @@
                                     </div>
                                     <div class="form-group col-md-12">
                                         <label for=" ">Contact Number*</label>
-                                        <input type="text" pattern="\d*" maxlength="10" minlength="10" title="10 digits minimum" class="form-control" name="contact_number" placeholder="0123456789">
+                                        <input type="text" pattern="\d*" maxlength="10" minlength="10" title="Only digits are allowed | Length should be 10" class="form-control" name="contact_number" placeholder="0123456789">
                                     </div>
                                     <div class="form-group col-md-12">
                                         <label for=" ">Details*</label>
