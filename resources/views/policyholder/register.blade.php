@@ -44,7 +44,7 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for=" ">Cell Number*</label>
-                    <input type="text" pattern="\d*" maxlength="10" minlength="10" title="10 digits minimum" class="form-control" id="reg-contact-no" value="{{ old('mobile') }}" placeholder="0123456789" name="mobile" required>
+                    <input type="text" pattern="\d*" maxlength="10" minlength="10" title="10 digits minimum | Only positive digits are allowed" class="form-control" id="reg-contact-no" value="{{ old('mobile') }}" placeholder="0123456789" name="mobile" required>
                     <span id="reg-contact-error"></span>
                 </div>
                 <div class="form-group col-md-6">

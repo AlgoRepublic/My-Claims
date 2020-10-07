@@ -45,7 +45,7 @@
                     <div class="form-row">
                         <div class="form-group col-md-12">
                             <label for=" ">Cell Number</label>
-                            <input type="number" name="cell_number" class="form-control" minlength="9" maxlength="9" placeholder="123456789" required>
+                            <input type="text" pattern="\d*" maxlength="10" minlength="10" title="10 digits minimum | Only positive digits are allowed" name="cell_number" class="form-control" minlength="9" maxlength="9" placeholder="123456789" required>
                         </div>
                     </div>
                     <div class="form-row justify-content-center">
