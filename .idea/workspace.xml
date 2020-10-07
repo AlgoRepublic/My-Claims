@@ -5,8 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a79b8480-6763-41a3-a42c-4377be64caca" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/resources/views/policyholder/edit_profile.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/policyholder/edit_profile.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/policyholder/register.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/policyholder/register.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/policyholder/login.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/policyholder/login.blade.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -33,7 +32,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/Http/Controllers/PolicyHolderController.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="542">
@@ -48,17 +47,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/views/policyholder/register.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="342">
-              <caret line="45" column="39" selection-start-line="45" selection-start-column="39" selection-end-line="45" selection-end-column="39" />
+            <state relative-caret-position="247">
+              <caret line="40" column="95" selection-start-line="40" selection-start-column="67" selection-end-line="40" selection-end-column="95" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/resources/views/policyholder/login.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="857">
-              <caret line="60" column="76" selection-start-line="60" selection-start-column="49" selection-end-line="60" selection-end-column="76" />
+            <state relative-caret-position="439">
+              <caret line="47" column="75" selection-start-line="47" selection-start-column="75" selection-end-line="47" selection-end-column="75" />
             </state>
           </provider>
         </entry>
@@ -186,7 +185,6 @@
         <option value="$PROJECT_DIR$/resources/views/admin/add_blog.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/blog.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/blog_detail.blade.php" />
-        <option value="$PROJECT_DIR$/resources/views/policyholder/login.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/policyholder/forgot_password.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/policyholder/change_password.blade.php" />
         <option value="$PROJECT_DIR$/public/js/reset.js" />
@@ -219,6 +217,7 @@
         <option value="$PROJECT_DIR$/public/css/style.min.css" />
         <option value="$PROJECT_DIR$/resources/views/policyholder/edit_profile.blade.php" />
         <option value="$PROJECT_DIR$/resources/views/policyholder/register.blade.php" />
+        <option value="$PROJECT_DIR$/resources/views/policyholder/login.blade.php" />
       </list>
     </option>
   </component>
@@ -465,12 +464,12 @@
       <workItem from="1601901049341" duration="8487000" />
       <workItem from="1601915208511" duration="2524000" />
       <workItem from="1601968401427" duration="24467000" />
-      <workItem from="1602054041011" duration="5777000" />
+      <workItem from="1602054041011" duration="5956000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="318232000" />
+    <option name="totallyTimeSpent" value="318411000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1358" y="-8" width="1936" height="1056" extended-state="6" />
@@ -827,20 +826,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/policyholder/register.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="45" column="39" selection-start-line="45" selection-start-column="39" selection-end-line="45" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/resources/views/policyholder/login.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="857">
-          <caret line="60" column="76" selection-start-line="60" selection-start-column="49" selection-end-line="60" selection-end-column="76" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/Http/Controllers/PolicyHolderController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="542">
@@ -848,6 +833,20 @@
           <folding>
             <element signature="e#40#62#0#PHP" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/policyholder/register.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="40" column="95" selection-start-line="40" selection-start-column="67" selection-end-line="40" selection-end-column="95" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/resources/views/policyholder/login.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="439">
+          <caret line="47" column="75" selection-start-line="47" selection-start-column="75" selection-end-line="47" selection-end-column="75" />
         </state>
       </provider>
     </entry>
