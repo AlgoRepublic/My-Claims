@@ -44,13 +44,13 @@
                     @csrf
                     <div class="form-row">
                         <div class="form-group col-md-12">
-                            <label for=" ">Cell Number</label>
+                            <label for=" ">Cell Number<span class="error-text">*</span></label>
                             <input type="number" value="{{ old('cell_number') }}" name="cell_number" class="form-control" minlength="9" maxlength="9" placeholder="123456789" required>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-12">
-                            <label for=" ">Password</label>
+                            <label for=" ">Password<span class="error-text">*</span></label>
                             <input type="password" name="password" class="form-control" id=" " placeholder="**********" required>
                             <span class="custom_forgot_password"><a href="{{ url('/forgot-password') }}"> Forgot Password?</a></span>
                         </div>

@@ -33,17 +33,17 @@
             @csrf
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for=" ">Name*</label>
-                    <input type="text" class="form-control" pattern="[A-Za-z0-9]+" value="{{ old('name') }}" placeholder="John Deo" name="name" required>
+                    <label for=" ">Name<span class="error-text">*</span></label>
+                    <input type="text" class="form-control" pattern="[A-Za-z0-9]+" title="Only alphanumeric characters are allowed" value="{{ old('name') }}" placeholder="John Deo" name="name" required>
                 </div>
                 <div class="form-group col-md-6">
-                    <label for=" ">Surname*</label>
-                    <input type="text" class="form-control" value="{{ old('surname') }}" placeholder="Deo Smith" name="surname" required>
+                    <label for=" ">Surname<span class="error-text">*</span></label>
+                    <input type="text" class="form-control" pattern="[A-Za-z0-9]+" title="Only alphanumeric characters are allowed" value="{{ old('surname') }}" placeholder="Deo Smith" name="surname" required>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for=" ">Cell Number*</label>
+                    <label for=" ">Cell Number<span class="error-text">*</span></label>
                     <input type="text" pattern="\d*" maxlength="10" minlength="10" title="10 digits minimum | Only positive digits are allowed" class="form-control" id="reg-contact-no" value="{{ old('mobile') }}" placeholder="0123456789" name="mobile" required>
                     <span id="reg-contact-error"></span>
                 </div>
@@ -54,21 +54,21 @@
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for=" ">Password*</label>
+                    <label for=" ">Password<span class="error-text">*</span></label>
                     <input type="password" pattern=".{6,}" title="6 characters minimum" class="form-control" id="reg-pass" placeholder="********" name="password" required>
                     <span toggle="#reg-pass" class="fa fa-fw fa-eye field-icon toggle-password"></span>
                     <span id="reg-pass-error"></span>
                 </div>
                 <div class="form-group col-md-6">
-                    <label for=" ">Repeat Password*</label>
+                    <label for=" ">Repeat Password<span class="error-text">*</span></label>
                     <input type="password" pattern=".{6,}" title="6 characters minimum" class="form-control" id="reg-re-pass" placeholder="********" name="re_pwd" required>
                     <span toggle="#reg-re-pass" class="fa fa-fw fa-eye field-icon toggle-password"></span>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for=" ">South African Identity Document Number*</label>
-                    <input type="text" pattern="\d*" maxlength="13" minlength="13" title="13 digits IDN is valid" class="form-control" value="{{ old('identity_document_number') }}" placeholder="0123456789000" name="identity_document_number" required>
+                    <label for=" ">South African Identity Document Number<span class="error-text">*</span></label>
+                    <input type="text" pattern="\d*" maxlength="13" minlength="13" title="Only dgits are allowed | Length should be 13." class="form-control" value="{{ old('identity_document_number') }}" placeholder="0123456789000" name="identity_document_number" required>
                 </div>
                 <div class="form-group col-md-6">
                     <label>Billing method</label>
@@ -82,7 +82,7 @@
             </div>
             <div class="form-row justify-content-center">
                 <div class="form-group">
-                    <a class="btn btn-lg btn-warning" href="{{ url('/') }}">Back</a>
+                    <a class="btn btn-lg custom_btn_delete" href="{{--{{ url('/') }}--}} {{ $_SERVER['HTTP_REFERER'] ?? url('/') }}">Back</a>
                     <input type="submit" id="reg-sub-btn" class="btn custom_btn_form" type="submit" value="Send" />
                 </div>
             </div>
