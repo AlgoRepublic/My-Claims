@@ -34,11 +34,11 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for=" ">Name*</label>
-                    <input type="text" class="form-control" id=" " value="{{ old('name') }}" placeholder="John Deo" name="name" required>
+                    <input type="text" class="form-control" value="{{ old('name') }}" placeholder="John Deo" name="name" required>
                 </div>
                 <div class="form-group col-md-6">
                     <label for=" ">Surname*</label>
-                    <input type="text" class="form-control" id=" " value="{{ old('surname') }}" placeholder="Deo Smith" name="surname" required>
+                    <input type="text" class="form-control" value="{{ old('surname') }}" placeholder="Deo Smith" name="surname" required>
                 </div>
             </div>
             <div class="form-row">
@@ -49,7 +49,7 @@
                 </div>
                 <div class="form-group col-md-6">
                     <label for=" ">Email</label>
-                    <input type="email" class="form-control" id=" " value="{{ old('email') }}" placeholder="john_deo@xyz.com" name="email">
+                    <input type="email" class="form-control" value="{{ old('email') }}" placeholder="john_deo@xyz.com" name="email">
                 </div>
             </div>
             <div class="form-row">
@@ -57,6 +57,7 @@
                     <label for=" ">Password*</label>
                     <input type="password" pattern=".{6,}" title="6 characters minimum" class="form-control" id="reg-pass" placeholder="********" name="password" required>
                     <span toggle="#reg-pass" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                    <span id="reg-pass-error"></span>
                 </div>
                 <div class="form-group col-md-6">
                     <label for=" ">Repeat Password*</label>

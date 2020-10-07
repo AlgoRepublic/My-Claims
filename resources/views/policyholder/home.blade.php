@@ -153,3 +153,17 @@
     </div>
 @endsection
 
+
+@section('Page-JS')
+    <script>
+        $(document).ready(function() {
+
+            $("#manage-policy-tbl").DataTable({
+                "bFilter": false
+            });
+            $("#manage-bene-tbl").DataTable({
+                "bFilter": false
+            });
+        });
+    </script>
+@endsection

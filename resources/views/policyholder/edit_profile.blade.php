@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Policy Holder Signup | Show My Claims</title>
+    <title>Policy Holder Edit | Show My Claims</title>
     <meta name="description" content="">
     <meta name="keywords" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -22,7 +22,7 @@
 <div class="container">
     <div class="custom_form_section">
         <div class="custom_page_heading">
-            <h4>Policy Holder - Signup</h4>
+            <h4>Policy Holder - Edit Profile</h4>
         </div>
         @error('error')
         <div class="alert alert-danger" role="alert">
@@ -45,18 +45,22 @@
                 <input type="hidden" value="{{ old('id', $userData->id) }}" name="id" />
                 <div class="form-group col-md-6">
                     <label for=" ">Surname*</label>
-                    <input type="text" class="form-control" id=" " value="{{ old('surname', $userData->surname) }}" placeholder="Deo Smith" name="surname" required>
+                    <input type="text" class="form-control" value="{{ old('surname', $userData->surname) }}" placeholder="Deo Smith" name="surname" required>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for=" ">Cell Number*</label>
                     <input type="text" pattern="\d*" maxlength="10" minlength="10" title="10 digits minimum" class="form-control" id="reg-contact-no" value="{{ old('mobile', $userData->mobile) }}" placeholder="0123456789" name="mobile" required>
-                    <p id="reg-contact-error"></p>
+                    <span id="reg-contact-error"></span>
                 </div>
                 <div class="form-group col-md-6">
                     <label for=" ">Email</label>
-                    <input type="email" class="form-control" id=" " value="{{ old('email') }}" placeholder="john_deo@xyz.com" name="email">
+                    <input type="email" class="form-control" value="{{ old('email') }}" placeholder="john_deo@xyz.com" name="email">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for=" ">South African Identity Document Number*</label>
+                    <input type="text" pattern="\d*" maxlength="13" minlength="13" title="13 digits IDN is valid" class="form-control" value="{{ old('identity_document_number', $userData->identity_document_number) }}" placeholder="123456789" name="identity_document_number" required>
                 </div>
                 <div class="form-group col-md-6">
                     <label for=" ">Old Password*</label>
@@ -65,20 +69,18 @@
                 </div>
                 <div class="form-group col-md-6">
                     <label for=" ">New Password</label>
-                    <input type="password" class="form-control" id="edit-new-pass" placeholder="********" name="new_password">
-                    <span toggle="#edit-new-pass" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                    <input type="password" class="form-control" id="reg-pass" placeholder="********" name="new_password">
+                    <span toggle="#reg-pass" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                    <span id="reg-pass-error"></span>
                 </div>
                 <div class="form-group col-md-6">
                     <label for=" ">Repeat New Password</label>
-                    <input type="password" class="form-control" id="edit-re-new-pass" placeholder="********" name="re_pwd">
-                    <span toggle="#edit-re-new-pass" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                    <input type="password" class="form-control" id="reg-re-pass" placeholder="********" name="re_pwd">
+                    <span toggle="#reg-re-pass" class="fa fa-fw fa-eye field-icon toggle-password"></span>
                 </div>
             </div>
             <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for=" ">South African Identity Document Number*</label>
-                    <input type="text" pattern="\d*" maxlength="13" minlength="13" title="13 digits IDN is valid" class="form-control" value="{{ old('identity_document_number', $userData->identity_document_number) }}" placeholder="123456789" name="identity_document_number" required>
-                </div>
+
                 <div class="form-group col-md-6">
                     <label>Billing method</label>
                     <select class="form-control" name="package">

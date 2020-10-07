@@ -16,28 +16,12 @@ $(document).ready(function() {
         }
     });
 
-    ClassicEditor
-        .create( document.querySelector( '#editor' ) )
-        .catch( error => {
-            console.error( error );
-        } );
-
     $(document).on('change', '#blog-img', function() {
         var ext = $(this).val().split('.').pop().toLowerCase();
         if($.inArray(ext, ['gif','png','jpg','jpeg']) == -1) {
             $(this).val('');
             alert('Invalid extension! Only images are allowed.');
         }
-    });
-
-    $("#manage-policy-tbl").DataTable({
-        "bFilter": false
-    });
-    $("#manage-bene-tbl").DataTable({
-        "bFilter": false
-    });
-    $("#add-policy-ben").select2({
-        placeholder: "Choose Beneficiaries",
     });
 
     // Check user cell number uniqueness
@@ -75,11 +59,42 @@ $(document).ready(function() {
                     $("#reg-contact-error").html(''); // Show error msg
                     $("#reg-contact-error").css('color', "red");
 
-                    $("#reg-sub-btn").attr('disabled', false); // Disable Submit button
-                    $("#reg-sub-btn").css('cursor', 'pointer');
+                    if($("#reg-pass-error").text().length == 0) {
+                        $("#reg-sub-btn").attr('disabled', false); // Disable Submit button
+                        $("#reg-sub-btn").css('cursor', 'pointer');
+                    }
                 }
             }
         });
+    });
+
+    // Check user cell number uniqueness
+    $(document).on('keyup',"#reg-re-pass, #reg-pass",function(){
+
+        var password = $("#reg-pass").val();
+        var rePassword = $("#reg-re-pass").val();
+
+        if(password != rePassword) {
+
+            $("#reg-pass").css('border', "2px solid red");
+            $("#reg-re-pass").css('border', "2px solid red");
+            $("#reg-pass-error").html('Password and Repeat Password does not match!'); // Show error msg
+            $("#reg-pass-error").css('color', "red");
+
+            $("#reg-sub-btn").attr('disabled', true); // Disable Submit button
+            $("#reg-sub-btn").css('cursor', 'not-allowed');
+        }else {
+
+            $("#reg-pass").css('border', "2px solid green");
+            $("#reg-re-pass").css('border', "2px solid green");
+            $("#reg-pass-error").html(''); // Show error msg
+            $("#reg-pass-error").css('color', "green");
+
+            if($("#reg-contact-error").text().length == 0) {
+                $("#reg-sub-btn").attr('disabled', false); // Disable Submit button
+                $("#reg-sub-btn").css('cursor', 'not-allowed');
+            }
+        }
     });
 
     $("#creat-new-ben").on('click', function() {
