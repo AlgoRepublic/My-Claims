@@ -83,7 +83,7 @@
             <div class="form-row justify-content-center">
                 <div class="form-group">
                     <a class="btn btn-lg custom_btn_delete" href="{{--{{ url('/') }}--}} {{ $_SERVER['HTTP_REFERER'] ?? url('/') }}">Back</a>
-                    <input type="submit" id="reg-sub-btn" class="btn custom_btn_form" type="submit" value="Send" />
+                    <input type="submit" id="reg-sub-btn" class="btn custom_btn_form" type="submit" value="Save" />
                 </div>
             </div>
         </form>

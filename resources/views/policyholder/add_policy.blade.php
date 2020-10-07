@@ -27,13 +27,14 @@
                         </select>
                     </div>
                 </div>
-                <div class="custom_form_heading"><span>Upload your policy document</span></div>
+                <div class="custom_form_heading"><span>Upload Policy Document</span></div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <div class="custom-file">
+                        {{--<div class="custom-file">
                             <input type="file" class="custom-file-input" name="doc_file" id="upPolicyDoc" required>
                             <label class="custom-file-label" for="upPolicyDoc">Choose file...</label>
-                        </div>
+                        </div>--}}
+                        <input type="file" class="form-control custom-up" name="doc_file" accept=".png,.jpg,.jepg,.pdf,.doc,.docx" required>
                     </div>
                 </div>
 
@@ -53,6 +54,7 @@
 
                 <div class="form-row justify-content-center">
                     <div class="form-group">
+                        <a class="btn btn-lg custom_btn_delete" href="{{ url('/policyHolder/') }}">Back</a>
                         <input type="submit" class="btn custom_btn_form" value="Save" />
                     </div>
                 </div>

@@ -35,27 +35,29 @@
                         @endforeach
                     </span>
                 </div>
-                <span>For Security Purposes, please Upload a copy of Beneficiaries Identity</span>
+                <span>For Security Purposes, Please Upload a copy of Beneficiaries Identity</span>
                 <br>
                 <div class="form-row">
                     <div class="form-group col-md-12">
-                        <div class="custom-file">
+                        {{--<div class="custom-file">
                             <input type="file" class="custom-file-input" id="validatedCustomFile" name="beneficiary_identity" required>
                             <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
-                        </div>
+                        </div>--}}
+                        <input type="file" class="form-control custom-up" name="beneficiary_identity" accept=".png,.jpg,.jepg,.pdf,.doc,.docx" required>
                     </div>
                 </div>
-                <span>For Security Purposes, Please Upload a Copy of a Policy Holder’s Death Certicate</span>
+                <span>For Security Purposes, Please Upload a Copy of a Policy Holder’s Death Certificate</span>
                 <br>
                 <div class="form-row">
                     <div class="form-group col-md-12">
-                        <div class="custom-file">
+                        {{--<div class="custom-file">
                             <input type="file" class="custom-file-input" id="validatedCustomFile" name="policy_identity" required>
                             <label class="custom-file-label" for="validatedCustomFile">Choose file...</label>
-                        </div>
+                        </div>--}}
+                        <input type="file" class="form-control custom-up" name="policy_identity" accept=".png,.jpg,.jepg,.pdf,.doc,.docx" required>
                     </div>
                 </div>
-                <span>Enter an email address you wish these documents to be sent to</span>
+                <span>Please enter an Email address where you wish these documents to be sent to</span>
                 <br>
                 <div class="form-row">
                     <div class="form-group col-md-12">
@@ -64,6 +66,7 @@
                 </div>
                 <div class="form-row justify-content-center">
                     <div class="form-group">
+                        <a class="btn btn-lg custom_btn_delete" href="{{ url('/beneficiary/') }}">Back</a>
                         <input type="submit" class="btn custom_btn_form">
                     </div>
                 </div>

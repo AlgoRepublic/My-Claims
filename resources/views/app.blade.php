@@ -50,7 +50,7 @@
                 @if(\Illuminate\Support\Facades\Auth::check() && \Illuminate\Support\Facades\Auth::user()->roles->role_name == 'policyholder')
                     <li class="nav-item dropdown" style="cursor: pointer">
                         <a class="nav-link dropdown-toggle" data-toggle="dropdown">Profile</a>
-                        <ul class="dropdown-menu">
+                        <ul class="dropdown-menu custom-nav-text">
                             <li class="dropdown-item"><a href="{{ url('/policyHolder/edit') }}">Edit Profile</a></li>
                             <li class="dropdown-item"><a href="{{ url('logout') }}">Logout</a></li>
                         </ul>

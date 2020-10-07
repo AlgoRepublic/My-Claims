@@ -139,7 +139,7 @@ class PolicyHolderController extends Controller
             }
         }
 
-        $allBeneficiaries = array_merge($postData['beneficiaries'],$benIDs);
+        //$allBeneficiaries = array_merge($postData['beneficiaries'],$benIDs);
         $data = array(
             'name' => $postData['doc_name'],
             'type' => $postData['policy_type'],

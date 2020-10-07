@@ -5,7 +5,7 @@
         <div class="container">
             <div class="custom_form_section">
                 <div class="custom_page_heading">
-                    <h4>Add Beneficiary</h4>
+                    <h4>Update/Edit Beneficiary</h4>
                 </div>
                 <form method="POST" action="{{ url('/beneficiary/edit') }}">
                     @csrf

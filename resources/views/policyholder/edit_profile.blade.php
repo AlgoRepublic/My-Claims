@@ -92,8 +92,8 @@
             </div>
             <div class="form-row justify-content-center">
                 <div class="form-group">
-                    <a class="btn btn-lg btn-warning" href="{{ url('/') }}">Back</a>
-                    <input type="submit" id="reg-sub-btn" class="btn custom_btn_form" type="submit" value="Send" />
+                    <a class="btn btn-lg custom_btn_delete" href="{{ url('/policyHolder/') }}">Back</a>
+                    <input type="submit" id="reg-sub-btn" class="btn custom_btn_form" type="submit" value="Save" />
                 </div>
             </div>
         </form>
