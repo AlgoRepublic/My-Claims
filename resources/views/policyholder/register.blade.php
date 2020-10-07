@@ -63,11 +63,11 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for=" ">South African Identity Document Number*</label>
-                    <input type="number" class="form-control" id=" " placeholder="123456789" name="identity_document_number" required>
+                    <input type="text" pattern="\d*" maxlength="13" minlength="13" title="13 digits IDN is valid" class="form-control" id=" " placeholder="123456789" name="identity_document_number" required>
                 </div>
                 <div class="form-group col-md-6">
                     <label>Billing method</label>
-                    <select class="form-control" name="package">
+                    <select class="form-control" name="package" required>
                         <option value="">-Select Package-</option>
                         @foreach($packages as $package)
                             <option value="{{ $package->id }}">{{ $package->name }}</option>

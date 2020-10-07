@@ -60,7 +60,7 @@ class PolicyHolderController extends Controller
     public function registerView()
     {
         // Get list of packages added in the system
-        $packages = PaymentPackages::all();
+        $packages = PaymentPackages::orderBy('amount','ASC')->get();
         return view('policyholder.register')->with(['packages' => $packages]);
     }
 
@@ -191,24 +191,6 @@ class PolicyHolderController extends Controller
         $postData = $request->input();
         $userData = Auth::user();
 
-        // Handle payment update(if any)
-        if(!empty($postData['package']) && $postData['package'] != $userData->payment->package_id) {
-
-            // As user have changed the package call the payfast update api
-            // Get package details
-            $package = PaymentPackages::find($postData['package']);
-            if(empty($package) || empty($userData->payment)){
-                Session::flash('message', 'Oops, could not update package!');
-                Session::flash('alert-class', 'alert-danger');
-                return redirect('policyHolder/edit');
-            }
-
-            $response = $this->updatePayfastSubscription('update', $package['amount'], 'Show My Claims', $userData->payment->token, $package['period'], $package['frequency'], $userData->id, $package['id']);
-            if($response) { // Update user package in user payment
-                UserPayment::where('user_id', $userData->id)->update(['package_id' => $postData['package']]);
-            }
-        }
-
         // First of all check if the provided password matches or not
         if(empty($postData['old_password'])) {
             $errors = array('error' => "Please provide password!");
@@ -249,6 +231,24 @@ class PolicyHolderController extends Controller
             $data['password'] = md5($postData['new_password']);
 
         $user = User::where('id',$postData['id'])->update($data);
+
+        // Handle payment update(if any)
+        if(!empty($postData['package']) && $postData['package'] != $userData->payment->package_id) {
+
+            // As user have changed the package call the payfast update api
+            // Get package details
+            $package = PaymentPackages::find($postData['package']);
+            if(empty($package) || empty($userData->payment)){
+                Session::flash('message', 'Oops, could not update package!');
+                Session::flash('alert-class', 'alert-danger');
+                return redirect('policyHolder/edit');
+            }
+
+            $response = $this->updatePayfastSubscription('update', $package['amount'], 'Show My Claims', $userData->payment->token, $package['period'], $package['frequency'], $userData->id, $package['id']);
+            if($response) { // Update user package in user payment
+                UserPayment::where('user_id', $userData->id)->update(['package_id' => $postData['package']]);
+            }
+        }
 
         Session::flash('message', 'Your profile has been updated successfully!');
         Session::flash('alert-class', 'alert-success');

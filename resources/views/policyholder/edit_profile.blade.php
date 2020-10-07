@@ -51,7 +51,7 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for=" ">Contact Number*</label>
-                    <input type="text" class="form-control" id="reg-contact-no" value="{{ old('mobile', $userData->mobile) }}" placeholder="+00 123456789" name="mobile" required>
+                    <input type="text" pattern="\d*" maxlength="10" minlength="10" title="10 digits minimum" class="form-control" id="reg-contact-no" value="{{ old('mobile', $userData->mobile) }}" placeholder="0123456789" name="mobile" required>
                     <p id="reg-contact-error"></p>
                 </div>
                 <div class="form-group col-md-6">
@@ -74,7 +74,7 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for=" ">South African Identity Document Number*</label>
-                    <input type="number" class="form-control" value="{{ old('identity_document_number', $userData->identity_document_number) }}" placeholder="123456789" name="identity_document_number" required>
+                    <input type="text" pattern="\d*" maxlength="13" minlength="13" title="13 digits IDN is valid" class="form-control" value="{{ old('identity_document_number', $userData->identity_document_number) }}" placeholder="123456789" name="identity_document_number" required>
                 </div>
                 <div class="form-group col-md-6">
                     <label>Billing method</label>
