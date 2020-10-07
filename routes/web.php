@@ -109,8 +109,5 @@ Route::post('/policyHolder/checkCell/', "PolicyHolderController@checkCell");
 
 Route::get('/payfast-success', 'PolicyHolderController@paymentSuccess');
 Route::get('/payfast-cancel', 'PolicyHolderController@paymentCancel');
-//Route::get('/payfast-notify', 'PolicyHolderController@paymentNotify');
-
-
 Route::post('/payfast-notify', 'PolicyHolderController@paymentNotify');
-Route::get('/info', 'BaseController@info');
+
