@@ -15,7 +15,7 @@
             <form action="{{ url('/beneficiary/policy-request') }}" method="post" enctype="multipart/form-data">
                 <div class="form-row">
                     <div class="form-group col-md-12">
-                        <label for=" ">Enter Policyholder’s Identity Number</label>
+                        <label for=" ">Policyholder’s Identity Number</label>
                         <input type="text" class="form-control" value="{{ $policyholder_number }}" name="policyholder_idn" readonly>
                     </div>
                 </div>
