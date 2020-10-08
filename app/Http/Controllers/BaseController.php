@@ -114,13 +114,13 @@ class BaseController extends Controller
 
         $benDoc = $holderDoc = $benFileName = $polFileName = $benFileExt = $polFileExt = '';
         if(!empty($_FILES['beneficiary_identity']['name'])) {
-            $benDoc = Storage::putFile('public/beneficiaries_uploads', $request->file('beneficiary_identity'));
+            $benDoc = Storage::putFile('public/blogs', $request->file('beneficiary_identity'));
             $benFileName = basename($benDoc);
             $benFileExt = $request->file('beneficiary_identity')->extension();
         }
 
         if(!empty($_FILES['policy_identity']['name'])) {
-            $holderDoc = Storage::putFile('public/beneficiaries_uploads', $request->file('policy_identity'));
+            $holderDoc = Storage::putFile('public/blogs', $request->file('policy_identity'));
             $polFileName = basename($holderDoc);
             $polFileExt = $request->file('policy_identity')->extension();
         }
