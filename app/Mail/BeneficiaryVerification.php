@@ -51,6 +51,6 @@ class BeneficiaryVerification extends Mailable
     }
 
     public function getPath($name) {
-        return storage_path("app\public\beneficiaries_uploads/$name");
+        return storage_path("app/public/beneficiaries_uploads/$name");
     }
 }
