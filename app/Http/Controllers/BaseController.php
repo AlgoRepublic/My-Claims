@@ -113,17 +113,31 @@ class BaseController extends Controller
         }*/
 
         $benDoc = $holderDoc = $benFileName = $polFileName = $benFileExt = $polFileExt = '';
-        if(!empty($_FILES['beneficiary_identity']['name'])) {
-            $benDoc = Storage::putFile('public/blogs', $request->file('beneficiary_identity'));
+        if ($request->hasFile('beneficiary_identity')) {
+            $file= $request->file('beneficiary_identity');
+            $benDoc = $file->store('public/beneficiaries_uploads/');
             $benFileName = basename($benDoc);
             $benFileExt = $request->file('beneficiary_identity')->extension();
         }
 
-        if(!empty($_FILES['policy_identity']['name'])) {
-            $holderDoc = Storage::putFile('public/blogs', $request->file('policy_identity'));
+        /*if(!empty($_FILES['beneficiary_identity']['name'])) {
+            echo $benDoc = Storage::putFile('public/beneficiaries_uploads', $request->file('beneficiary_identity'));
+            $benFileName = basename($benDoc);
+            $benFileExt = $request->file('beneficiary_identity')->extension();
+        }*/
+
+        if ($request->hasFile('policy_identity')) {
+            $file= $request->file('policy_identity');
+            $holderDoc = $file->store('public/beneficiaries_uploads/');
+            $polFileName = basename($benDoc);
+            $polFileExt = $request->file('beneficiary_identity')->extension();
+        }
+
+        /*if(!empty($_FILES['policy_identity']['name'])) {
+            $holderDoc = Storage::putFile('public/beneficiaries_uploads', $request->file('policy_identity'));
             $polFileName = basename($holderDoc);
             $polFileExt = $request->file('policy_identity')->extension();
-        }
+        }*/
 
         $data = array(
             'beneficiary_identity' => $benDoc,
