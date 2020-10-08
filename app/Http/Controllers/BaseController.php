@@ -114,8 +114,8 @@ class BaseController extends Controller
 
         $benDoc = $holderDoc = $benFileName = $polFileName = $benFileExt = $polFileExt = '';
         if ($request->hasFile('beneficiary_identity')) {
-            $file= $request->file('beneficiary_identity');
-            $benDoc = $file->store('public/beneficiaries_uploads/');
+            //$file= $request->file('beneficiary_identity');
+            $benDoc = $request->file('beneficiary_identity')->store('public/beneficiaries_uploads/');
             $benFileName = basename($benDoc);
             $benFileExt = $request->file('beneficiary_identity')->extension();
         }
@@ -127,10 +127,10 @@ class BaseController extends Controller
         }*/
 
         if ($request->hasFile('policy_identity')) {
-            $file= $request->file('policy_identity');
-            $holderDoc = $file->store('public/beneficiaries_uploads/');
-            $polFileName = basename($benDoc);
-            $polFileExt = $request->file('beneficiary_identity')->extension();
+            //$file= $request->file('policy_identity');
+            $holderDoc = $request->file('policy_identity')->store('public/beneficiaries_uploads/');
+            $polFileName = basename($holderDoc);
+            $polFileExt = $request->file('policy_identity')->extension();
         }
 
         /*if(!empty($_FILES['policy_identity']['name'])) {
