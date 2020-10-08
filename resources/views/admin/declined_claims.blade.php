@@ -1,7 +1,7 @@
 @extends('admin.app')
 @section('title', 'Beneficiaries')
 @section('maincontent')
-<h2>Denied Claims List</h2>
+<h2>Declined Claims List</h2>
 <div class="card">
     <div class="card-header row">
         <div class="col col-sm-3">

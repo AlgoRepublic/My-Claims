@@ -23,7 +23,7 @@
                 <th>#</th>
                 <th>Username</th>
                 <th>Email</th>
-                <th>Contact Number</th>
+                <th>Cell Number</th>
                 <th>Sent To</th>
                 <th>Sent Date</th>
                 <th>Action</th>
@@ -53,7 +53,7 @@
         <div class="modal-content">
             <form class="forms-sample" method="post" action="" enctype="multipart/form-data">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="demoModalLabel">Add Products</h5>
+                    <h5 class="modal-title" id="demoModalLabel">Contact Request</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 </div>
                 @csrf

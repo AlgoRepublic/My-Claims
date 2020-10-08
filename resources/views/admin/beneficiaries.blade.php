@@ -21,8 +21,8 @@
             <thead>
             <tr>
                 <th>#</th>
-                <th>Name</th>
-                <th>Surname</th>
+                <th>Beneficiary Name</th>
+                <th>Beneficiary Surname</th>
                 <th>IDN</th>
                 <th>Cell Number</th>
                 <th>Creation Date</th>
