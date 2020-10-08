@@ -92,7 +92,7 @@ $(document).ready(function() {
 
             if($("#reg-contact-error").text().length == 0) {
                 $("#reg-sub-btn").attr('disabled', false); // Disable Submit button
-                $("#reg-sub-btn").css('cursor', 'not-allowed');
+                $("#reg-sub-btn").css('cursor', 'pointer');
             }
         }
     });
