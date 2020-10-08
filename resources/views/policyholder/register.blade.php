@@ -34,11 +34,11 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for=" ">Name<span class="error-text">*</span></label>
-                    <input type="text" class="form-control" pattern="[A-Za-z0-9]+" title="Only alphanumeric characters are allowed" value="{{ old('name') }}" placeholder="John Deo" name="name" required>
+                    <input type="text" class="form-control" pattern="[A-Za-z0-9]+" title="Only alphanumeric characters are allowed | No spaces are allowed." value="{{ old('name') }}" placeholder="John Deo" name="name" required>
                 </div>
                 <div class="form-group col-md-6">
                     <label for=" ">Surname<span class="error-text">*</span></label>
-                    <input type="text" class="form-control" pattern="[A-Za-z0-9]+" title="Only alphanumeric characters are allowed" value="{{ old('surname') }}" placeholder="Deo Smith" name="surname" required>
+                    <input type="text" class="form-control" pattern="[A-Za-z0-9]+" title="Only alphanumeric characters are allowed | No spaces are allowed." value="{{ old('surname') }}" placeholder="Deo Smith" name="surname" required>
                 </div>
             </div>
             <div class="form-row">
@@ -57,12 +57,12 @@
                     <label for=" ">Password<span class="error-text">*</span></label>
                     <input type="password" pattern=".{6,}" title="6 characters minimum" class="form-control" id="reg-pass" placeholder="********" name="password" required>
                     <span toggle="#reg-pass" class="fa fa-fw fa-eye field-icon toggle-password"></span>
-                    <span id="reg-pass-error"></span>
                 </div>
                 <div class="form-group col-md-6">
-                    <label for=" ">Repeat Password<span class="error-text">*</span></label>
+                    <label for=" ">Confirm Password<span class="error-text">*</span></label>
                     <input type="password" pattern=".{6,}" title="6 characters minimum" class="form-control" id="reg-re-pass" placeholder="********" name="re_pwd" required>
                     <span toggle="#reg-re-pass" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                    <span id="reg-pass-error"></span>
                 </div>
             </div>
             <div class="form-row">
@@ -71,7 +71,7 @@
                     <input type="text" pattern="\d*" maxlength="13" minlength="13" title="Only dgits are allowed | Length should be 13." class="form-control" value="{{ old('identity_document_number') }}" placeholder="0123456789000" name="identity_document_number" required>
                 </div>
                 <div class="form-group col-md-6">
-                    <label>Billing method</label>
+                    <label>Billing method<span class="error-text">*</span></label>
                     <select class="form-control" name="package" required>
                         <option value="">-Select Package-</option>
                         @foreach($packages as $package)

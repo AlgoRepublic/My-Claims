@@ -40,12 +40,12 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for=" ">Name<span class="error-text">*</span></label>
-                    <input type="text" class="form-control" pattern="[A-Za-z0-9]+" title="Only alphanumeric characters are allowed" value="{{ old('name', $userData->name) }}" placeholder="John Deo" name="name" required>
+                    <input type="text" class="form-control" pattern="[A-Za-z0-9]+" title="Only alphanumeric characters are allowed | No spaces are allowed." value="{{ old('name', $userData->name) }}" placeholder="John Deo" name="name" required>
                 </div>
                 <input type="hidden" value="{{ old('id', $userData->id) }}" name="id" />
                 <div class="form-group col-md-6">
                     <label for=" ">Surname<span class="error-text">*</span></label>
-                    <input type="text" class="form-control" pattern="[A-Za-z0-9]+" title="Only alphanumeric characters are allowed" value="{{ old('surname', $userData->surname) }}" placeholder="Deo Smith" name="surname" required>
+                    <input type="text" class="form-control" pattern="[A-Za-z0-9]+" title="Only alphanumeric characters are allowed | No spaces are allowed." value="{{ old('surname', $userData->surname) }}" placeholder="Deo Smith" name="surname" required>
                 </div>
             </div>
             <div class="form-row">
@@ -71,12 +71,12 @@
                     <label for=" ">New Password</label>
                     <input type="password" class="form-control" id="reg-pass" placeholder="********" name="new_password">
                     <span toggle="#reg-pass" class="fa fa-fw fa-eye field-icon toggle-password"></span>
-                    <span id="reg-pass-error"></span>
                 </div>
                 <div class="form-group col-md-6">
-                    <label for=" ">Repeat New Password</label>
+                    <label for=" ">Confirm New Password</label>
                     <input type="password" class="form-control" id="reg-re-pass" placeholder="********" name="re_pwd">
                     <span toggle="#reg-re-pass" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                    <span id="reg-pass-error"></span>
                 </div>
             </div>
             <div class="form-row">

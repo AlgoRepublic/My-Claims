@@ -303,7 +303,7 @@ class PolicyHolderController extends Controller
         curl_close ($ch);
         $response = json_decode($response, true);
 
-        if(empty($response[0]) || $response[0]->status !== 'success') {
+        if(empty($response[0]->status) || $response[0]->status !== 'success') {
             Session::flash('message', 'Oops, something went wrong!');
             Session::flash('alert-class', 'alert-danger');
         }
