@@ -21,12 +21,12 @@
                         <input type="text" class="form-control" name="policyholder_number" placeholder="5453453643" required>
                     </div>
                 </div>
-                <div class="form-row">
+                {{--<div class="form-row">
                     <div class="form-group col-md-12">
                         <label for=" ">Enter Beneficiary's Identity Number<span class="error-text">*</span></label>
                         <input type="text" class="form-control" name="beneficiary_number" placeholder="5453453643" required>
                     </div>
-                </div>
+                </div>--}}
                 <div class="form-row justify-content-center">
                     <div class="form-group">
                         <input type="submit" class="btn custom_btn_form" value="Check">

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Beneficiaries;
 use App\beneficiary_policy;
 use App\Blogs;
+use App\Claims;
 use App\Contact;
 use App\Mail\BeneficiaryVerification;
 use App\Policies;
@@ -60,7 +61,7 @@ class BaseController extends Controller
             return redirect('/beneficiary');
         }
 
-        $benWhere = array(
+        /*$benWhere = array(
             'identity_document_number' => $postData['beneficiary_number'],
             'added_by' => $user->id
         );
@@ -70,7 +71,7 @@ class BaseController extends Controller
             Session::flash('message', 'Please note that the ID number entered of Beneficiary is not registered on our system, if you think this is a mistake, please call our support team for assistance.');
             Session::flash('alert-class', 'alert-danger');
             return redirect('/beneficiary');
-        }
+        }*/
 
         $policyType = array();
 
@@ -95,9 +96,9 @@ class BaseController extends Controller
         $data = array(
             'policy_type' => $policyType,
             'name' => $user->name .' '. $user->surname,
-            'policyholder_number' => $postData['policyholder_number'],
-            'beneficiary_number' => $postData['beneficiary_number'],
-            'ben_id' => $beneficiary->id
+            'policyholder_number' => $postData['policyholder_number']
+            //'beneficiary_number' => $postData['beneficiary_number'],
+            //'ben_id' => $benID
         );
         return view('beneficiary.check_policies')->with($data);
     }
@@ -105,11 +106,11 @@ class BaseController extends Controller
     public function policyRequest(Request $request)
     {
         $postData = $request->input();
-        if(empty($postData['ben_id'])) {
+        /*if(empty($postData['ben_id'])) {
             Session::flash('message', 'Oops, invalid request!');
             Session::flash('alert-class', 'alert-danger');
             return redirect('/beneficiary');
-        }
+        }*/
 
         $benDoc = $holderDoc = $benFileName = $polFileName = $benFileExt = $polFileExt = '';
         if(!empty($_FILES['beneficiary_identity']['name'])) {
@@ -131,10 +132,11 @@ class BaseController extends Controller
             'beneficiary_request_date' => date('Y-m-d H:i:s')
         );
 
-        $beneficiary = Beneficiaries::where('id', $postData['ben_id'])->update($data);
-        if($beneficiary) {
+        $claim = Claims::create($data);
+        //$beneficiary = Beneficiaries::where('id', $postData['ben_id'])->update($data);
+        if($claim) {
             $data['policyholder_idn'] = $postData['policyholder_idn'];
-            $data['beneficiary_idn'] = $postData['beneficiary_idn'];
+            //$data['beneficiary_idn'] = $postData['beneficiary_idn'];
             $data['beneficiary_identity_file'] = $benFileName;
             $data['policyholder_death_proof_file'] = $polFileName;
             $data['ben_file_ext'] = $benFileExt;

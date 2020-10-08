@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Beneficiaries;
 use App\Blogs;
+use App\Claims;
 use App\Contact;
 use App\Policies;
 use App\Roles;
@@ -114,19 +115,22 @@ class AdminController extends Controller
 
     public function pendingClaims(Request $request)
     {
-        $claims = Beneficiaries::whereNotNull('beneficiary_request_date')->where('is_approved', 0)->get();
+        //$claims = Beneficiaries::whereNotNull('beneficiary_request_date')->where('is_approved', 0)->get();
+        $claims = Claims::whereNotNull('beneficiary_request_date')->where('is_approved', 0)->get();
         return view('admin.pending_claims')->with(array('claims' => $claims));
     }
 
     public function approvedClaims(Request $request)
     {
-        $claims = Beneficiaries::where('is_approved', 1)->get();
+        //$claims = Beneficiaries::where('is_approved', 1)->get();
+        $claims = Claims::where('is_approved', 1)->get();
         return view('admin.approved_claims')->with(array('claims' => $claims));
     }
 
     public function declinedClaims(Request $request)
     {
-        $claims = Beneficiaries::where('is_approved', 2)->get();
+        //$claims = Beneficiaries::where('is_approved', 2)->get();
+        $claims = Claims::where('is_approved', 2)->get();
         return view('admin.declined_claims')->with(array('claims' => $claims));
     }
 
@@ -152,7 +156,7 @@ class AdminController extends Controller
             'approved_date' => date("Y-m-d H:i:s")
         );
 
-        $ben = Beneficiaries::where('id',$postData['id'])->update($updateData);
+        $ben = Claims::where('id',$postData['id'])->update($updateData);
         if($ben) {
             Session::flash('message', 'Claims status updated successfully!');
             Session::flash('alert-class', 'alert-success');

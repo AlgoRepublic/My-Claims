@@ -1,7 +1,7 @@
 @extends('admin.app')
 @section('title', 'Policy Holders')
 @section('maincontent')
-<h2>Policy Holder List</h2>
+<h2>Policy Holders List</h2>
 <div class="card">
     <div class="card-header row">
         <div class="col col-sm-3">
@@ -12,7 +12,7 @@
         </div>
         <div class="col col-sm-3">
             <div class="card-options text-right">
-                <a href="#"><i class="ik ik-plus" data-toggle="modal" data-target="#productModal"></i></a>
+
             </div>
         </div>
     </div>
@@ -21,10 +21,10 @@
             <thead>
             <tr>
                 <th>#</th>
-                <th>Name</th>
-                <th>Surname</th>
+                <th>Policy Holder Name</th>
+                <th>Policy Holder Surname</th>
                 <th>Email</th>
-                <th>Mobile</th>
+                <th>Cell Number</th>
                 <th>IDN</th>
                 <th>Creation Date</th>
                 <th>Action</th>

@@ -144,8 +144,8 @@
                         <div class="nav-item has-sub">
                             <a href="javascript:void(0)"><i class="ik ik-layers"></i><span>Claims Management</span></a>
                             <div class="submenu-content">
-                                <a href="{{ url('admin/pending-claims') }}" class="menu-item">Pending Claims</a>
                                 <a href="{{ url('admin/approved-claims') }}" class="menu-item">Approved Claims</a>
+                                <a href="{{ url('admin/pending-claims') }}" class="menu-item">Pending Claims</a>
                                 <a href="{{ url('admin/declined-claims') }}" class="menu-item">Declined Claims</a>
                             </div>
                         </div>
@@ -170,148 +170,6 @@
                                 <a href="{{ url('admin/blogs') }}" class="menu-item">Blog List</a>
                             </div>
                         </div>
-                        <{{--div class="nav-item has-sub">
-                            <a href="javascript:void(0)"><i class="ik ik-layers"></i><span>Products</span> <span class="badge badge-danger">@yield('product_count')</span></a>
-                            <div class="submenu-content">
-                                <a href="{{ url('admin/products') }}" class="menu-item">View</a>
-                            </div>
-                        </div>
-
-                        <div class="nav-item has-sub">
-                            <a href="javascript:void(0)"><i class="ik ik-layers"></i><span>Loyalty Rewards</span></a>
-                            <div class="submenu-content">
-                                <a href="{{ url('admin/loyalty-store') }}" class="menu-item">View</a>
-                            </div>
-                        </div>--}}
-
-                        {{--<div class="nav-item">
-                            <a href="pages/navbar.html"><i class="ik ik-menu"></i><span>Navigation</span> <span class="badge badge-success">New</span></a>
-                        </div>
-                        <div class="nav-item has-sub">
-                            <a href="javascript:void(0)"><i class="ik ik-layers"></i><span>Widgets</span> <span class="badge badge-danger">150+</span></a>
-                            <div class="submenu-content">
-                                <a href="pages/widgets.html" class="menu-item">Basic</a>
-                                <a href="pages/widget-statistic.html" class="menu-item">Statistic</a>
-                                <a href="pages/widget-data.html" class="menu-item">Data</a>
-                                <a href="pages/widget-chart.html" class="menu-item">Chart Widget</a>
-                            </div>
-                        </div>
-                        <div class="nav-lavel">UI Element</div>
-                        <div class="nav-item has-sub">
-                            <a href="#"><i class="ik ik-box"></i><span>Basic</span></a>
-                            <div class="submenu-content">
-                                <a href="pages/ui/alerts.html" class="menu-item">Alerts</a>
-                                <a href="pages/ui/badges.html" class="menu-item">Badges</a>
-                                <a href="pages/ui/buttons.html" class="menu-item">Buttons</a>
-                                <a href="pages/ui/navigation.html" class="menu-item">Navigation</a>
-                            </div>
-                        </div>
-                        <div class="nav-item has-sub">
-                            <a href="#"><i class="ik ik-gitlab"></i><span>Advance</span> <span class="badge badge-success">New</span></a>
-                            <div class="submenu-content">
-                                <a href="pages/ui/modals.html" class="menu-item">Modals</a>
-                                <a href="pages/ui/notifications.html" class="menu-item">Notifications</a>
-                                <a href="pages/ui/carousel.html" class="menu-item">Slider</a>
-                                <a href="pages/ui/range-slider.html" class="menu-item">Range Slider</a>
-                                <a href="pages/ui/rating.html" class="menu-item">Rating</a>
-                            </div>
-                        </div>
-                        <div class="nav-item has-sub">
-                            <a href="#"><i class="ik ik-package"></i><span>Extra</span></a>
-                            <div class="submenu-content">
-                                <a href="pages/ui/session-timeout.html" class="menu-item">Session Timeout</a>
-                            </div>
-                        </div>
-                        <div class="nav-item">
-                            <a href="pages/ui/icons.html"><i class="ik ik-command"></i><span>Icons</span></a>
-                        </div>
-                        <div class="nav-lavel">Forms</div>
-                        <div class="nav-item has-sub">
-                            <a href="#"><i class="ik ik-edit"></i><span>Forms</span></a>
-                            <div class="submenu-content">
-                                <a href="pages/form-components.html" class="menu-item">Components</a>
-                                <a href="pages/form-addon.html" class="menu-item">Add-On</a>
-                                <a href="pages/form-advance.html" class="menu-item">Advance</a>
-                            </div>
-                        </div>
-                        <div class="nav-item">
-                            <a href="pages/form-picker.html"><i class="ik ik-terminal"></i><span>Form Picker</span> <span class="badge badge-success">New</span></a>
-                        </div>
-
-                        <div class="nav-lavel">Tables</div>
-                        <div class="nav-item">
-                            <a href="pages/table-bootstrap.html"><i class="ik ik-credit-card"></i><span>Bootstrap Table</span></a>
-                        </div>
-                        <div class="nav-item">
-                            <a href="pages/table-datatable.html"><i class="ik ik-inbox"></i><span>Data Table</span></a>
-                        </div>
-
-                        <div class="nav-lavel">Charts</div>
-                        <div class="nav-item has-sub">
-                            <a href="#"><i class="ik ik-pie-chart"></i><span>Charts</span> <span class="badge badge-success">New</span></a>
-                            <div class="submenu-content">
-                                <a href="pages/charts-chartist.html" class="menu-item active">Chartist</a>
-                                <a href="pages/charts-flot.html" class="menu-item">Flot</a>
-                                <a href="pages/charts-knob.html" class="menu-item">Knob</a>
-                                <a href="pages/charts-amcharts.html" class="menu-item">Amcharts</a>
-                            </div>
-                        </div>
-
-                        <div class="nav-lavel">Apps</div>
-                        <div class="nav-item">
-                            <a href="pages/calendar.html"><i class="ik ik-calendar"></i><span>Calendar</span></a>
-                        </div>
-                        <div class="nav-item">
-                            <a href="pages/taskboard.html"><i class="ik ik-server"></i><span>Taskboard</span></a>
-                        </div>
-
-                        <div class="nav-lavel">Pages</div>
-
-                        <div class="nav-item has-sub">
-                            <a href="#"><i class="ik ik-lock"></i><span>Authentication</span></a>
-                            <div class="submenu-content">
-                                <a href="pages/login.html" class="menu-item">Login</a>
-                                <a href="pages/register.html" class="menu-item">Register</a>
-                                <a href="pages/forgot-password.html" class="menu-item">Forgot Password</a>
-                            </div>
-                        </div>
-                        <div class="nav-item has-sub">
-                            <a href="#"><i class="ik ik-file-text"></i><span>Other</span></a>
-                            <div class="submenu-content">
-                                <a href="pages/profile.html" class="menu-item">Profile</a>
-                                <a href="pages/invoice.html" class="menu-item">Invoice</a>
-                            </div>
-                        </div>
-                        <div class="nav-item">
-                            <a href="pages/layouts.html"><i class="ik ik-layout"></i><span>Layouts</span><span class="badge badge-success">New</span></a>
-                        </div>
-                        <div class="nav-lavel">Other</div>
-                        <div class="nav-item has-sub">
-                            <a href="javascript:void(0)"><i class="ik ik-list"></i><span>Menu Levels</span></a>
-                            <div class="submenu-content">
-                                <a href="javascript:void(0)" class="menu-item">Menu Level 2.1</a>
-                                <div class="nav-item has-sub">
-                                    <a href="javascript:void(0)" class="menu-item">Menu Level 2.2</a>
-                                    <div class="submenu-content">
-                                        <a href="javascript:void(0)" class="menu-item">Menu Level 3.1</a>
-                                    </div>
-                                </div>
-                                <a href="javascript:void(0)" class="menu-item">Menu Level 2.3</a>
-                            </div>
-                        </div>
-                        <div class="nav-item">
-                            <a href="javascript:void(0)" class="disabled"><i class="ik ik-slash"></i><span>Disabled Menu</span></a>
-                        </div>
-                        <div class="nav-item">
-                            <a href="javascript:void(0)"><i class="ik ik-award"></i><span>Sample Page</span></a>
-                        </div>
-                        <div class="nav-lavel">Support</div>
-                        <div class="nav-item">
-                            <a href="javascript:void(0)"><i class="ik ik-monitor"></i><span>Documentation</span></a>
-                        </div>
-                        <div class="nav-item">
-                            <a href="javascript:void(0)"><i class="ik ik-help-circle"></i><span>Submit Issue</span></a>
-                        </div>--}}
                     </nav>
                 </div>
             </div>
@@ -323,65 +181,10 @@
                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                         {{ Session::get('message') }}
                     </div>
-                    {{--<p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</p>--}}
                 @endif
                 @yield('maincontent')
             </div>
         </div>
-
-        {{--<aside class="right-sidebar">
-            <div class="sidebar-chat" data-plugin="chat-sidebar">
-                <div class="sidebar-chat-info">
-                    <h6>Chat List</h6>
-                    <form class="mr-t-10">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Search for friends ...">
-                            <i class="ik ik-search"></i>
-                        </div>
-                    </form>
-                </div>
-                <div class="chat-list">
-                    <div class="list-group row">
-                        <a href="javascript:void(0)" class="list-group-item" data-chat-user="Gene Newman">
-                            <figure class="user--online">
-                                <img src="{{ url('storage/theme/img/users/1.jpg') }}" class="rounded-circle" alt="">
-                            </figure><span><span class="name">Gene Newman</span>  <span class="username">@gene_newman</span> </span>
-                        </a>
-                        <a href="javascript:void(0)" class="list-group-item" data-chat-user="Billy Black">
-                            <figure class="user--online">
-                                <img src="{{ url('storage/theme/img/users/2.jpg') }}" class="rounded-circle" alt="">
-                            </figure><span><span class="name">Billy Black</span>  <span class="username">@billyblack</span> </span>
-                        </a>
-                        <a href="javascript:void(0)" class="list-group-item" data-chat-user="Herbert Diaz">
-                            <figure class="user--online">
-                                <img src="{{ url('storage/theme/img/users/3.jpg') }}" class="rounded-circle" alt="">
-                            </figure><span><span class="name">Herbert Diaz</span>  <span class="username">@herbert</span> </span>
-                        </a>
-                        <a href="javascript:void(0)" class="list-group-item" data-chat-user="Sylvia Harvey">
-                            <figure class="user--busy">
-                                <img src="{{ url('storage/theme/img/users/4.jpg') }}" class="rounded-circle" alt="">
-                            </figure><span><span class="name">Sylvia Harvey</span>  <span class="username">@sylvia</span> </span>
-                        </a>
-                        <a href="javascript:void(0)" class="list-group-item active" data-chat-user="Marsha Hoffman">
-                            <figure class="user--busy">
-                                <img src="{{ url('storage/theme/img/users/5.jpg') }}" class="rounded-circle" alt="">
-                            </figure><span><span class="name">Marsha Hoffman</span>  <span class="username">@m_hoffman</span> </span>
-                        </a>
-                        <a href="javascript:void(0)" class="list-group-item" data-chat-user="Mason Grant">
-                            <figure class="user--offline">
-                                <img src="{{ url('storage/theme/img/users/1.jpg') }}" class="rounded-circle" alt="">
-                            </figure><span><span class="name">Mason Grant</span>  <span class="username">@masongrant</span> </span>
-                        </a>
-                        <a href="javascript:void(0)" class="list-group-item" data-chat-user="Shelly Sullivan">
-                            <figure class="user--offline">
-                                <img src="{{ url('storage/theme/img/users/2.jpg') }}" class="rounded-circle" alt="">
-                            </figure><span><span class="name">Shelly Sullivan</span>  <span class="username">@shelly</span></span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </aside>--}}
-
         <div class="chat-panel" hidden>
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
@@ -467,8 +270,7 @@
 
         <footer class="footer">
             <div class="w-100 clearfix">
-                <span class="text-center text-sm-left d-md-inline-block">Copyright © 2018 ThemeKit v2.0. All Rights Reserved.</span>
-                <span class="float-none float-sm-right mt-1 mt-sm-0 text-center">Crafted with <i class="fa fa-heart text-danger"></i> by <a href="http://lavalite.org/" class="text-dark" target="_blank">Lavalite</a></span>
+                <span class="float-none float-sm-right mt-1 mt-sm-0 text-center">Copyright © 2020 Show My Claims. All Rights Reserved.</span>
             </div>
         </footer>
 
@@ -501,76 +303,43 @@
                             <a href="{{ url('/admin') }}"><i class="ik ik-bar-chart-2"></i><span>Dashboard</span></a>
                         </div>
                         <div class="app-item dropdown">
-                            <a href="#" class="dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="ik ik-layers"></i><span>Services</span></a>
+                            <a href="#" class="dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="ik ik-layers"></i><span>User Management</span></a>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                <a class="dropdown-item" href="{{ url('admin/services') }}">View</a>
-                                <a class="dropdown-item" href="{{ url('admin/service-categories') }}">Service Category</a>
+                                <a class="dropdown-item" href="{{ url('admin/policyHolders') }}">Policy Holders</a>
                             </div>
                         </div>
                         <div class="app-item dropdown">
-                            <a href="#" class="dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="ik ik-clipboard"></i><span>Products</span></a>
+                            <a href="#" class="dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="ik ik-clipboard"></i><span>Beneficiary Management</span></a>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                <a class="dropdown-item" href="{{ url('admin/products') }}">View</a>
+                                <a class="dropdown-item" href="{{ url('admin/beneficiaries') }}">Beneficiaries</a>
                             </div>
                         </div>
-
-
-                        {{--<div class="app-item dropdown">
-                            <a href="#" class="dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="ik ik-command"></i><span>Ui</span></a>
+                        <div class="app-item dropdown">
+                            <a href="#" class="dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="ik ik-layers"></i><span>Claims Management</span></a>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                <a class="dropdown-item" href="#">Action</a>
-                                <a class="dropdown-item" href="#">Another action</a>
-                                <a class="dropdown-item" href="#">Something else here</a>
+                                <a class="dropdown-item" href="{{ url('admin/approved-claims') }}">Approved Claims</a>
+                                <a class="dropdown-item" href="{{ url('admin/pending-claims') }}">Pending Claims</a>
+                                <a class="dropdown-item" href="{{ url('admin/declined-claims') }}">Declined Claims</a>
                             </div>
                         </div>
-                        <div class="app-item">
-                            <a href="#"><i class="ik ik-mail"></i><span>Message</span></a>
+                        <div class="app-item dropdown">
+                            <a href="#" class="dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="ik ik-clipboard"></i><span>Contact Us</span></a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <a class="dropdown-item" href="{{ url('admin/user-feedback') }}">User Feedback</a>
+                            </div>
                         </div>
-                        <div class="app-item">
-                            <a href="#"><i class="ik ik-users"></i><span>Accounts</span></a>
+                        <div class="app-item dropdown">
+                            <a href="#" class="dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="ik ik-layers"></i><span>What We Do</span></a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <a class="dropdown-item" href="{{ url('admin/what-we-do') }}">User Feedback</a>
+                            </div>
                         </div>
-                        <div class="app-item">
-                            <a href="#"><i class="ik ik-shopping-cart"></i><span>Sales</span></a>
+                        <div class="app-item dropdown">
+                            <a href="#" class="dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="ik ik-clipboard"></i><span>Blog Management</span></a>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                                <a class="dropdown-item" href="{{ url('admin/blogs') }}">Blog List</a>
+                            </div>
                         </div>
-                        <div class="app-item">
-                            <a href="#"><i class="ik ik-briefcase"></i><span>Purchase</span></a>
-                        </div>
-                        <div class="app-item">
-                            <a href="#"><i class="ik ik-server"></i><span>Menus</span></a>
-                        </div>
-                        <div class="app-item">
-                            <a href="#"><i class="ik ik-clipboard"></i><span>Pages</span></a>
-                        </div>
-                        <div class="app-item">
-                            <a href="#"><i class="ik ik-message-square"></i><span>Chats</span></a>
-                        </div>
-                        <div class="app-item">
-                            <a href="#"><i class="ik ik-map-pin"></i><span>Contacts</span></a>
-                        </div>
-                        <div class="app-item">
-                            <a href="#"><i class="ik ik-box"></i><span>Blocks</span></a>
-                        </div>
-                        <div class="app-item">
-                            <a href="#"><i class="ik ik-calendar"></i><span>Events</span></a>
-                        </div>
-                        <div class="app-item">
-                            <a href="#"><i class="ik ik-bell"></i><span>Notifications</span></a>
-                        </div>
-                        <div class="app-item">
-                            <a href="#"><i class="ik ik-pie-chart"></i><span>Reports</span></a>
-                        </div>
-                        <div class="app-item">
-                            <a href="#"><i class="ik ik-layers"></i><span>Tasks</span></a>
-                        </div>
-                        <div class="app-item">
-                            <a href="#"><i class="ik ik-edit"></i><span>Blogs</span></a>
-                        </div>
-                        <div class="app-item">
-                            <a href="#"><i class="ik ik-settings"></i><span>Settings</span></a>
-                        </div>
-                        <div class="app-item">
-                            <a href="#"><i class="ik ik-more-horizontal"></i><span>More</span></a>
-                        </div>--}}
                     </div>
                 </div>
             </div>

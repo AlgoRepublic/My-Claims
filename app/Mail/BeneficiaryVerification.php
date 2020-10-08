@@ -35,7 +35,7 @@ class BeneficiaryVerification extends Mailable
         $currentData = $this->beneficiary;
         $data = array(
             'policyholder_idn' => $currentData['policyholder_idn'],
-            'beneficiary_idn' => $currentData['beneficiary_idn'],
+            //'beneficiary_idn' => $currentData['beneficiary_idn'],
             'email_preference' => $currentData['email_preference']
         );
 

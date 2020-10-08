@@ -9,8 +9,6 @@
 <p>
     Policy Holder Identity Number: <b>{{ $policyholder_idn }}</b>
     <br>
-    Beneficiary Identity Number: <b>{{ $beneficiary_idn }}</b>
-    <br>
     Beneficiary Preferred Email: <b>{{ $email_preference }}</b>
 </p>
 </body>

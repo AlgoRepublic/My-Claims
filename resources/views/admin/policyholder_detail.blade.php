@@ -1,7 +1,7 @@
 @extends('admin.app')
 @section('title', 'Policy Holders')
 @section('maincontent')
-    <h2>Policy Holder Detail</h2>
+    <h2>Policy Holder Details</h2>
     <div class="card">
         <div class="card-header row">
             <div class="col col-sm-3">
@@ -33,7 +33,7 @@
 
                 <div class="tab-content" id="pills-tabContent">
                     <div class="tab-pane fade show active" id="pills-beneficiaries" role="tabpanel" aria-labelledby="pills-home-tab">
-                        <div class="custom_form_heading text-center"><span>All Beneficiaries</span></div>
+                        <div class="custom_form_heading text-center"><span class="custom-mid-head">All Beneficiaries</span></div>
                         @if(Session::has('message'))
                             <div class="alert {{ Session::get('alert-class', 'alert-info') }} alert-dismissible">
                                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -74,7 +74,7 @@
                         </div>
                     </div>
                     <div class="tab-pane fade" id="pills-policy" role="tabpanel" aria-labelledby="pills-profile-tab">
-                        <div class="custom_form_heading text-center"><span>Active Policies/Will</span></div>
+                        <div class="custom_form_heading text-center"><span class="custom-mid-head">Active Policies/Will</spancustom-mid-head></div>
                         <div class="container">
                             <div class="row">
                                 <div class="col-12">

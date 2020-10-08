@@ -21,10 +21,6 @@
             <thead>
             <tr>
                 <th>#</th>
-                <th>Name</th>
-                <th>Surname</th>
-                <th>IDN</th>
-                <th>Cell Number</th>
                 <th>Beneficiary Identity Proof</th>
                 <th>Policy Holder Death Proof</th>
                 <th>Email Preference</th>
@@ -36,10 +32,6 @@
             @foreach($claims as $claim)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
-                    <td>{{ $claim->name }}</td>
-                    <td>{{ $claim->surname }}</td>
-                    <td>{{ $claim->identity_document_number }}</td>
-                    <td>{{ $claim->cell_number }}</td>
                     <td><a class="text-blue" href="{{ \Illuminate\Support\Facades\URL::to('/').\Illuminate\Support\Facades\Storage::url($claim->beneficiary_identity) }}" download>Beneficiary Proof</a></td>
                     <td><a class="text-blue" href="{{ \Illuminate\Support\Facades\URL::to('/').\Illuminate\Support\Facades\Storage::url($claim->policyholder_death_proof) }}" download>PolicyHolder Death Proof</a></td>
                     <td>{{ $claim->email_preference }}</td>
