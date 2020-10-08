@@ -52,6 +52,17 @@ class PolicyHolderController extends Controller
             return redirect()->back()->withInput()->withErrors($errors);
         }
 
+        // Now check if user payment has been made
+        if(empty($user->payment)) {
+            $errors = array('error' => "Oops, your subscription has been expired!");
+            return redirect()->back()->withInput()->withErrors($errors);
+        }
+
+        if(strtotime(date('Y-m-d')) > strtotime($user->payment->expiration_date)) {
+            $errors = array('error' => "Oops, your subscription has been expired!");
+            return redirect()->back()->withInput()->withErrors($errors);
+        }
+
         // Authenticate user here
         Auth::login($user);
         return redirect('/policyHolder');
