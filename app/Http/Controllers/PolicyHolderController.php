@@ -135,7 +135,7 @@ class PolicyHolderController extends Controller
         $benIDs = array();
 
         if(!empty($_FILES['doc_file']['name']))
-            $path = Storage::putFile('public/policies', $request->file('doc_file'));
+            $path = $request->file('doc_file')->store('public/policies');//$path = Storage::putFile('public/policies', $request->file('doc_file'));
 
         if(!empty($postData['bene_name'])) {
 

@@ -67,13 +67,12 @@
         </div>
     </div>
 </nav>
-@if(\Illuminate\Support\Facades\Session::has('message'))
+{{--@if(\Illuminate\Support\Facades\Session::has('message'))
     <div class="alert {{ \Illuminate\Support\Facades\Session::get('alert-class', 'alert-info') }} alert-dismissible">
         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
         {{ \Illuminate\Support\Facades\Session::get('message') }}
     </div>
-    {{--<p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</p>--}}
-@endif
+@endif--}}
 @yield('mainbody')
 <!-- Footer -->
 <footer class="footer">

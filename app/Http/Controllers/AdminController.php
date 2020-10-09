@@ -220,7 +220,7 @@ class AdminController extends Controller
         $verb = 'created';
 
         if(!empty($_FILES['image']['name']))
-            $blogImage = Storage::putFile('public/blogs', $request->file('image'));
+            $blogImage = $request->file('image')->store('public/blogs'); //$blogImage = Storage::putFile('public/blogs', $request->file('image'));
 
         $data = array(
             'title' => $postData['title'],

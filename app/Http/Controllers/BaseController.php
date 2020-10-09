@@ -56,7 +56,7 @@ class BaseController extends Controller
         // Get policyholder information
         $user = User::with('Policies')->where('identity_document_number', $postData['policyholder_number'])->first();
         if(empty($user)) {
-            Session::flash('message', 'Please note that the ID number entered of PolicyHolder is not registered on our system, if you think this is a mistake, please call our support team for assistance.');
+            Session::flash('message', 'Please note that the ID number entered for the Policyholder is not registered on our system, if you think this is a mistake, please call our support team for assistance.');
             Session::flash('alert-class', 'alert-danger');
             return redirect('/beneficiary');
         }
@@ -158,7 +158,7 @@ class BaseController extends Controller
 
             Mail::to('mashood.ali@algorepublic.com')->send(new BeneficiaryVerification($data));
 
-            Session::flash('message', 'Request submitted successfully!<br>Please note that verification will take 1 to 24 hours. Once verification is complete, you will receive an email with all the documents.');
+            Session::flash('message', 'Request submitted successfully!. Please note that verification will take 1 to 24 hours. Once verification is complete, you will receive an email with all the documents.');
             Session::flash('alert-class', 'alert-success');
         }else {
             Session::flash('message', 'Oops. Something went wrong!');
