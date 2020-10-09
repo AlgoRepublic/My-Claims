@@ -22,11 +22,13 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for=" ">South African Identity Document Number<span class="text-danger"><b>*</b></span></label>
-                            <input type="text" pattern="\d*" maxlength="13" minlength="13" title="Only dgits are allowed | Length should be 13." class="form-control" name="bene_document_number" value="{{ $beneficiary->identity_document_number }}" placeholder="Enter Document Number" required="">
+                            <input type="text" pattern="\d*" data-type="identity_document_number" data-source="beneficiary" maxlength="13" minlength="13" title="Only dgits are allowed | Length should be 13." class="form-control" name="bene_document_number" value="{{ $beneficiary->identity_document_number }}" placeholder="Enter Document Number" required="">
+                            <span id="reg-idn-error"></span>
                         </div>
                         <div class="form-group col-md-6">
                             <label for=" ">Cell Phone Number<span class="text-danger"><b>*</b></span></label>
-                            <input type="text" pattern="\d*" maxlength="10" minlength="10" title="10 digits minimum | Only positive digits are allowed" class="form-control" name="bene_cell_number" value="{{ $beneficiary->cell_number }}" placeholder="Enter Cell Number" required="">
+                            <input type="text" data-type="cell_number" id="reg-contact-no" data-source="beneficiary" pattern="\d*" maxlength="10" minlength="10" title="10 digits minimum | Only positive digits are allowed" class="form-control" name="bene_cell_number" value="{{ $beneficiary->cell_number }}" placeholder="Enter Cell Number" required="">
+                            <span id="reg-contact-error"></span>
                         </div>
                         <input type="hidden" value="{{ $beneficiary->id }}" name="ben_id" />
                     </div>
