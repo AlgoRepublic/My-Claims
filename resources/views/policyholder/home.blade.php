@@ -16,7 +16,7 @@
             <form>
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label for=" ">PolicyHolder Name</label>
+                        <label for=" ">Policyholder Name</label>
                         <hr>
                         <h5>{{ $username }}</h5>
                     </div>
@@ -88,7 +88,7 @@
                             <hr>
                             <div class="form-row">
                                 <div class="form-group">
-                                    <span>Please ensure that your beneficiary's cell phone number(s) are always correct. This will help when they download the policy holder's documents as we will call them for security purposes.</span>
+                                    <span>Please ensure that your beneficiary's cell phone number(s) are always correct. This will help when they download the policyholder's documents as we will call them for security purposes.</span>
                                 </div>
                             </div>
                         </div>

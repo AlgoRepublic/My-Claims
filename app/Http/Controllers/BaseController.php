@@ -53,7 +53,7 @@ class BaseController extends Controller
     {
         $postData = $request->input();
 
-        // Get policy holder information
+        // Get policyholder information
         $user = User::with('Policies')->where('identity_document_number', $postData['policyholder_number'])->first();
         if(empty($user)) {
             Session::flash('message', 'Please note that the ID number entered of PolicyHolder is not registered on our system, if you think this is a mistake, please call our support team for assistance.');
@@ -88,7 +88,7 @@ class BaseController extends Controller
         }
 
         /*if(empty($policyType)) {
-            Session::flash('message', 'Sorry, this policy holder have not registered you as a beneficiary!');
+            Session::flash('message', 'Sorry, this policyholder have not registered you as a beneficiary!');
             Session::flash('alert-class', 'alert-danger');
             return redirect('/beneficiary');
         }*/

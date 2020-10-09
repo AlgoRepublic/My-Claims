@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Policy Holder Login | Show My Claims</title>
+    <title>Policyholder Login | Show My Claims</title>
     <meta name="description" content="">
     <meta name="keywords" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -27,7 +27,7 @@
                     <img src="{{ asset('storage/img/web_logo.png') }}">
                 </div>
                 <hr>
-                <h3 class="text-center">Policy Holder Login</h3>
+                <h3 class="text-center">Policyholder Login</h3>
                 <br>
                 @if(Session::has('message'))
                     <div class="alert {{ Session::get('alert-class', 'alert-info') }} alert-dismissible">

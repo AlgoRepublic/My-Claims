@@ -130,7 +130,7 @@
                         <div class="nav-item has-sub">
                             <a href="javascript:void(0)"><i class="ik ik-layers"></i><span>User Management</span></a>
                             <div class="submenu-content">
-                                <a href="{{ url('admin/policyHolders') }}" class="menu-item">Policy Holders</a>
+                                <a href="{{ url('admin/policyHolders') }}" class="menu-item">Policyholders</a>
                             </div>
                         </div>
 
@@ -305,7 +305,7 @@
                         <div class="app-item dropdown">
                             <a href="#" class="dropdown-toggle" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="ik ik-layers"></i><span>User Management</span></a>
                             <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                                <a class="dropdown-item" href="{{ url('admin/policyHolders') }}">Policy Holders</a>
+                                <a class="dropdown-item" href="{{ url('admin/policyHolders') }}">Policyholders</a>
                             </div>
                         </div>
                         <div class="app-item dropdown">

@@ -68,7 +68,7 @@
                             </div>
                         </div>
                         <div class="sign-btn text-center">
-                            <button type="submit" class="btn btn-theme">Sign In</button>
+                            <button type="submit" class="btn btn-theme">Login</button>
                         </div>
                     </form>
                     <div class="register">

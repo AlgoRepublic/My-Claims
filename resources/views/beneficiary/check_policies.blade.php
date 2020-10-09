@@ -46,7 +46,7 @@
                         <input type="file" class="form-control custom-up" name="beneficiary_identity" accept=".png,.jpg,.jepg,.pdf,.doc,.docx" required>
                     </div>
                 </div>
-                <span>For Security Purposes, Please Upload a Copy of a Policy Holder’s Death Certificate</span>
+                <span>For Security Purposes, Please Upload a Copy of a Policyholder’s Death Certificate</span>
                 <br>
                 <div class="form-row">
                     <div class="form-group col-md-12">

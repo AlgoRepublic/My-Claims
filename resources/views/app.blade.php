@@ -33,7 +33,7 @@
                     <a class="nav-link" href="{{ url('/') }}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url('policyHolder/') }}">Policy Holder</a>
+                    <a class="nav-link" href="{{ url('policyHolder/') }}">Policyholder</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url('beneficiary/') }}">Beneficiary</a>

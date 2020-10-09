@@ -27,7 +27,7 @@ class PolicyHolder
             $isPolicyHolder = true;
 
         if(!$isPolicyHolder) {
-            // This means that admin is logged in, so redirect it back to policy holder login and log it out as well
+            // This means that admin is logged in, so redirect it back to policyholder login and log it out as well
             Auth::logout();
             //return redirect()->intended();
             return redirect('/policyHolder/login');

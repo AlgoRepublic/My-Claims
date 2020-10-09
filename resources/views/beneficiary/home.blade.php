@@ -14,7 +14,7 @@
             @endif
             <form action="{{ url('/beneficiary/find-policy') }}" method="post">
                 @csrf
-                <div class="custom_form_heading"><span>To see what policies your loved-ones have left you as a beneficiary, enter the policy holder’s identity number.</span></div>
+                <div class="custom_form_heading"><span>To see what policies your loved-ones have left you as a beneficiary, enter the policyholder’s identity number.</span></div>
                 <div class="form-row">
                     <div class="form-group col-md-12">
                         <label for=" ">Enter Policyholder’s Identity Number<span class="error-text">*</span></label>

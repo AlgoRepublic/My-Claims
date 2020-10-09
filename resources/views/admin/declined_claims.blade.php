@@ -22,7 +22,7 @@
             <tr>
                 <th>#</th>
                 <th>Beneficiary Identity Proof</th>
-                <th>Policy Holder Death Proof</th>
+                <th>Policyholder Death Proof</th>
                 <th>Email Preference</th>
                 <th>Claim Date</th>
                 <th>Declined Date</th>

@@ -1,7 +1,7 @@
 @extends('admin.app')
-@section('title', 'Policy Holders')
+@section('title', 'Policyholders')
 @section('maincontent')
-<h2>Policy Holders List</h2>
+<h2>Policyholders List</h2>
 <div class="card">
     <div class="card-header row">
         <div class="col col-sm-3">
@@ -21,8 +21,8 @@
             <thead>
             <tr>
                 <th>#</th>
-                <th>Policy Holder Name</th>
-                <th>Policy Holder Surname</th>
+                <th>Policyholder Name</th>
+                <th>Policyholder Surname</th>
                 <th>Email</th>
                 <th>Cell Number</th>
                 <th>IDN</th>

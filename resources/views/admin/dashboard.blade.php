@@ -8,14 +8,14 @@
                 <div class="widget-body">
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="state">
-                            <h6>Policy Holders</h6>
+                            <h6>Policyholders</h6>
                             <h2>{{ $policyHolderCount }}</h2>
                         </div>
                         <div class="icon">
                             <i class="ik ik-award"></i>
                         </div>
                     </div>
-                    <small class="text-small mt-10 d-block">Total Policy Holders</small>
+                    <small class="text-small mt-10 d-block">Total Policyholders</small>
                 </div>
                 <div class="progress progress-sm">
                     <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="62" aria-valuemin="0" aria-valuemax="100" style="width: 62%;"></div>

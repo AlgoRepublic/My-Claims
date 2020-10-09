@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Policy Holder Edit | Show My Claims</title>
+    <title>Policyholder Edit | Show My Claims</title>
     <meta name="description" content="">
     <meta name="keywords" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -22,7 +22,7 @@
 <div class="container">
     <div class="custom_form_section">
         <div class="custom_page_heading">
-            <h4>Policy Holder - Edit Profile</h4>
+            <h4>Policyholder - Edit Profile</h4>
         </div>
         @error('error')
         <div class="alert alert-danger" role="alert">
