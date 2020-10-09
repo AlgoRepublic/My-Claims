@@ -22,7 +22,8 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for=" ">Beneficiary South African Identity Document Number<span class="text-danger"><b>*</b></span></label>
-                            <input type="text" pattern="\d*" maxlength="13" minlength="13" title="Only dgits are allowed | Length should be 13." class="form-control" name="bene_document_number" placeholder="Enter Document Number" required="">
+                            <input type="text" id="user-idn" data-type="identity_document_number" data-source="beneficiary" pattern="\d*" maxlength="13" minlength="13" title="Only dgits are allowed | Length should be 13." class="form-control" name="bene_document_number" placeholder="Enter Document Number" required="">
+                            <span id="reg-idn-error"></span>
                         </div>
                         <div class="form-group col-md-6">
                             <label for=" ">Beneficiary Cell Phone Number<span class="text-danger"><b>*</b></span></label>

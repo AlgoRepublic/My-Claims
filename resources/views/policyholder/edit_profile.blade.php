@@ -51,7 +51,7 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for=" ">Cell Number<span class="error-text">*</span></label>
-                    <input type="text" pattern="\d*" maxlength="10" minlength="10" title="10 digits minimum" class="form-control" id="reg-contact-no" value="{{ old('mobile', $userData->mobile) }}" placeholder="0123456789" name="mobile" required>
+                    <input type="text" data-type="mobile" pattern="\d*" maxlength="10" minlength="10" title="10 digits minimum" class="form-control" id="reg-contact-no" value="{{ old('mobile', $userData->mobile) }}" placeholder="0123456789" name="mobile" required>
                     <span id="reg-contact-error"></span>
                 </div>
                 <div class="form-group col-md-6">
@@ -60,7 +60,8 @@
                 </div>
                 <div class="form-group col-md-6">
                     <label for=" ">South African Identity Document Number<span class="error-text">*</span></label>
-                    <input type="text" pattern="\d*" maxlength="13" minlength="13" title="Only dgits are allowed | Length should be 13." class="form-control" value="{{ old('identity_document_number', $userData->identity_document_number) }}" placeholder="123456789" name="identity_document_number" required>
+                    <input type="text" id="user-idn" data-type="identity_document_number" pattern="\d*" maxlength="13" minlength="13" title="Only dgits are allowed | Length should be 13." class="form-control" value="{{ old('identity_document_number', $userData->identity_document_number) }}" placeholder="123456789" name="identity_document_number" required>
+                    <span id="reg-idn-error"></span>
                 </div>
                 <div class="form-group col-md-6">
                     <label for=" ">Old Password<span class="error-text">*</span></label>

@@ -25,9 +25,11 @@ $(document).ready(function() {
     });
 
     // Check user cell number uniqueness
-    $(document).on('keyup','#reg-contact-no',function(){
+    $(document).on('keyup',"#reg-contact-no, #user-idn",function(){
 
         var cellNumber = $(this).val();
+        var type = $(this).data('type');
+
         var csrf = $("input[name='_token']").val();
         // Composer url for ajax request
         var hostName = $(location).attr('hostname');
@@ -36,30 +38,43 @@ $(document).ready(function() {
         } else {
             var url = $(location).attr('protocol')+'//'+ hostName +'/home/checkUser';
         }
-        //var thisRef = $(this);
+        var msgSelector = '';
+        if(type === 'mobile') {
+            msgSelector = "#reg-contact-error";
+            fieldSelector = "#reg-contact-no";
+        }
+        else if(type === 'identity_document_number') {
+            msgSelector = "#reg-idn-error";
+            fieldSelector = "#user-idn";
+        }
+
+        var ben = 0;
+        if($(this).data('source') == 'beneficiary')
+            ben = 1;
+
         // Send ajax request to check email
         $.ajax({
             method : 'POST',
             url : '/policyHolder/checkCell/',
-            data : {cell_number : cellNumber, _token : csrf},
+            data : {col_value : cellNumber, _token : csrf, type: type, ben: ben},
             dataType : 'JSON',
             success : function (result){
                 if(result == ''){
                     return FALSE;
                 }
                 if(result.status == 'error') {
-                    $("#reg-contact-no").css('border', "2px solid red");
-                    $("#reg-contact-error").html(result.msg); // Show error msg
-                    $("#reg-contact-error").css('color', "red");
+                    $(fieldSelector).css('border', "2px solid red");
+                    $(msgSelector).html(result.msg); // Show error msg
+                    $(msgSelector).css('color', "red");
 
                     $("#reg-sub-btn").attr('disabled', true); // Disable Submit button
                     $("#reg-sub-btn").css('cursor', 'not-allowed');
                 } else {
-                    $("#reg-contact-no").css('border', "2px solid green");
-                    $("#reg-contact-error").html(''); // Show error msg
-                    $("#reg-contact-error").css('color', "red");
+                    $(fieldSelector).css('border', "2px solid green");
+                    $(msgSelector).html(''); // Show error msg
+                    $(msgSelector).css('color', "red");
 
-                    if($("#reg-pass-error").text().length == 0) {
+                    if($("#reg-pass-error").text().length == 0 && $("#reg-contact-error").text().length == 0 && $("#reg-idn-error").text().length == 0) {
                         $("#reg-sub-btn").attr('disabled', false); // Disable Submit button
                         $("#reg-sub-btn").css('cursor', 'pointer');
                     }
@@ -90,7 +105,7 @@ $(document).ready(function() {
             $("#reg-pass-error").html(''); // Show error msg
             $("#reg-pass-error").css('color', "green");
 
-            if($("#reg-contact-error").text().length == 0) {
+            if($("#reg-contact-error").text().length == 0 && $("#reg-idn-error").text().length == 0) {
                 $("#reg-sub-btn").attr('disabled', false); // Disable Submit button
                 $("#reg-sub-btn").css('cursor', 'pointer');
             }

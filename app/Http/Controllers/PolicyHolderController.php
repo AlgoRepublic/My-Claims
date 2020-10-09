@@ -114,16 +114,20 @@ class PolicyHolderController extends Controller
     public function checkCell(Request $request)
     {
         $postData = $request->input();
-        if(empty($postData) || empty($postData['cell_number'])) {
-            print_r(json_encode(array('status' => 'error', 'msg' => 'Invalid request!')));
+        if(empty($postData) || empty($postData['type']) || empty($postData['col_value'])) {
+            print_r(json_encode(array('status' => 'error', 'msg' => 'Required!')));
             die;
         }
 
-        $user = User::where('mobile', $postData['cell_number'])->get();
-        if(count($user) > 0)
-            print_r(json_encode(array('status' => 'error', 'msg' => 'User with this cell number already exists!')));
+        $ben = array();
+        $user = User::where($postData['type'], $postData['col_value'])->get();
+        if(!empty($postData['ben']))
+            $ben = Beneficiaries::where($postData['type'], $postData['col_value'])->get();
+
+        if(count($user) > 0 || count($ben) > 0 )
+            print_r(json_encode(array('status' => 'error', 'msg' => 'User with this number already exists!')));
         else
-            print_r(json_encode(array('status' => 'success', 'msg' => 'Cell Number Verified!')));
+            print_r(json_encode(array('status' => 'success', 'msg' => 'Verified!')));
         die;
     }
 
