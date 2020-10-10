@@ -29,10 +29,9 @@
                 <hr>
                 <h3 class="text-center">Payfast Payment</h3>
                 <br>
-                @if(Session::has('message'))
-                    <div class="alert {{ Session::get('alert-class', 'alert-info') }} alert-dismissible">
-                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                        {{ Session::get('message') }}
+                @if(!empty($msg))
+                    <div class="alert alert-warning alert-dismissible">
+                        {{ $msg }}
                     </div>
                 @endif
                 @error('error')

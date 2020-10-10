@@ -53,9 +53,12 @@ class PolicyHolderController extends Controller
         }
 
         // Now check if user payment has been made
-        if(empty($user->payment)) {
-            $errors = array('error' => "Oops, your subscription has been expired!");
-            return redirect()->back()->withInput()->withErrors($errors);
+        if(empty($user->payment)) { // Take user to the payment page for missed payment
+
+            $package = PaymentPackages::find($user['package_id']);
+            $htmlForm = $this->payfastPayment($package['amount'], $user['name'], $user['surname'], $user['mobile'], 'Show My Claims', $package['frequency'], $user['id'], $package['id'], $package['period']);
+            $msg = "Your payment is missing. Keep in mind that beneficiaries will not be able to any documents if your subscription has not been paid.";
+            return view('policyholder.payfast_pay')->with(['htmlForm' => $htmlForm, 'msg' => $msg]);
         }
 
         if(strtotime(date('Y-m-d')) > strtotime($user->payment->expiration_date)) {
@@ -97,7 +100,8 @@ class PolicyHolderController extends Controller
             'role_id' => 2,
             'password' => md5($postData['password']),
             'identity_document_number' => $postData['identity_document_number'],
-            'payment_verified' => 0
+            'payment_verified' => 0,
+            'package_id' => $package['id']
         );
 
         $user = User::create($data);
@@ -105,10 +109,6 @@ class PolicyHolderController extends Controller
 
         $htmlForm = $this->payfastPayment($package['amount'], $postData['name'], $postData['surname'], $postData['mobile'], 'Show My Claims', $package['frequency'], $user->id, $package['id'], $package['period']);
         return view('policyholder.payfast_pay')->with(['htmlForm' => $htmlForm]);
-
-        Session::flash('message', 'User registered successfully!');
-        Session::flash('alert-class', 'alert-success');
-        return redirect('policyHolder/login');
     }
 
     public function checkCell(Request $request)
@@ -519,7 +519,7 @@ class PolicyHolderController extends Controller
             // Buyer details
             'name_first' => $name,
             'name_last'  => $surname,
-            'cell_number'=> $cellNumber,
+            //'cell_number'=> $cellNumber,
             // Transaction details
             'm_payment_id' => rand(100,1000), //Unique payment ID to pass through to notify_url
             'amount' => number_format( sprintf( '%.2f', $cartTotal ), 2, '.', '' ),
