@@ -24,7 +24,7 @@ $(document).ready(function() {
         }
     });
 
-    // Check user cell number uniqueness
+    // Check user/beneficiary cell number & IDN uniqueness
     $(document).on('keyup',"#reg-contact-no, #user-idn",function(){
 
         var cellNumber = $(this).val();

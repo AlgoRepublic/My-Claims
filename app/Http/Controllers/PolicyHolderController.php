@@ -119,10 +119,11 @@ class PolicyHolderController extends Controller
             die;
         }
 
+        $benCol = ($postData['type'] == 'mobile') ? 'cell_number' : $postData['type'];
         $ben = array();
         $user = User::where($postData['type'], $postData['col_value'])->get();
         if(!empty($postData['ben']))
-            $ben = Beneficiaries::where($postData['type'], $postData['col_value'])->get();
+            $ben = Beneficiaries::where($benCol, $postData['col_value'])->get();
 
         if(count($user) > 0 || count($ben) > 0 )
             print_r(json_encode(array('status' => 'error', 'msg' => 'User with this number already exists!')));
