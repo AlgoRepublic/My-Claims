@@ -53,12 +53,12 @@ class PolicyHolderController extends Controller
         }
 
         if($user->archived) {
-            $errors = array('error' => "Oops, seems like your profile was inactivated by admin. For any confusion please contact us.");
+            $errors = array('error' => "Oops, seems like your profile was de-activated by admin. For any confusion please contact us.");
             return redirect()->back()->withInput()->withErrors($errors);
         }
 
         // Now check if user payment has been made
-        if(empty($user->payment)) { // Take user to the payment page for missed payment
+        if(empty($user->payment) || strtotime(date('Y-m-d')) > strtotime($user->payment->expiration_date)) { // Take user to the payment page for missed payment
 
             $package = PaymentPackages::find($user['package_id']);
             $htmlForm = $this->payfastPayment($package['amount'], $user['name'], $user['surname'], $user['mobile'], 'Show My Claims', $package['frequency'], $user['id'], $package['id'], $package['period']);
@@ -66,10 +66,10 @@ class PolicyHolderController extends Controller
             return view('policyholder.payfast_pay')->with(['htmlForm' => $htmlForm, 'msg' => $msg]);
         }
 
-        if(strtotime(date('Y-m-d')) > strtotime($user->payment->expiration_date)) {
+        /*if(strtotime(date('Y-m-d')) > strtotime($user->payment->expiration_date)) {
             $errors = array('error' => "Oops, your subscription has been expired!");
             return redirect()->back()->withInput()->withErrors($errors);
-        }
+        }*/
 
         // Authenticate user here
         Auth::login($user);
