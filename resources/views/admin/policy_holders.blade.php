@@ -27,7 +27,7 @@
                 <th>Cell Number</th>
                 <th>IDN</th>
                 <th>Creation Date</th>
-                <th>Action</th>
+                <th>Actions</th>
             </tr>
             </thead>
             <tbody>
@@ -40,8 +40,12 @@
                     <td>{{ $policyHolder->mobile }}</td>
                     <td>{{ $policyHolder->identity_document_number }}</td>
                     <td>{{ date('Y-m-d', strtotime($policyHolder->created_at)) }}</td>
-                    <td>
-                        <a href="{{ route('policyHoldersDetail', ['id' => $policyHolder->id]) }}" class="btn btn-info">View Details</a>
+                    <td class="d-inline-flex">
+                        <a href="{{ route('policyHoldersDetail', ['id' => $policyHolder->id]) }}" class="btn btn-xs btn-info">View Details</a>
+                        &nbsp;&nbsp;
+                        <a href="{{ route('policyHoldersEdit', ['id' => $policyHolder->id]) }}" class="btn btn-xs btn-primary">Edit</a>
+                        &nbsp;&nbsp;
+                        <a onclick="return confirm('Are you sure you want to delete this policyholder?')" href="{{ route('deletePolicyHolder',['id' => $policyHolder->id]) }}" class="btn btn-xs btn-danger">Delete</a>
                     </td>
                 </tr>
             @endforeach

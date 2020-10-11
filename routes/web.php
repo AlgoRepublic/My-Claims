@@ -22,6 +22,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
     Route::get('/', 'AdminController@index');
     Route::get('/policyHolders', 'AdminController@policyHolder');
     Route::get('/policyHolders', 'AdminController@policyHolder')->name('policyHoldersDetail');
+    Route::get('/edit-policyHolder', 'AdminController@editPolicyHolder')->name('policyHoldersEdit');
     Route::get('/beneficiaries', 'AdminController@beneficiaries');
     Route::get('/pending-claims', 'AdminController@pendingClaims');
     Route::get('/approved-claims', 'AdminController@approvedClaims');
@@ -32,6 +33,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
     Route::post('/what-we-do', 'AdminController@updateWhatWeDo');
     Route::get('/blogs', 'AdminController@blogs')->name('blogs');
     Route::get('/logout', 'AdminController@logout');
+    Route::get('/delete-policyholder', 'AdminController@deletePolicyHolder')->name('deletePolicyHolder');
     Route::get('/add-blog', function() {
         return view('admin.add_blog');
     });
@@ -44,7 +46,6 @@ Route::group(['prefix' => 'policyHolder', 'middleware' => 'policyholder'], funct
     Route::get('/', 'PolicyHolderController@index');
     Route::get('/addPolicy', 'PolicyHolderController@addPolicyView');
     Route::post('/addPolicy', 'PolicyHolderController@addPolicy');
-    Route::post('/edit', 'PolicyHolderController@editProfile');
     Route::get('/edit', function() {
         return view('policyholder.edit_profile', ['userData' => \Illuminate\Support\Facades\Auth::user(),'packages' => \App\PaymentPackages::orderBy('amount','ASC')->get()]);
     });
@@ -53,6 +54,7 @@ Route::group(['prefix' => 'policyHolder', 'middleware' => 'policyholder'], funct
 /*Route::group(['prefix' => 'beneficiary', 'middleware' => 'beneficiary'], function() {
     Route::get('/', 'BeneficiaryController@index');
 });*/
+Route::post('policyHolder/edit', 'PolicyHolderController@editProfile');
 
 Route::get('/admin/login', function() {
     return view('admin.login');

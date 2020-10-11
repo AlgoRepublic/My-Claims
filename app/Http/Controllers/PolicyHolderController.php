@@ -52,6 +52,11 @@ class PolicyHolderController extends Controller
             return redirect()->back()->withInput()->withErrors($errors);
         }
 
+        if($user->archived) {
+            $errors = array('error' => "Oops, seems like your profile was inactivated by admin. For any confusion please contact us.");
+            return redirect()->back()->withInput()->withErrors($errors);
+        }
+
         // Now check if user payment has been made
         if(empty($user->payment)) { // Take user to the payment page for missed payment
 
@@ -207,11 +212,16 @@ class PolicyHolderController extends Controller
         $postData = $request->input();
         $userData = Auth::user();
 
+        $isAdmin = (!empty($postData['source']) && $postData['source'] == 'admin') ? true : false;
+
         // First of all check if the provided password matches or not
-        if(empty($postData['old_password'])) {
-            $errors = array('error' => "Please provide password!");
-            return redirect()->back()->withInput()->withErrors($errors);
+        if(!$isAdmin) {
+            if(empty($postData['old_password'])) {
+                $errors = array('error' => "Please provide password!");
+                return redirect()->back()->withInput()->withErrors($errors);
+            }
         }
+
         if(empty($postData['id'])) {
             $errors = array('error' => "Oops, incomplete information provided!");
             return redirect()->back()->withInput()->withErrors($errors);
@@ -224,15 +234,17 @@ class PolicyHolderController extends Controller
             }
         }
 
-        $where = array(
-            'id' => $postData['id'],
-            'password' => md5($postData['old_password'])
-        );
+        if(!$isAdmin) {
+            $where = array(
+                'id' => $postData['id'],
+                'password' => md5($postData['old_password'])
+            );
 
-        $user = User::where($where)->first();
-        if(empty($user)) {
-            $errors = array('error' => "Oops, wrong password provided!");
-            return redirect()->back()->withInput()->withErrors($errors);
+            $user = User::where($where)->first();
+            if(empty($user)) {
+                $errors = array('error' => "Oops, wrong password provided!");
+                return redirect()->back()->withInput()->withErrors($errors);
+            }
         }
 
         $data = array(
@@ -247,6 +259,12 @@ class PolicyHolderController extends Controller
             $data['password'] = md5($postData['new_password']);
 
         $user = User::where('id',$postData['id'])->update($data);
+
+        if($isAdmin) { // Return from here
+            Session::flash('message', 'Policyholder has been updated successfully!');
+            Session::flash('alert-class', 'alert-success');
+            return redirect('admin/policyHolders');
+        }
 
         // Handle payment update(if any)
         if(!empty($postData['package']) && $postData['package'] != $userData->payment->package_id) {

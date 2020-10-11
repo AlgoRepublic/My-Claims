@@ -93,10 +93,9 @@ class AdminController extends Controller
             );
             return view('admin.policyholder_detail')->with($data);
         }
-        $policyHolders = User::with('roles')->whereHas('roles', function($q){
+        $policyHolders = User::with('roles')->where('archived', 0)->whereHas('roles', function($q){
             $q->where('role_name','=','policyholder');
         })->get();
-
         $data = array(
             'policyHolders' => $policyHolders
         );
@@ -211,6 +210,31 @@ class AdminController extends Controller
 
         $blogs = Blogs::orderBy('id', 'DESC')->get();
         return view('admin.blogs')->with(array('blogs' => $blogs));
+    }
+
+    public function editPolicyHolder(Request $request)
+    {
+        $user = User::find($request->id);
+        return view('admin.edit_policyholder', ['userData' => $user]);
+    }
+
+    public function deletePolicyHolder(Request $request)
+    {
+        if(empty($request->id)) {
+            Session::flash('message', 'Oops, invalid request!');
+            Session::flash('alert-class', 'alert-danger');
+            return redirect()->back();
+        }
+
+        $user = User::where('id', $request->id)->update(['archived' => 1]);
+        if($user) {
+            Session::flash('message', 'Policyholder deleted successfully!');
+            Session::flash('alert-class', 'alert-success');
+        } else {
+            Session::flash('message', 'Oops, something went wrong!');
+            Session::flash('alert-class', 'alert-danger');
+        }
+        return redirect()->back();
     }
 
     public function addBlog(Request $request)
