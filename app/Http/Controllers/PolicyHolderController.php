@@ -58,7 +58,7 @@ class PolicyHolderController extends Controller
         }
 
         // Now check if user payment has been made
-        if(empty($user->payment) || strtotime(date('Y-m-d')) > strtotime($user->payment->expiration_date)) { // Take user to the payment page for missed payment
+        if(empty($user->payment)) { // Take user to the payment page for missed payment
 
             $package = PaymentPackages::find($user['package_id']);
             $htmlForm = $this->payfastPayment($package['amount'], $user['name'], $user['surname'], $user['mobile'], 'Show My Claims', $package['frequency'], $user['id'], $package['id'], $package['period']);
@@ -66,10 +66,13 @@ class PolicyHolderController extends Controller
             return view('policyholder.payfast_pay')->with(['htmlForm' => $htmlForm, 'msg' => $msg]);
         }
 
-        /*if(strtotime(date('Y-m-d')) > strtotime($user->payment->expiration_date)) {
-            $errors = array('error' => "Oops, your subscription has been expired!");
-            return redirect()->back()->withInput()->withErrors($errors);
-        }*/
+        if(strtotime(date('Y-m-d')) > strtotime($user->payment->expiration_date)) {
+
+            $package = PaymentPackages::find($user['package_id']);
+            $htmlForm = $this->payfastPayment($package['amount'], $user['name'], $user['surname'], $user['mobile'], 'Show My Claims', $package['frequency'], $user['id'], $package['id'], $package['period']);
+            $msg = "Your payment is missing. Keep in mind that beneficiaries will not be able to any documents if your subscription has not been paid.";
+            return view('policyholder.payfast_pay')->with(['htmlForm' => $htmlForm, 'msg' => $msg]);
+        }
 
         // Authenticate user here
         Auth::login($user);
