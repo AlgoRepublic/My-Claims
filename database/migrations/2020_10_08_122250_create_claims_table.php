@@ -15,6 +15,7 @@ class CreateClaimsTable extends Migration
     {
         Schema::create('claims', function (Blueprint $table) {
             $table->id();
+            $table->string('policyholder_id');
             $table->string('beneficiary_identity');
             $table->string('policyholder_death_proof');
             $table->integer('is_approved')->default(0)->comment('0=no action,1 = approved ,2 = declined ');

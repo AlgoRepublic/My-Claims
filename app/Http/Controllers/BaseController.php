@@ -96,7 +96,8 @@ class BaseController extends Controller
         $data = array(
             'policy_type' => $policyType,
             'name' => $user->name .' '. $user->surname,
-            'policyholder_number' => $postData['policyholder_number']
+            'policyholder_number' => $postData['policyholder_number'],
+            'policyholderID' => $user->id
             //'beneficiary_number' => $postData['beneficiary_number'],
             //'ben_id' => $benID
         );
@@ -140,6 +141,7 @@ class BaseController extends Controller
         }*/
 
         $data = array(
+            'policyholder_id' => $postData['policyholder_id'],
             'beneficiary_identity' => $benDoc,
             'policyholder_death_proof' => $holderDoc,
             'email_preference' => $postData['email_preference'],
