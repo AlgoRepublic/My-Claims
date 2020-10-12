@@ -5,7 +5,7 @@
     <div class="container">
         <div class="custom_blog_section">
             <div class="custom_page_heading">
-                <h4>Blogs Details</h4>
+                <h4>Blog Details</h4>
             </div>
             <div class="row">
                 <div class="col-md-12">
