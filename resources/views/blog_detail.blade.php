@@ -12,7 +12,8 @@
                     <img src="{{ $blog['image'] }}" width="100%">
                 </div>
                 <div class="col-md-12">
-                    <h1>{{ $blog['title'] }}</h1>
+                    <br>
+                    <h1 class="text-center">{{ $blog['title'] }}</h1>
                     {!! $blog['content'] !!}
                 </div>
             </div>
