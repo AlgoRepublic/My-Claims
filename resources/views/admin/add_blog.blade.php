@@ -1,7 +1,7 @@
 @extends('admin.app')
 @section('title', 'Blog')
 @section('maincontent')
-<h2>Add Blog</h2>
+<h2>{{ !empty($blog->id)? 'Edit':'Add' }} Blog</h2>
 <div class="card">
     <div class="card-header row">
         <div class="col col-sm-3">
