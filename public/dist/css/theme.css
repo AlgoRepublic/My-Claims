@@ -2259,3 +2259,12 @@ hr { box-sizing: content-box; height: 0; margin-top: 1rem; border: 0; border-top
 .ck-editor__editable {
   min-height: 500px;
 }
+.custom_data_table_responsive{
+  overflow: auto;
+}
+
+@media all and (max-width: 1024px) and (min-width: 375px) {
+  .custom_data_table .custom_data_table_responsive{
+    overflow: auto;
+  }
+}
