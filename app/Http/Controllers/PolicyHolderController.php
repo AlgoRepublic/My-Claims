@@ -564,11 +564,10 @@ class PolicyHolderController extends Controller
             'custom_int2' => (int) $packageID,
             'custom_str1' => $period,
             //'payment_method' => 'eft',
-            'subscription_type' => 2
-            /*'subscription_type' => 1,
+            'subscription_type' => 1,
             'billing_date' => date('Y-m-d'),
             'frequency' => (int) $frequency,
-            'cycles' => 0*/
+            'cycles' => 0
         );
 
         $signature = $this->generateSignature($data, 'Testpassphrase123');
