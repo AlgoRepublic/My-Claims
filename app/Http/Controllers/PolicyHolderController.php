@@ -60,16 +60,15 @@ class PolicyHolderController extends Controller
         // Now check if user payment has been made
         if(empty($user->payment)) { // Take user to the payment page for missed payment
 
-            $package = PaymentPackages::find($user['package_id']);
+            $package = PaymentPackages::find($user->package_id);
             $htmlForm = $this->payfastPayment($package['amount'], $user['name'], $user['surname'], $user['mobile'], 'Show My Claims', $package['frequency'], $user['id'], $package['id'], $package['period']);
             $msg = "Your payment is missing. Keep in mind that beneficiaries will not be able to any documents if your subscription has not been paid.";
             return view('policyholder.payfast_pay')->with(['htmlForm' => $htmlForm, 'msg' => $msg]);
         }
 
         if(strtotime(date('Y-m-d')) > strtotime($user->payment->expiration_date)) {
-
-            $package = PaymentPackages::find($user['package_id']);
-            $htmlForm = $this->payfastPayment($package['amount'], $user['name'], $user['surname'], $user['mobile'], 'Show My Claims', $package['frequency'], $user['id'], $package['id'], $package['period']);
+            $package = PaymentPackages::find($user->package_id);
+            $htmlForm = $this->payfastPayment($package['amount'], $user['name'], $user['surname'], $user['mobile'], 'Show My Claims', $package['frequency'], $user['id'], $package['id'], $package['period'], 1);
             $msg = "Your payment is missing. Keep in mind that beneficiaries will not be able to any documents if your subscription has not been paid.";
             return view('policyholder.payfast_pay')->with(['htmlForm' => $htmlForm, 'msg' => $msg]);
         }
@@ -454,6 +453,12 @@ class PolicyHolderController extends Controller
 
         $userID = $content['custom_int1'];
         $packageID = $content['custom_int2'];
+        $newPayment = empty($content['custom_int3']) ? false : true;
+        if($newPayment) { // This is the case where a user prev subscription was expired, so we have to add a new one
+            // So in this case delete the old subscription first
+            User::where('id', $userID)->delete();
+        }
+
         //$nextPayAmount = !empty($content['custom_int3']) ? $content['custom_int3'] : $content['amount_gross'];
         //$newpackageAmount = !empty($content['custom_int4']) ? $content['custom_int4'] : null;
         $period = $content['custom_str1'];
@@ -525,7 +530,7 @@ class PolicyHolderController extends Controller
         return date("Y-m-d", strtotime($currentExpiry . '+' .$period));
     }
 
-    private function payfastPayment($cartTotal, $name, $surname,$cellNumber,$productName, $frequency, $userID, $packageID, $period)
+    private function payfastPayment($cartTotal, $name, $surname,$cellNumber,$productName, $frequency, $userID, $packageID, $period, $newPayment = 0)
     {
 
         $baseUrl = URL::to('/');
@@ -547,6 +552,7 @@ class PolicyHolderController extends Controller
             'item_name' => $productName,
             'custom_int1' => (int) $userID,
             'custom_int2' => (int) $packageID,
+            'custom_int3' => (int) $newPayment,
             'custom_str1' => $period,
             'payment_method' => 'eft',
             'subscription_type' => 1,
