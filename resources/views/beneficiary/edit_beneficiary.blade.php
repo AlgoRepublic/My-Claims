@@ -12,11 +12,11 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for=" ">Name<span class="text-danger"><b>*</b></span></label>
-                            <input type="text" pattern="[A-Za-z0-9]+" title="Only alphanumeric characters are allowed" class="form-control" name="bene_name" placeholder="Enter Name" value="{{ $beneficiary->name }}" required>
+                            <input type="text" pattern="[A-Za-z0-9\s]+" title="Only alphanumeric characters are allowed" class="form-control" name="bene_name" placeholder="Enter Name" value="{{ $beneficiary->name }}" required>
                         </div>
                         <div class="form-group col-md-6">
                             <label for=" ">Surname<span class="text-danger"><b>*</b></span></label>
-                            <input type="text" pattern="[A-Za-z0-9]+" title="Only alphanumeric characters are allowed" class="form-control" name="bene_surname" placeholder="Enter Surname" value="{{ $beneficiary->surname }}" required="">
+                            <input type="text" pattern="[A-Za-z0-9\s]+" title="Only alphanumeric characters are allowed" class="form-control" name="bene_surname" placeholder="Enter Surname" value="{{ $beneficiary->surname }}" required="">
                         </div>
                     </div>
                     <div class="form-row">

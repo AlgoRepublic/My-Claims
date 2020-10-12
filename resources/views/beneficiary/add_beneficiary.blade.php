@@ -12,11 +12,11 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for=" ">Beneficiary Name<span class="text-danger"><b>*</b></span></label>
-                            <input type="text" pattern="[A-Za-z0-9]+" title="Only alphanumeric characters are allowed" class="form-control" name="bene_name" placeholder="Enter Name" required="">
+                            <input type="text" pattern="[A-Za-z0-9\s]+" title="Only alphanumeric characters are allowed" class="form-control" name="bene_name" placeholder="Enter Name" required="">
                         </div>
                         <div class="form-group col-md-6">
                             <label for=" ">Beneficiary Surname<span class="text-danger"><b>*</b></span></label>
-                            <input type="text" pattern="[A-Za-z0-9]+" title="Only alphanumeric characters are allowed" class="form-control" name="bene_surname" placeholder="Enter Surname" required="">
+                            <input type="text" pattern="[A-Za-z0-9\s]+" title="Only alphanumeric characters are allowed" class="form-control" name="bene_surname" placeholder="Enter Surname" required="">
                         </div>
                     </div>
                     <div class="form-row">

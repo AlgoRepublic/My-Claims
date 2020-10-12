@@ -22,7 +22,7 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-12">
                                         <label for=" ">Name*</label>
-                                        <input type="text" pattern="[A-Za-z0-9]+" title="Only letters and numbers are allowed!" class="form-control" name="user_name" placeholder="John Deo" required>
+                                        <input type="text" pattern="[A-Za-z0-9\s]+" title="Only letters and numbers are allowed!" class="form-control" name="user_name" placeholder="John Deo" required>
                                     </div>
                                     <div class="form-group col-md-12">
                                         <label for=" ">Email*</label>

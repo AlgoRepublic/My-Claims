@@ -34,11 +34,11 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for=" ">Name<span class="error-text">*</span></label>
-                    <input type="text" class="form-control" pattern="[A-Za-z0-9]+" title="Only alphanumeric characters are allowed | No spaces are allowed." value="{{ old('name') }}" placeholder="John Deo" name="name" required>
+                    <input type="text" class="form-control" pattern="[A-Za-z0-9\s]+" title="Only alphanumeric characters are allowed." value="{{ old('name') }}" placeholder="John Deo" name="name" required>
                 </div>
                 <div class="form-group col-md-6">
                     <label for=" ">Surname<span class="error-text">*</span></label>
-                    <input type="text" class="form-control" pattern="[A-Za-z0-9]+" title="Only alphanumeric characters are allowed | No spaces are allowed." value="{{ old('surname') }}" placeholder="Deo Smith" name="surname" required>
+                    <input type="text" class="form-control" pattern="[A-Za-z0-9\s]+" title="Only alphanumeric characters are allowed." value="{{ old('surname') }}" placeholder="Deo Smith" name="surname" required>
                 </div>
             </div>
             <div class="form-row">
