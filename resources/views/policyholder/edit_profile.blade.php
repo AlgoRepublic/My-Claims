@@ -56,7 +56,7 @@
                 </div>
                 <div class="form-group col-md-6">
                     <label for=" ">Email</label>
-                    <input type="email" class="form-control" value="{{ old('email') }}" placeholder="john_deo@xyz.com" name="email">
+                    <input type="email" class="form-control" value="{{ old('email', $userData->email) }}" placeholder="john_deo@xyz.com" name="email">
                 </div>
                 <div class="form-group col-md-6">
                     <label for=" ">South African Identity Document Number<span class="error-text">*</span></label>
