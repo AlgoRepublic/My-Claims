@@ -13,7 +13,7 @@
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for=" ">Document Name<span class="text-danger"><b>*</b></span></label>
-                        <input type="text" class="form-control" name="doc_name" placeholder="Name" required>
+                        <input type="text" class="form-control" name="doc_name" placeholder="Enter Document Name" required>
                     </div>
                     <div class="form-group col-md-6">
                         <label>Select Policy Type<span class="text-danger"><b>*</b></span></label>
