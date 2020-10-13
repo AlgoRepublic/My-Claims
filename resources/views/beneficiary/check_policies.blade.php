@@ -68,7 +68,7 @@
                 <div class="form-row justify-content-center">
                     <div class="form-group">
                         <a class="btn btn-lg custom_btn_delete" href="{{ url('/beneficiary/') }}">Back</a>
-                        <input type="submit" class="btn custom_btn_form">
+                        <input type="submit" class="btn custom_btn_form" value="Send">
                     </div>
                 </div>
 

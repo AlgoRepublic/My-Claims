@@ -720,6 +720,7 @@ ul.social-buttons li a:active, ul.social-buttons li a:focus, ul.social-buttons l
   }
   .custom-nav-log{
     margin-bottom: 20px;}
+  .custom-resp-btn{width:100%}
 }
 @media only screen and (min-width: 600px) {
   .custom-nav-log{margin: 10px 5px;}

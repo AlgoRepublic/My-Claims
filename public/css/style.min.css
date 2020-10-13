@@ -629,6 +629,7 @@ span.custom_card_bottom_text a:hover{
 		/* background-color: #fff; */
 	}
 	.custom-nav-log{margin-bottom: 20px;}
+	.custom-resp-btn{width:100%}
 }
 @media only screen and (min-width: 600px) {
 	.custom-nav-log{margin: 10px 5px;}

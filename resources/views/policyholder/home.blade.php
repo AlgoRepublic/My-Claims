@@ -44,7 +44,8 @@
                             <div class="form-row">
                                 <div class="form-group col-md-12">
                                     <div class="custom_btn_row text-right">
-                                        <a href="{{ url('/beneficiary/add') }}" class="custom_btn_add btn btn-sm">Add Beneficiary</a>
+                                        <br>
+                                        <a href="{{ url('/beneficiary/add') }}" class="custom_btn_add btn btn-sm custom-resp-btn">Add Beneficiary</a>
                                     </div>
                                 </div>
                             </div>
@@ -97,7 +98,8 @@
                             <div class="form-row">
                                 <div class="form-group col-md-12">
                                     <div class="custom_btn_row text-right">
-                                        <a href="{{ url('/policyHolder/addPolicy') }}" class="custom_btn_add btn btn-sm">Add Policy</a>
+                                        <br>
+                                        <a href="{{ url('/policyHolder/addPolicy') }}" class="custom_btn_add btn btn-sm custom-resp-btn">Add Policy</a>
                                     </div>
                                 </div>
                             </div>
