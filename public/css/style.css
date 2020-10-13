@@ -76,7 +76,7 @@ h6 {
 img::-moz-selection {
   background: transparent;
 }
-
+.blog-cover{object-fit: cover;}
 img::selection {
   background: transparent;
 }

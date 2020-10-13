@@ -472,7 +472,7 @@ span.custom_forgot_password a{
   width: 40%;
   margin:0px 10px;
 }*/
-
+.blog-cover{object-fit: cover;}
 .custom_login_section h3{
   color: #fe3636;
   font-size: 20px;

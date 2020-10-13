@@ -10,7 +10,7 @@
             <div class="card-deck">
                 @foreach($blogs as $blog)
                     <div class="card">
-                        <img src="{{ $blog->image }}" width="100%" height="150px">
+                        <img class="blog-cover" src="{{ $blog->image }}" width="100%" height="150px">
                         <div class="card-body">
                             <h5 class="card-title">{{ $blog->title }}</h5>
                             <p class="card-text">
