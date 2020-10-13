@@ -29,6 +29,7 @@ $(document).ready(function() {
 
         var cellNumber = $(this).val();
         var type = $(this).data('type');
+        var original = $(this).data('original');
 
         var csrf = $("input[name='_token']").val();
         // Composer url for ajax request
@@ -46,6 +47,18 @@ $(document).ready(function() {
         else if(type === 'identity_document_number') {
             msgSelector = "#reg-idn-error";
             fieldSelector = "#user-idn";
+        }
+
+        if(original != null) { // Edit case; return from here if new value is equal to previous value
+            $(fieldSelector).css('border', "2px solid green");
+            $(msgSelector).html(''); // Show error msg
+            $(msgSelector).css('color', "red");
+
+            if($("#reg-pass-error").text().length == 0 && $("#reg-contact-error").text().length == 0 && $("#reg-idn-error").text().length == 0) {
+                $("#reg-sub-btn").attr('disabled', false); // Disable Submit button
+                $("#reg-sub-btn").css('cursor', 'pointer');
+            }
+            return;
         }
 
         var ben = 0;
