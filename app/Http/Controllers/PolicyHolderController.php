@@ -463,6 +463,9 @@ class PolicyHolderController extends Controller
 
         $userID = $content['custom_int1'];
         $packageID = $content['custom_int2'];
+        $paymentMethod = (empty($content['billing_date']) && empty($content['token'])) ? 'eft' : 'cc';
+        $userToken = empty($content['token']) ? 0 : $content['token']; // Token would be empty in case of eft payments
+
         /*$newPayment = empty($content['custom_int3']) ? false : true;
         if($newPayment) { // This is the case where a user prev subscription was expired, so we have to add a new one
             // So in this case delete the old subscription first
@@ -489,7 +492,8 @@ class PolicyHolderController extends Controller
             'amount_fee' => $content['amount_fee'],
             'amount_net' => $content['amount_net'],
             'merchant_id' => $content['merchant_id'],
-            'token' => $content['token'],
+            'token' => $userToken,
+            'payment_method' => $paymentMethod,
             'billing_date' => $billingDate,
             'created_at' => date("Y-m-d H:i:s")
         );
@@ -521,13 +525,14 @@ class PolicyHolderController extends Controller
         $fileTxt .= $lineBreak;
 
         if($userExists) {
-            UserPayment::where(['user_id' => $userID])->update(['expiration_date' => $newExpirationDate, 'updated_at' => date('Y-m-d')]);
+            UserPayment::where(['user_id' => $userID])->update(['expiration_date' => $newExpirationDate, 'payment_method' => $paymentMethod,'updated_at' => date('Y-m-d')]);
         } else {
             $userPaymentData = array(
                 'user_id' => $userID,
                 'package_id' => $packageID,
                 'expiration_date' => $newExpirationDate,
-                'token' => $content['token']
+                'token' => $userToken,
+                'payment_method' => $paymentMethod
             );
             UserPayment::create($userPaymentData);
         }

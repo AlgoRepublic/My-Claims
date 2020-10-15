@@ -27,6 +27,7 @@ class CreatePaymentDetailsTable extends Migration
             $table->integer('merchant_id');
             $table->string('token');
             $table->string('billing_date');
+            $table->string('payment_method')->nullable();
             $table->timestamps();
         });
     }
