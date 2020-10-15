@@ -124,7 +124,7 @@ class PolicyHolderController extends Controller
         $user = User::create($data);
         $user->save();
 
-        $htmlForm = $this->payfastPayment($package['amount'], $postData['name'], $postData['surname'], $postData['mobile'], 'Show My Claims', $package['frequency'], $user->id, $package['id'], $package['period']);
+        $htmlForm = $this->payfastPayment($package['amount'], $postData['name'], $postData['surname'], $postData['mobile'], 'Show My Claims', $package['frequency'], $user->id, $package['id'], $package['period'], $postData['payment_method']);
         return view('policyholder.payfast_pay')->with(['htmlForm' => $htmlForm]);
     }
 
@@ -540,17 +540,17 @@ class PolicyHolderController extends Controller
         return date("Y-m-d", strtotime($currentExpiry . '+' .$period));
     }
 
-    private function payfastPayment($cartTotal, $name, $surname,$cellNumber,$productName, $frequency, $userID, $packageID, $period)
+    private function payfastPayment($cartTotal, $name, $surname,$cellNumber,$productName, $frequency, $userID, $packageID, $period, $paymentMethod)
     {
 
         $baseUrl = URL::to('/');
         //$cartTotal = 10.00;// This amount needs to be sourced from your application
         $data = array(
             // Merchant details
-            'merchant_id' => '16311179',
-            'merchant_key' => 'moxa3jyzm5ubx',
-            //'merchant_id' => '10012141', // test
-            //'merchant_key' => '7goueleoh3b0m', // test
+            //'merchant_id' => '16311179',
+            //'merchant_key' => 'moxa3jyzm5ubx',
+            'merchant_id' => '10012141', // test
+            'merchant_key' => '7goueleoh3b0m', // test
             'return_url' => $baseUrl . '/payfast-success',
             'cancel_url' => $baseUrl . '/payfast-cancel',
             'notify_url' => $baseUrl . '/payfast-notify',
@@ -564,20 +564,29 @@ class PolicyHolderController extends Controller
             'item_name' => $productName,
             'custom_int1' => (int) $userID,
             'custom_int2' => (int) $packageID,
-            'custom_str1' => $period,
-            //'payment_method' => 'eft',
-            'subscription_type' => 1,
+            'custom_str1' => $period
+            //'' => 'eft'
+            /*'subscription_type' => 1,
             'billing_date' => date('Y-m-d'),
             'frequency' => (int) $frequency,
-            'cycles' => 0
+            'cycles' => 0*/
         );
 
-        //$signature = $this->generateSignature($data, 'Testpassphrase123');
-        $signature = $this->generateSignature($data);
+        if($paymentMethod == 'eft') {
+            $data['payment_method'] = 'eft';
+        }else {
+            $data['subscription_type'] = 1;
+            $data['billing_date'] = date('Y-m-d');
+            $data['frequency'] = (int) $frequency;
+            $data['cycles'] = 0;
+        }
+
+        $signature = $this->generateSignature($data, 'Testpassphrase123');
+        //$signature = $this->generateSignature($data);
         $data['signature'] = $signature;
 
         // If in testing mode make use of either sandbox.payfast.co.za or www.payfast.co.za
-        $testingMode = false;
+        $testingMode = true;
         $pfHost = $testingMode ? 'sandbox.payfast.co.za' : 'www.payfast.co.za';
         $htmlForm = '<form id="myForm" action="https://'.$pfHost.'/eng/process" method="post">';
         foreach($data as $name=> $value)

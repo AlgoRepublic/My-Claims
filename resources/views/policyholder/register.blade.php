@@ -71,6 +71,16 @@
                     <input type="text" id="user-idn" data-type="identity_document_number" pattern="\d*" maxlength="13" minlength="13" title="Only dgits are allowed | Length should be 13." class="form-control" value="{{ old('identity_document_number') }}" placeholder="0123456789000" name="identity_document_number" required>
                     <span id="reg-idn-error"></span>
                 </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label>Billing Type<span class="error-text">*</span></label>
+                    <select class="form-control" name="payment_method" required>
+                        <option value="">-Select Type-</option>
+                        <option value="eft">EFT</option>
+                        <option value="cc">Credit Card</option>
+                    </select>
+                </div>
                 <div class="form-group col-md-6">
                     <label>Billing method<span class="error-text">*</span></label>
                     <select class="form-control" name="package" required>
