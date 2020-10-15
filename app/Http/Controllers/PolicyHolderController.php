@@ -565,7 +565,7 @@ class PolicyHolderController extends Controller
             'custom_int1' => (int) $userID,
             'custom_int2' => (int) $packageID,
             'custom_str1' => $period,
-            'payment_method' => 'eft',
+            //'payment_method' => 'eft',
             'subscription_type' => 1,
             'billing_date' => date('Y-m-d'),
             'frequency' => (int) $frequency,
