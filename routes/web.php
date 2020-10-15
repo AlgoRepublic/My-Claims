@@ -81,6 +81,7 @@ Route::get('/beneficiary/add', function(){
 });
 Route::post('/beneficiary/add', 'BaseController@addBeneficiary');
 
+Route::post('/policyHolder/complete-registration', 'PolicyHolderController@completeRegistration');
 Route::post('/policyHolder/login', 'PolicyHolderController@login');
 Route::get('/logout', 'BaseController@logout');
 Route::get('/what-we-do', 'BaseController@whatWeDo');

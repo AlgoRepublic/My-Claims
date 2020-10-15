@@ -60,10 +60,9 @@ class PolicyHolderController extends Controller
         // Now check if user payment has been made
         if(empty($user->payment)) { // Take user to the payment page for missed payment
 
-            $package = PaymentPackages::find($user->package_id);
-            $htmlForm = $this->payfastPayment($package['amount'], $user['name'], $user['surname'], $user['mobile'], 'Show My Claims', $package['frequency'], $user['id'], $package['id'], $package['period']);
             $msg = "Your payment is missing. Keep in mind that beneficiaries will not be able to any documents if your subscription has not been paid.";
-            return view('policyholder.payfast_pay')->with(['htmlForm' => $htmlForm, 'msg' => $msg]);
+            $packages = PaymentPackages::orderBy('amount','ASC')->get();
+            return view('policyholder.update_payment')->with(['packages' => $packages, 'msg' => $msg, 'user_id' => $user['id']]);
         }
 
         $expiryDate = date('Y-m-d', strtotime($user->payment->expiration_date. ' + 1 days'));
@@ -86,6 +85,28 @@ class PolicyHolderController extends Controller
         // Authenticate user here
         Auth::login($user);
         return redirect('/policyHolder');
+    }
+
+    public function completeRegistration(Request $request)
+    {
+        $postData = $request->input();
+        if(empty($postData['user_id'])) {
+            Session::flash('message', 'Oops, something went wrong!');
+            Session::flash('alert-class', 'alert-error');
+            return redirect('policyHolder/login');
+        }
+
+        $user = User::find($postData['user_id']);
+        if(empty($user)) {
+            Session::flash('message', 'Oops, something went wrong!');
+            Session::flash('alert-class', 'alert-error');
+            return redirect('policyHolder/login');
+        }
+
+        $package = PaymentPackages::find($postData['package']);
+        $htmlForm = $this->payfastPayment($package['amount'], $user['name'], $user['surname'], $user['mobile'], 'Show My Claims', $package['frequency'], $user['id'], $package['id'], $package['period'], $postData['payment_method']);
+        $msg = "Your payment is missing. Keep in mind that beneficiaries will not be able to any documents if your subscription has not been paid.";
+        return view('policyholder.payfast_pay')->with(['htmlForm' => $htmlForm, 'msg' => $msg]);
     }
 
     public function registerView()
@@ -545,7 +566,7 @@ class PolicyHolderController extends Controller
         return date("Y-m-d", strtotime($currentExpiry . '+' .$period));
     }
 
-    private function payfastPayment($cartTotal, $name, $surname,$cellNumber,$productName, $frequency, $userID, $packageID, $period, $paymentMethod)
+    private function payfastPayment($cartTotal, $name, $surname,$cellNumber,$productName, $frequency, $userID, $packageID, $period, $paymentMethod = "")
     {
 
         $baseUrl = URL::to('/');
