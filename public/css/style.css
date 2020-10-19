@@ -707,7 +707,14 @@ ul.social-buttons li a:active, ul.social-buttons li a:focus, ul.social-buttons l
   position: relative;
   z-index: 2;
 }
+.custom_social_link{
+  padding-bottom: 25px;
+}
 
+.custom_social_link ul li{
+  float: left;
+  margin: 3px;
+}
 
 @media only screen and (max-width: 600px) {
   .custom_login_section {

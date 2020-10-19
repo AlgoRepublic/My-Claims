@@ -58,8 +58,6 @@
                         <ul>
                             <li><a href="https://www.linkedin.com/company/show-my-claims/" target="_blank"><i class="fa fa-2x fa-linkedin-square"></i></a></li>
                             <li><a href="https://web.facebook.com/showmycla" target="_blank"> <i class="fa fa-2x fa-facebook-square"></i></a></li>
-                            <li><a href="#"> <i class="fa fa-2x fa-twitter-square"></i></a></li>
-                            <li><a href="#"> <i class="fa fa-2x fa-google"></i></a></li>
                         </ul>
                     </div>
                 </div>
