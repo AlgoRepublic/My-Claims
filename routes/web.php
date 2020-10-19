@@ -39,6 +39,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
     });
     Route::post('/add-blog', 'AdminController@addBlog');
     Route::get('/delete-blog', 'AdminController@deleteBlog')->name('deleteBlog');
+    Route::get('/addPolicy', 'AdminController@addPolicyView')->name('addPolAdmin');
+    Route::post('/addPolicy', 'PolicyHolderController@addPolicy');
     //Route::get('/blogs', 'AdminController@blogs')->name('blogs');
 });
 

@@ -20,6 +20,7 @@ class CreatePoliciesTable extends Migration
             $table->string('document');
             $table->string('document_original_name');
             $table->integer('added_by');
+            $table->integer('added_by_type')->nullable();
             $table->timestamps();
         });
     }

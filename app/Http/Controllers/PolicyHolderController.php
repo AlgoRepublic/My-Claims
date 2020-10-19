@@ -92,14 +92,14 @@ class PolicyHolderController extends Controller
         $postData = $request->input();
         if(empty($postData['user_id'])) {
             Session::flash('message', 'Oops, something went wrong!');
-            Session::flash('alert-class', 'alert-error');
+            Session::flash('alert-class', 'alert-danger');
             return redirect('policyHolder/login');
         }
 
         $user = User::find($postData['user_id']);
         if(empty($user)) {
             Session::flash('message', 'Oops, something went wrong!');
-            Session::flash('alert-class', 'alert-error');
+            Session::flash('alert-class', 'alert-danger');
             return redirect('policyHolder/login');
         }
 
@@ -177,6 +177,22 @@ class PolicyHolderController extends Controller
         $beneficiaryData = $policyBen = array();
         $benIDs = array();
 
+        if(!empty($postData['source']) && $postData['source'] == 'admin') {
+            if(empty($postData['policyholder_id'])) {
+                Session::flash('message', 'Oops, something went wrong!');
+                Session::flash('alert-class', 'alert-danger');
+                return redirect('admin/addPolicy');
+            }
+            $addedBy = $postData['policyholder_id'];
+            $addedByType = 'admin';
+            $redirect = 'admin/policyHolders';
+        }
+        else {
+            $addedBy = Auth::user()->id;
+            $addedByType = 'policyholder';
+            $redirect = 'policyHolder/';
+        }
+
         if(!empty($_FILES['doc_file']['name']))
             $path = $request->file('doc_file')->store('public/policies');//$path = Storage::putFile('public/policies', $request->file('doc_file'));
 
@@ -199,7 +215,8 @@ class PolicyHolderController extends Controller
             'type' => $postData['policy_type'],
             'document' => $path,
             'document_original_name' => $_FILES['doc_file']['name'],
-            'added_by' => Auth::user()->id
+            'added_by' => $addedBy,
+            'added_by_type' => $addedByType
         );
 
         $newPolicy = Policies::create($data);
@@ -218,7 +235,7 @@ class PolicyHolderController extends Controller
 
         Session::flash('message', 'Policy added successfully!');
         Session::flash('alert-class', 'alert-success');
-        return redirect('policyHolder/');
+        return redirect($redirect);
     }
 
     public function addPolicyView()

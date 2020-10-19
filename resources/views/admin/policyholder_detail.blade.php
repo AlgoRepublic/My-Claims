@@ -74,7 +74,15 @@
                         </div>
                     </div>
                     <div class="tab-pane fade" id="pills-policy" role="tabpanel" aria-labelledby="pills-profile-tab">
-                        <div class="custom_form_heading text-center"><span class="custom-mid-head">Active Policies/Will</spancustom-mid-head></div>
+                        <div class="custom_form_heading text-center"><span class="custom-mid-head">Active Policies/Will</span></div>
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <div class="custom_btn_row text-right">
+                                    <br>
+                                    <a href="{{ route('addPolAdmin', ['id' => $policyHolderID]) }}" class="btn btn-info">Add Policy</a>
+                                </div>
+                            </div>
+                        </div>
                         <div class="container">
                             <div class="row">
                                 <div class="col-12">

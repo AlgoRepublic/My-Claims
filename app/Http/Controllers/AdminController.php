@@ -89,7 +89,8 @@ class AdminController extends Controller
                 'username' => $policyHolder['name'] . ' ' . $policyHolder['surname'],
                 'documentNumber' => $policyHolder['identity_document_number'],
                 'beneficiaries' => $beneficiaries,
-                'policies' => $policies
+                'policies' => $policies,
+                'policyHolderID' => $postData['id']
             );
             return view('admin.policyholder_detail')->with($data);
         }
@@ -210,6 +211,18 @@ class AdminController extends Controller
 
         $blogs = Blogs::orderBy('id', 'DESC')->get();
         return view('admin.blogs')->with(array('blogs' => $blogs));
+    }
+
+    public function addPolicyView(Request $request)
+    {
+        $postData = $request->input();
+        if(empty($postData['id'])) {
+            Session::flash('message', 'Oops, invalid request!');
+            Session::flash('alert-class', 'alert-danger');
+            return redirect()->back();
+        }
+
+        return view('admin.add_policy')->with(['policyholder_id' => $postData['id']]);
     }
 
     public function editPolicyHolder(Request $request)
