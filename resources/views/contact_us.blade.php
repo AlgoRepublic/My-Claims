@@ -52,11 +52,12 @@
                     <h3>Support</h3>
                     <hr>
                     <ul>
-                        <li><span> Contact </span><i class="fa fa-sm fa-phone"></i> +00 12345678</li>
+                        <li><span> Contact </span><i class="fa fa-sm fa-phone"></i>0870125716</li>
                     </ul>
                     <div class="custom_social_link">
                         <ul>
-                            <li><a href="#"> <i class="fa fa-2x fa-facebook-square"></i></a></li>
+                            <li><a href="https://www.linkedin.com/company/show-my-claims/" target="_blank"><i class="fa fa-2x fa-linkedin-square"></i></a></li>
+                            <li><a href="https://web.facebook.com/showmycla" target="_blank"> <i class="fa fa-2x fa-facebook-square"></i></a></li>
                             <li><a href="#"> <i class="fa fa-2x fa-twitter-square"></i></a></li>
                             <li><a href="#"> <i class="fa fa-2x fa-google"></i></a></li>
                         </ul>
