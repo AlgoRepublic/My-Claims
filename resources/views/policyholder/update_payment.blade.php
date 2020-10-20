@@ -55,6 +55,7 @@
                     </select>
                 </div>
                 <input type="hidden" name="user_id" value="{{ $user_id }}" />
+                <input type="hidden" name="sub_again" value="{{ $sub_again ?? '' }}" />
             </div>
             <div class="form-row justify-content-center">
                 <div class="form-group">

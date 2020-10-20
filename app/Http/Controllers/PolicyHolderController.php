@@ -68,6 +68,13 @@ class PolicyHolderController extends Controller
         $expiryDate = date('Y-m-d', strtotime($user->payment->expiration_date. ' + 1 days'));
         if(strtotime(date('Y-m-d')) > strtotime($expiryDate)) {
 
+            $msg = "Your payment is missing. Keep in mind that beneficiaries will not be able to any documents if your subscription has not been paid.";
+            $packages = PaymentPackages::orderBy('amount','ASC')->get();
+            return  view('policyholder.update_payment')->with(['packages' => $packages, 'msg' => $msg, 'user_id' => $user['id'], 'sub_again' => 1]);
+
+
+
+
             // Make Tokenization Payment now
             $package = PaymentPackages::find($user->package_id);
             $response = $this->updatePayfastSubscription('adhoc', $package['amount'], 'Show My Claims', $user->payment->token, $package['period'], $package['frequency'], $user->id, $package['id']);
@@ -102,9 +109,9 @@ class PolicyHolderController extends Controller
             Session::flash('alert-class', 'alert-danger');
             return redirect('policyHolder/login');
         }
-
+        $subAgain = !empty($postData['sub_again']) ? 1 : 0;
         $package = PaymentPackages::find($postData['package']);
-        $htmlForm = $this->payfastPayment($package['amount'], $user['name'], $user['surname'], $user['mobile'], 'Show My Claims', $package['frequency'], $user['id'], $package['id'], $package['period'], $postData['payment_method']);
+        $htmlForm = $this->payfastPayment($package['amount'], $user['name'], $user['surname'], $user['mobile'], 'Show My Claims', $package['frequency'], $user['id'], $package['id'], $package['period'], $postData['payment_method'], $subAgain);
         $msg = "Your payment is missing. Keep in mind that beneficiaries will not be able to any documents if your subscription has not been paid.";
         return view('policyholder.payfast_pay')->with(['htmlForm' => $htmlForm, 'msg' => $msg]);
     }
@@ -504,11 +511,11 @@ class PolicyHolderController extends Controller
         $paymentMethod = (empty($content['billing_date']) && empty($content['token'])) ? 'eft' : 'cc';
         $userToken = empty($content['token']) ? 0 : $content['token']; // Token would be empty in case of eft payments
 
-        /*$newPayment = empty($content['custom_int3']) ? false : true;
-        if($newPayment) { // This is the case where a user prev subscription was expired, so we have to add a new one
+        $subAgain = empty($content['custom_int3']) ? false : true;
+        if($subAgain) { // This is the case where a user prev subscription was expired, so we have to add a new one
             // So in this case delete the old subscription first
             User::where('id', $userID)->delete();
-        }*/
+        }
 
         //$nextPayAmount = !empty($content['custom_int3']) ? $content['custom_int3'] : $content['amount_gross'];
         //$newpackageAmount = !empty($content['custom_int4']) ? $content['custom_int4'] : null;
@@ -583,17 +590,17 @@ class PolicyHolderController extends Controller
         return date("Y-m-d", strtotime($currentExpiry . '+' .$period));
     }
 
-    private function payfastPayment($cartTotal, $name, $surname,$cellNumber,$productName, $frequency, $userID, $packageID, $period, $paymentMethod = "")
+    private function payfastPayment($cartTotal, $name, $surname,$cellNumber,$productName, $frequency, $userID, $packageID, $period, $paymentMethod = "", $subAgain = 0)
     {
 
         $baseUrl = URL::to('/');
         //$cartTotal = 10.00;// This amount needs to be sourced from your application
         $data = array(
             // Merchant details
-            'merchant_id' => '16311179',
-            'merchant_key' => 'moxa3jyzm5ubx',
-            //'merchant_id' => '10012141', // test
-            //'merchant_key' => '7goueleoh3b0m', // test
+            //'merchant_id' => '16311179',
+            //'merchant_key' => 'moxa3jyzm5ubx',
+            'merchant_id' => '10012141', // test
+            'merchant_key' => '7goueleoh3b0m', // test
             'return_url' => $baseUrl . '/payfast-success',
             'cancel_url' => $baseUrl . '/payfast-cancel',
             'notify_url' => $baseUrl . '/payfast-notify',
@@ -607,6 +614,7 @@ class PolicyHolderController extends Controller
             'item_name' => $productName,
             'custom_int1' => (int) $userID,
             'custom_int2' => (int) $packageID,
+            'custom_int3' => (int) $subAgain,
             'custom_str1' => $period
             //'' => 'eft'
             /*'subscription_type' => 1,
@@ -624,13 +632,13 @@ class PolicyHolderController extends Controller
             $data['cycles'] = 0;
         }
 
-        //$signature = $this->generateSignature($data, 'Testpassphrase123');
-        $signature = $this->generateSignature($data);
+        $signature = $this->generateSignature($data, 'Testpassphrase123');
+        //$signature = $this->generateSignature($data);
         $data['signature'] = $signature;
 
         // If in testing mode make use of either sandbox.payfast.co.za or www.payfast.co.za
-        //$testingMode = true;
-        $testingMode = false;
+        $testingMode = true;
+        //$testingMode = false;
         $pfHost = $testingMode ? 'sandbox.payfast.co.za' : 'www.payfast.co.za';
         $htmlForm = '<form id="myForm" action="https://'.$pfHost.'/eng/process" method="post">';
         foreach($data as $name=> $value)
@@ -649,8 +657,8 @@ class PolicyHolderController extends Controller
 
         if($action == 'update') {
             $pfData = array(
-                'merchant-id' => '16311179',
-                //'merchant-id' => '10012141', // Sandbox Account Merchant
+                //'merchant-id' => '16311179',
+                'merchant-id' => '10012141', // Sandbox Account Merchant
                 'amount' => (int) $amount,
                 'item_name' => $itemName,
                 'item_description' => '',
@@ -669,8 +677,8 @@ class PolicyHolderController extends Controller
         }
         elseif($action == 'cancel') {
             $pfData = array(
-                'merchant-id' => '16311179',
-                //'merchant-id' => '10012141', // Sandbox Account Merchant
+                //'merchant-id' => '16311179',
+                'merchant-id' => '10012141', // Sandbox Account Merchant
                 'token' => $token,
                 'version' => 'v1',
                 'passphrase' => 'Testpassphrase123',
@@ -748,8 +756,8 @@ class PolicyHolderController extends Controller
         ])->patch('https://api.payfast.co.za/subscriptions/' . $token . $action . '?testing=true', $payload);*/
 
         // Configure curl
-        //$ch = curl_init( 'https://api.payfast.co.za/subscriptions/' . $token . $action . '?testing=true' );
-        $ch = curl_init( 'https://api.payfast.co.za/subscriptions/' . $token . $action);
+        $ch = curl_init( 'https://api.payfast.co.za/subscriptions/' . $token . $action . '?testing=true' );
+        //$ch = curl_init( 'https://api.payfast.co.za/subscriptions/' . $token . $action);
         curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
         curl_setopt( $ch, CURLOPT_HEADER, false );
         curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, false );
