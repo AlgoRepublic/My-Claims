@@ -509,12 +509,7 @@ class PolicyHolderController extends Controller
         $packageID = $content['custom_int2'];
         $paymentMethod = (empty($content['billing_date']) && empty($content['token'])) ? 'eft' : 'cc';
         $userToken = empty($content['token']) ? 0 : $content['token']; // Token would be empty in case of eft payments
-
-        /*$subAgain = empty($content['custom_int3']) ? false : true;
-        if($subAgain) { // This is the case where a user prev subscription was expired, so we have to add a new one
-            // So in this case delete the old subscription first
-            UserPayment::where('user_id', $userID)->delete();
-        }*/
+        $subAgain = empty($content['custom_int3']) ? false : true;
 
         //$nextPayAmount = !empty($content['custom_int3']) ? $content['custom_int3'] : $content['amount_gross'];
         //$newpackageAmount = !empty($content['custom_int4']) ? $content['custom_int4'] : null;
@@ -548,6 +543,9 @@ class PolicyHolderController extends Controller
         $user = UserPayment::where('user_id', $userID)->first();
         if(!empty($user)) {
             $currentExpirationDate = $user['expiration_date'];
+            if($subAgain) // Set expiration_date from today's date because its the again subscription case
+                $currentExpirationDate = date('Y-m-d');
+
             $userExists = true;
         } else {
             $currentExpirationDate = $billingDate;
@@ -569,7 +567,7 @@ class PolicyHolderController extends Controller
         $fileTxt .= $lineBreak;
 
         if($userExists) {
-            UserPayment::where(['user_id' => $userID])->update(['expiration_date' => $newExpirationDate, 'payment_method' => $paymentMethod,'updated_at' => date('Y-m-d')]);
+            UserPayment::where(['user_id' => $userID])->update(['package_id' => $packageID, 'expiration_date' => $newExpirationDate, 'payment_method' => $paymentMethod,'updated_at' => date('Y-m-d')]);
         } else {
             $userPaymentData = array(
                 'user_id' => $userID,
