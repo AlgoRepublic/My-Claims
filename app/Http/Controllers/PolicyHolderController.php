@@ -733,13 +733,6 @@ class PolicyHolderController extends Controller
         // Remove the last '&amp;' from the payload string
         $payload = substr( $payload, 0, -1 );
 
-        /*$response = Http::withHeaders([
-            'X-version' => $pfData['version'],
-            'merchant-id' => $pfData['merchant-id'],
-            'signature' => $signature,
-            'timestamp' => $timestamp
-        ])->patch('https://api.payfast.co.za/subscriptions/' . $token . $action . '?testing=true', $payload);*/
-
         // Configure curl
         $ch = curl_init( 'https://api.payfast.co.za/subscriptions/' . $token . $action . '?testing=true' );
         //$ch = curl_init( 'https://api.payfast.co.za/subscriptions/' . $token . $action);
@@ -762,11 +755,6 @@ class PolicyHolderController extends Controller
         $response = curl_exec($ch);
         curl_close($ch);
 
-        // Display response
-        /*echo '<strong>CURL Response: </strong><br>';
-        var_dump( $response->body() );
-        echo '<br><br><br><br><br><br><br><br><br><br>';
-        die;*/
         $response = json_decode($response);
         PaymentLogs::create(['request' => json_encode($response)]);
         if($response->status == 'success')
