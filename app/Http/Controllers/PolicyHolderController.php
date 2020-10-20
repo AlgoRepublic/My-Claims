@@ -326,6 +326,14 @@ class PolicyHolderController extends Controller
                 return view('policyholder.payfast_pay')->with(['htmlForm' => $htmlForm, 'msg' => $msg]);
             }
 
+            // Here check if user has previously payed eft payment than create user subscription for the first time
+            if($userData->payment->payment_method == 'eft') {
+
+                $htmlForm = $this->payfastPayment($package['amount'], $user['name'], $user['surname'], $user['mobile'], 'Show My Claims', $package['frequency'], $user['id'], $package['id'], $package['period'], $postData['payment_method'], 1);
+                return view('policyholder.payfast_pay')->with(['htmlForm' => $htmlForm, 'msg' => '']);
+            }
+
+            // Just update the payment here because user is already subscribed
             $response = $this->updatePayfastSubscription('update', $package['amount'], 'Show My Claims', $userData->payment->token, $package['period'], $package['frequency'], $userData->id, $package['id']);
             if($response) { // Update user package in user payment
                 UserPayment::where('user_id', $userData->id)->update(['package_id' => $postData['package']]);
@@ -474,8 +482,8 @@ class PolicyHolderController extends Controller
 
     public function paymentSuccess()
     {
-        Session::flash('message', 'User registered successfully. You can now login!');
-        Session::flash('alert-class', 'alert-danger');
+        Session::flash('message', 'Payment process completed successfully!');
+        Session::flash('alert-class', 'alert-success');
         return redirect('policyHolder/');
     }
 
