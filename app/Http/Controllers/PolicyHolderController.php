@@ -329,7 +329,7 @@ class PolicyHolderController extends Controller
             // Here check if user has previously payed eft payment than create user subscription for the first time
             if($userData->payment->payment_method == 'eft') {
 
-                $htmlForm = $this->payfastPayment($package['amount'], $user['name'], $user['surname'], $user['mobile'], 'Show My Claims', $package['frequency'], $user['id'], $package['id'], $package['period'], $postData['payment_method'], 1);
+                $htmlForm = $this->payfastPayment($package['amount'], $userData->name, $userData->surname, $userData->mobile, 'Show My Claims', $package['frequency'], $userData->id, $package['id'], $package['period'], $postData['payment_method'], 1);
                 return view('policyholder.payfast_pay')->with(['htmlForm' => $htmlForm, 'msg' => '']);
             }
 
