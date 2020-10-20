@@ -590,10 +590,10 @@ class PolicyHolderController extends Controller
         //$cartTotal = 10.00;// This amount needs to be sourced from your application
         $data = array(
             // Merchant details
-            //'merchant_id' => '16311179',
-            //'merchant_key' => 'moxa3jyzm5ubx',
-            'merchant_id' => '10012141', // test
-            'merchant_key' => '7goueleoh3b0m', // test
+            'merchant_id' => '16311179',
+            'merchant_key' => 'moxa3jyzm5ubx',
+            //'merchant_id' => '10012141', // test
+            //'merchant_key' => '7goueleoh3b0m', // test
             'return_url' => $baseUrl . '/payfast-success',
             'cancel_url' => $baseUrl . '/payfast-cancel',
             'notify_url' => $baseUrl . '/payfast-notify',
@@ -624,12 +624,13 @@ class PolicyHolderController extends Controller
             $data['cycles'] = 0;
         }
 
-        $signature = $this->generateSignature($data, 'Testpassphrase123');
-        //$signature = $this->generateSignature($data);
+        //$signature = $this->generateSignature($data, 'Testpassphrase123');
+        $signature = $this->generateSignature($data);
         $data['signature'] = $signature;
 
         // If in testing mode make use of either sandbox.payfast.co.za or www.payfast.co.za
-        $testingMode = true;
+        //$testingMode = true;
+        $testingMode = false;
         $pfHost = $testingMode ? 'sandbox.payfast.co.za' : 'www.payfast.co.za';
         $htmlForm = '<form id="myForm" action="https://'.$pfHost.'/eng/process" method="post">';
         foreach($data as $name=> $value)
@@ -648,7 +649,8 @@ class PolicyHolderController extends Controller
 
         if($action == 'update') {
             $pfData = array(
-                'merchant-id' => '10012141', // Sandbox Account Merchant
+                'merchant-id' => '16311179',
+                //'merchant-id' => '10012141', // Sandbox Account Merchant
                 'amount' => (int) $amount,
                 'item_name' => $itemName,
                 'item_description' => '',
@@ -667,7 +669,8 @@ class PolicyHolderController extends Controller
         }
         elseif($action == 'cancel') {
             $pfData = array(
-                'merchant-id' => '10012141', // Sandbox Account Merchant
+                'merchant-id' => '16311179',
+                //'merchant-id' => '10012141', // Sandbox Account Merchant
                 'token' => $token,
                 'version' => 'v1',
                 'passphrase' => 'Testpassphrase123',
@@ -676,7 +679,8 @@ class PolicyHolderController extends Controller
         }
         elseif($action == 'adhoc') {
             $pfData = array(
-                'merchant-id' => '10012141', // Sandbox Account Merchant
+                'merchant-id' => '16311179',
+                //'merchant-id' => '10012141', // Sandbox Account Merchant
                 'token' => $token,
                 'item_name' => $itemName,
                 'version' => 'v1',
@@ -744,8 +748,8 @@ class PolicyHolderController extends Controller
         ])->patch('https://api.payfast.co.za/subscriptions/' . $token . $action . '?testing=true', $payload);*/
 
         // Configure curl
-        $ch = curl_init( 'https://api.payfast.co.za/subscriptions/' . $token . $action . '?testing=true' );
-        //$ch = curl_init( 'https://api.payfast.co.za/subscriptions/' . $token . $action);
+        //$ch = curl_init( 'https://api.payfast.co.za/subscriptions/' . $token . $action . '?testing=true' );
+        $ch = curl_init( 'https://api.payfast.co.za/subscriptions/' . $token . $action);
         curl_setopt( $ch, CURLOPT_RETURNTRANSFER, true );
         curl_setopt( $ch, CURLOPT_HEADER, false );
         curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, false );
