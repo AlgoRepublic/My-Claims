@@ -510,11 +510,11 @@ class PolicyHolderController extends Controller
         $paymentMethod = (empty($content['billing_date']) && empty($content['token'])) ? 'eft' : 'cc';
         $userToken = empty($content['token']) ? 0 : $content['token']; // Token would be empty in case of eft payments
 
-        $subAgain = empty($content['custom_int3']) ? false : true;
+        /*$subAgain = empty($content['custom_int3']) ? false : true;
         if($subAgain) { // This is the case where a user prev subscription was expired, so we have to add a new one
             // So in this case delete the old subscription first
             UserPayment::where('user_id', $userID)->delete();
-        }
+        }*/
 
         //$nextPayAmount = !empty($content['custom_int3']) ? $content['custom_int3'] : $content['amount_gross'];
         //$newpackageAmount = !empty($content['custom_int4']) ? $content['custom_int4'] : null;
