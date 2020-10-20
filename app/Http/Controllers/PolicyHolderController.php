@@ -514,7 +514,7 @@ class PolicyHolderController extends Controller
         $subAgain = empty($content['custom_int3']) ? false : true;
         if($subAgain) { // This is the case where a user prev subscription was expired, so we have to add a new one
             // So in this case delete the old subscription first
-            User::where('id', $userID)->delete();
+            UserPayment::where('user_id', $userID)->delete();
         }
 
         //$nextPayAmount = !empty($content['custom_int3']) ? $content['custom_int3'] : $content['amount_gross'];
