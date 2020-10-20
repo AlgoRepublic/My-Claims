@@ -82,7 +82,7 @@
                     </select>
                 </div>
                 <div class="form-group col-md-6">
-                    <label>Billing method<span class="error-text">*</span></label>
+                    <label>Billing Package<span class="error-text">*</span></label>
                     <select class="form-control" name="package" required>
                         <option value="">-Select Package-</option>
                         @foreach($packages as $package)

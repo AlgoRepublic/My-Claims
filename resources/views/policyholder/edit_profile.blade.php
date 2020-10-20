@@ -81,7 +81,14 @@
                 </div>
             </div>
             <div class="form-row">
-
+                <div class="form-group col-md-6">
+                    <label>Billing Type<span class="error-text">*</span></label>
+                    <select class="form-control" name="payment_method" required>
+                        <option value="">-Select Type-</option>
+                        <option value="eft" {{ (!empty($userData->payment->payment_method) && $userData->payment->payment_method == 'eft') ? 'selected' : '' }}>EFT</option>
+                        <option value="cc" {{ (!empty($userData->payment->payment_method) && $userData->payment->payment_method == 'cc') ? 'selected' : '' }}>Credit Card</option>
+                    </select>
+                </div>
                 <div class="form-group col-md-6">
                     <label>Billing method</label>
                     <select class="form-control" name="package">

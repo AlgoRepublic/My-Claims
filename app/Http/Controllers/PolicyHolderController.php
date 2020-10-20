@@ -71,22 +71,6 @@ class PolicyHolderController extends Controller
             $msg = "Your payment is missing. Keep in mind that beneficiaries will not be able to any documents if your subscription has not been paid.";
             $packages = PaymentPackages::orderBy('amount','ASC')->get();
             return  view('policyholder.update_payment')->with(['packages' => $packages, 'msg' => $msg, 'user_id' => $user['id'], 'sub_again' => 1]);
-
-
-
-
-            // Make Tokenization Payment now
-            $package = PaymentPackages::find($user->package_id);
-            $response = $this->updatePayfastSubscription('adhoc', $package['amount'], 'Show My Claims', $user->payment->token, $package['period'], $package['frequency'], $user->id, $package['id']);
-            if($response) { // Update user package in user payment
-                Session::flash('message', 'Your missing payment request has been made. Please try to login after few seconds.');
-                Session::flash('alert-class', 'alert-success');
-                return redirect('policyHolder/login');
-            }else {
-                Session::flash('message', 'Oops, we could not request due payment of your subscription. Please contact us in case of any confusion.');
-                Session::flash('alert-class', 'alert-success');
-                return redirect('policyHolder/login');
-            }
         }
 
         // Authenticate user here
@@ -333,6 +317,13 @@ class PolicyHolderController extends Controller
                 Session::flash('message', 'Oops, could not update package!');
                 Session::flash('alert-class', 'alert-danger');
                 return redirect('policyHolder/edit');
+            }
+
+            if($postData['payment_method'] == 'eft') { // Take user to payfast payment gateway
+
+                $htmlForm = $this->payfastPayment($package['amount'], $userData->name, $userData->surname, $userData->mobile, 'Show My Claims', $package['frequency'], $userData->id, $package['id'], $package['period'], $postData['payment_method']);
+                $msg = "";
+                return view('policyholder.payfast_pay')->with(['htmlForm' => $htmlForm, 'msg' => $msg]);
             }
 
             $response = $this->updatePayfastSubscription('update', $package['amount'], 'Show My Claims', $userData->payment->token, $package['period'], $package['frequency'], $userData->id, $package['id']);
@@ -681,18 +672,6 @@ class PolicyHolderController extends Controller
                 'merchant-id' => '10012141', // Sandbox Account Merchant
                 'token' => $token,
                 'version' => 'v1',
-                'passphrase' => 'Testpassphrase123',
-                'api_action' => $action
-            );
-        }
-        elseif($action == 'adhoc') {
-            $pfData = array(
-                'merchant-id' => '16311179',
-                //'merchant-id' => '10012141', // Sandbox Account Merchant
-                'token' => $token,
-                'item_name' => $itemName,
-                'version' => 'v1',
-                'amount' => (int) $amount,
                 'passphrase' => 'Testpassphrase123',
                 'api_action' => $action
             );
