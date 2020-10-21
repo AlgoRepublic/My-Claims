@@ -349,7 +349,7 @@ class PolicyHolderController extends Controller
         }
 
         // Handle payment update(if any)
-        if(!empty($postData['package']) && $postData['package'] != $userData->payment->package_id) {
+        if(!empty($postData['package']) && ($postData['package'] != $userData->payment->package_id || $postData['payment_method'] != $userData->payment->payment_method)) {
 
             // As user have changed the package call the payfast update api
             // Get package details
