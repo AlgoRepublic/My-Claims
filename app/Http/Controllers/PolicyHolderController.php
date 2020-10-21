@@ -67,15 +67,17 @@ class PolicyHolderController extends Controller
             return view('policyholder.update_payment')->with(['packages' => $packages, 'msg' => $msg, 'user_id' => $user['id']]);
         }
 
+        $expiryDate = date('Y-m-d', strtotime($user->payment->expiration_date. ' + 1 days'));
         // Check if user is manual payment user
         if($user->payment->payment_method == 'manual' && $user->payment_verified == 0) {
-            $errorMsg = "Oops, your manual payment has not been verified yet. Please make sure that you have sent us the payment slip at `claims@showmyclaims.com`.";
-            $errorMsg .= " Please contact us in case of any confusion.";
-            $errors = array('error' => $errorMsg);
-            return redirect()->back()->withInput()->withErrors($errors);
+            if(strtotime(date('Y-m-d')) >= strtotime($expiryDate)) { // Manual Payment has been expired
+                $errorMsg = "Oops, your manual payment has not been verified yet. Please make sure that you have sent us the payment slip at `claims@showmyclaims.com`.";
+                $errorMsg .= " Please contact us in case of any confusion.";
+                $errors = array('error' => $errorMsg);
+                return redirect()->back()->withInput()->withErrors($errors);
+            }
         }
 
-        $expiryDate = date('Y-m-d', strtotime($user->payment->expiration_date. ' + 1 days'));
         if(strtotime(date('Y-m-d')) >= strtotime($expiryDate)) {
 
             $msg = "Your payment is missing. Keep in mind that beneficiaries will not be able to any documents if your subscription has not been paid.";
@@ -356,6 +358,32 @@ class PolicyHolderController extends Controller
                 Session::flash('message', 'Oops, could not update package!');
                 Session::flash('alert-class', 'alert-danger');
                 return redirect('policyHolder/edit');
+            }
+
+            if($postData['payment_method'] == 'manual') { // If user has selected manual payment then send him an email with account details
+
+                if(!empty($postData['email'])) {
+                    $settings = Settings::first();
+                    $bankDetails = $settings['bank_details'];
+                    Mail::send('mail_manual_payment', ['bankDetails' => $bankDetails], function($message) {
+                        $message->to('azhar.waqas@algorepublic.com', 'Show My Claims')->subject
+                        ('Banking Details for Manual Payment - Show My Claims');
+                        $message->from('info@myclaims.com','My Claims');
+                    });
+                }
+
+                // Add record in user payment table
+                $userPayment = array(
+                    'package_id' => $package['id'],
+                    'token' => 0,
+                    'payment_method' => 'manual'
+                );
+
+                UserPayment::where('user_id', $postData['id'])->update($userPayment);
+                User::where('id', $postData['id'])->update(['payment_verified' => 0]);
+                Session::flash('message', 'An email with the banking details have been sent successfully. Please pay the manual fee to proceed!');
+                Session::flash('alert-class', 'alert-success');
+                return redirect('policyHolder/');
             }
 
             if($postData['payment_method'] == 'eft') { // Take user to payfast payment gateway
