@@ -153,8 +153,11 @@ class PolicyHolderController extends Controller
             if(!empty($postData['email'])) {
                 $settings = Settings::first();
                 $bankDetails = $settings['bank_details'];
-                Mail::send('mail_manual_payment', ['bankDetails' => $bankDetails], function($message) {
-                    $message->to('azhar.waqas@algorepublic.com', 'Show My Claims')->subject
+                $to = $postData['email'];
+                $toName = $postData['name'].' '.$postData['surname'];
+
+                Mail::send('mail_manual_payment', ['bankDetails' => $bankDetails], function($message) use ($to, $toName) {
+                    $message->to($to, $toName)->subject
                     ('Banking Details for Manual Payment - Show My Claims');
                     $message->from('info@myclaims.com','My Claims');
                 });
@@ -365,8 +368,11 @@ class PolicyHolderController extends Controller
                 if(!empty($postData['email'])) {
                     $settings = Settings::first();
                     $bankDetails = $settings['bank_details'];
-                    Mail::send('mail_manual_payment', ['bankDetails' => $bankDetails], function($message) {
-                        $message->to('azhar.waqas@algorepublic.com', 'Show My Claims')->subject
+                    $to = $postData['email'];
+                    $toName = $postData['name'].' '.$postData['surname'];
+
+                    Mail::send('mail_manual_payment', ['bankDetails' => $bankDetails], function($message) use ($to, $toName) {
+                        $message->to($to, $toName)->subject
                         ('Banking Details for Manual Payment - Show My Claims');
                         $message->from('info@myclaims.com','My Claims');
                     });
