@@ -8,12 +8,14 @@ use App\PaymentDetails;
 use App\PaymentLogs;
 use App\PaymentPackages;
 use App\Policies;
+use App\Settings;
 use App\User;
 use App\UserPayment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\URL;
@@ -135,6 +137,23 @@ class PolicyHolderController extends Controller
 
         $user = User::create($data);
         $user->save();
+
+        if($postData['payment_method'] == 'manual') { // If user has selected manual payment then send him an email with account details
+
+            if(!empty($postData['email'])) {
+                $settings = Settings::first();
+                $bankDetails = $settings['bank_details'];
+                Mail::send('mail_manual_payment', ['bankDetails' => $bankDetails], function($message) {
+                    $message->to('azhar.waqas@algorepublic.com', 'Show My Claims')->subject
+                    ('Banking Details for Manual Payment - Show My Claims');
+                    $message->from('info@myclaims.com','My Claims');
+                });
+            }
+
+            Session::flash('message', 'An email with the banking details have been sent successfully. Please pay the manual fee to proceed!');
+            Session::flash('alert-class', 'alert-success');
+            return redirect('policyHolder/');
+        }
 
         $htmlForm = $this->payfastPayment($package['amount'], $postData['name'], $postData['surname'], $postData['mobile'], 'Show My Claims', $package['frequency'], $user->id, $package['id'], $package['period'], $postData['payment_method']);
         return view('policyholder.payfast_pay')->with(['htmlForm' => $htmlForm]);

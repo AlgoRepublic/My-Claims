@@ -24,6 +24,16 @@ $(document).ready(function() {
         }
     });
 
+    $(document).on('change', '#bill-type', function() {
+        var type = $(this).val();
+        if(type == 'manual') {
+            alert("Please make sure that you have added a correct email address. You will be receiving our account details on the provided email!")
+            $("#reg-email").attr('required', true);
+        }else {
+            $("#reg-email").attr('required', false);
+        }
+    });
+
     // Check user/beneficiary cell number & IDN uniqueness
     $(document).on('keyup',"#reg-contact-no, #user-idn",function(){
 

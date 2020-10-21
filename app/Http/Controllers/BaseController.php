@@ -215,7 +215,7 @@ class BaseController extends Controller
 
         Contact::create($data);
         Mail::send('mail_contact_us', $postData, function($message) {
-            $message->to('salman.rahimi@algorepublic.com', 'Show My Claims')->subject
+            $message->to('claims@showmyclaims.com', 'Show My Claims')->subject
             ('Contact Request - Show My Claims');
             $message->from('info@myclaims.com','My Claims');
         });

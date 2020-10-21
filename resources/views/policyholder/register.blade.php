@@ -49,7 +49,7 @@
                 </div>
                 <div class="form-group col-md-6">
                     <label for=" ">Email</label>
-                    <input type="email" class="form-control" value="{{ old('email') }}" placeholder="john_deo@xyz.com" name="email">
+                    <input type="email" class="form-control" value="{{ old('email') }}" placeholder="john_deo@xyz.com" id="reg-email" name="email">
                 </div>
             </div>
             <div class="form-row">
@@ -75,8 +75,9 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label>Billing Type<span class="error-text">*</span></label>
-                    <select class="form-control" name="payment_method" required>
+                    <select class="form-control" name="payment_method" id="bill-type" required>
                         <option value="">-Select Type-</option>
+                        <option value="manual">Manual Transfer</option>
                         <option value="eft">EFT</option>
                         <option value="cc">Credit Card</option>
                     </select>

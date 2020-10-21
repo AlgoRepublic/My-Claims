@@ -16,6 +16,7 @@ class CreateSettingsTable extends Migration
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
             $table->longText('what_we_do')->nullable();
+            $table->text('bank_details')->nullable();
             $table->timestamps();
         });
     }
