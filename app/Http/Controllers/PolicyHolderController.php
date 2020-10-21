@@ -403,7 +403,12 @@ class PolicyHolderController extends Controller
             // Just update the payment here because user is already subscribed
             $response = $this->updatePayfastSubscription('update', $package['amount'], 'Show My Claims', $userData->payment->token, $package['period'], $package['frequency'], $userData->id, $package['id']);
             if($response) { // Update user package in user payment
-                UserPayment::where('user_id', $userData->id)->update(['package_id' => $postData['package']]);
+
+                // Update expiration date as well
+                $user = UserPayment::where('user_id', $postData['id'])->first();
+                $currentExpirationDate = $user['expiration_date'];
+                $newExpirationDate = $this->createExpirationDate($currentExpirationDate, $package['period']);
+                UserPayment::where('user_id', $userData->id)->update(['package_id' => $postData['package'], 'expiration_date' => $newExpirationDate]);
             }
         }
 
