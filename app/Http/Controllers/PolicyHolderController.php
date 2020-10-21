@@ -67,8 +67,16 @@ class PolicyHolderController extends Controller
             return view('policyholder.update_payment')->with(['packages' => $packages, 'msg' => $msg, 'user_id' => $user['id']]);
         }
 
+        // Check if user is manual payment user
+        if($user->payment->payment_method == 'manual' && $user->payment_verified == 0) {
+            $errorMsg = "Oops, your manual payment has not been verified yet. Please make sure that you have sent us the payment slip at `claims@showmyclaims.com`.";
+            $errorMsg .= " Please contact us in case of any confusion.";
+            $errors = array('error' => $errorMsg);
+            return redirect()->back()->withInput()->withErrors($errors);
+        }
+
         $expiryDate = date('Y-m-d', strtotime($user->payment->expiration_date. ' + 1 days'));
-        if(strtotime(date('Y-m-d')) > strtotime($expiryDate)) {
+        if(strtotime(date('Y-m-d')) >= strtotime($expiryDate)) {
 
             $msg = "Your payment is missing. Keep in mind that beneficiaries will not be able to any documents if your subscription has not been paid.";
             $packages = PaymentPackages::orderBy('amount','ASC')->get();
@@ -150,6 +158,18 @@ class PolicyHolderController extends Controller
                 });
             }
 
+            // Substracting one day from current date because we have added cushion of one day while logging in
+            $expiryDate = date('Y-m-d', strtotime(date('Y-m-d'). ' - 1 days'));
+            // Add record in user payment table
+            $userPayment = array(
+                'user_id' => $user->id,
+                'package_id' => $package['id'],
+                'expiration_date' => $expiryDate,
+                'token' => 0,
+                'payment_method' => 'manual'
+            );
+
+            UserPayment::create($userPayment);
             Session::flash('message', 'An email with the banking details have been sent successfully. Please pay the manual fee to proceed!');
             Session::flash('alert-class', 'alert-success');
             return redirect('policyHolder/');

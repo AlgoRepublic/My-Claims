@@ -5,6 +5,11 @@ $(document).ready(function() {
         $("#admin-contac-msg").val(msg);
     });
 
+    $(document).on('click', '.verify-pay-btn', function() {
+        var userID = $(this).attr('data-id');
+        $("#pol-pay-id").val(userID);
+    });
+
     $(".toggle-password").click(function() {
 
         $(this).toggleClass("fa-eye fa-eye-slash");

@@ -33,6 +33,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
     Route::post('/what-we-do', 'AdminController@updateWhatWeDo');
     Route::get('/blogs', 'AdminController@blogs')->name('blogs');
     Route::get('/logout', 'AdminController@logout');
+    Route::get('/policyHolders/manualPaymentRequests', 'AdminController@manualPaymentRequests');
+    Route::post('/verifyPayment', 'AdminController@verifyPayment');
     Route::get('/delete-policyholder', 'AdminController@deletePolicyHolder')->name('deletePolicyHolder');
     Route::get('/add-blog', function() {
         return view('admin.add_blog');

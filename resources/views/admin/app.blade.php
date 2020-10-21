@@ -131,6 +131,7 @@
                             <a href="javascript:void(0)"><i class="ik ik-layers"></i><span>User Management</span></a>
                             <div class="submenu-content">
                                 <a href="{{ url('admin/policyHolders') }}" class="menu-item">Policyholders</a>
+                                <a href="{{ url('admin/policyHolders/manualPaymentRequests') }}" class="menu-item">Unverified Manual Payments</a>
                             </div>
                         </div>
 

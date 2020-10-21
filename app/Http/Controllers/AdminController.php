@@ -6,10 +6,12 @@ use App\Beneficiaries;
 use App\Blogs;
 use App\Claims;
 use App\Contact;
+use App\PaymentPackages;
 use App\Policies;
 use App\Roles;
 use App\Settings;
 use App\User;
+use App\UserPayment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -225,6 +227,43 @@ class AdminController extends Controller
         return view('admin.add_policy')->with(['policyholder_id' => $postData['id']]);
     }
 
+    public function manualPaymentRequests(Request $request)
+    {
+        $users = User::with('payment')->where('payment_verified', 0)->whereHas('payment', function($q){
+            $q->where('payment_method','=','manual');
+        })->get();
+        return view('admin.manual_payments', ['policyHolders' => $users]);
+    }
+
+    public function verifyPayment(Request $request)
+    {
+        $postData = $request->input();
+        if(empty($postData['policyholder_id'])) {
+            Session::flash('message', 'Oops, invalid request!');
+            Session::flash('alert-class', 'alert-danger');
+            return redirect()->back();
+        }
+
+        // Get user selected payment package first
+        $user = User::find($postData['policyholder_id']);
+        $package = PaymentPackages::find($user->payment->package_id);
+        if(empty($user) || empty($package)) {
+            Session::flash('message', 'Oops, invalid request!');
+            Session::flash('alert-class', 'alert-danger');
+            return redirect()->back();
+        }
+
+        $newExpirationDate = $this->createExpirationDate($postData['received_date'], $package['period']);
+
+        $userUpd = User::where('id',$postData['policyholder_id'])->update(['payment_verified' => 1]);
+        $payUpd = UserPayment::where('user_id',$postData['policyholder_id'])->update(['expiration_date' => $newExpirationDate]);
+        if($userUpd && $payUpd) {
+            Session::flash('message', 'Policyholder payment verified successfully!');
+            Session::flash('alert-class', 'alert-success');
+        }
+        return redirect()->back();
+    }
+
     public function editPolicyHolder(Request $request)
     {
         $user = User::find($request->id);
@@ -302,5 +341,9 @@ class AdminController extends Controller
         Session::flash('message', 'The selected blog has been deleted successfully!');
         Session::flash('alert-class', 'alert-success');
         return redirect('/admin/blogs');
+    }
+
+    private function createExpirationDate($currentExpiry, $period) {
+        return date("Y-m-d", strtotime($currentExpiry . '+' .$period));
     }
 }

@@ -17,34 +17,36 @@
         </div>
     </div>
     <div class="card-body">
-        <table id="advanced_table" class="table">
-            <thead>
-            <tr>
-                <th>#</th>
-                <th>Username</th>
-                <th>Email</th>
-                <th>Cell Number</th>
-                <th>Sent To</th>
-                <th>Sent Date</th>
-                <th>Action</th>
-            </tr>
-            </thead>
-            <tbody>
-            @foreach($requests as $request)
+        <div class="table-responsive-sm">
+            <table id="advanced_table" class="table">
+                <thead>
                 <tr>
-                    <td>{{ $loop->iteration }}</td>
-                    <td>{{ $request->user_name }}</td>
-                    <td>{{ $request->email }}</td>
-                    <td>{{ $request->contact_number }}</td>
-                    <td>{{ $request->send_to }}</td>
-                    <td>{{ date('Y-m-d', strtotime($request->created_at)) }}</td>
-                    <td>
-                        <a data-toggle="modal" data-target="#msgModal" data-msg="{{ base64_encode($request->message) }}" class="btn btn-info admin-msg-btn">View Message</a>
-                    </td>
+                    <th>#</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Cell Number</th>
+                    <th>Sent To</th>
+                    <th>Sent Date</th>
+                    <th>Action</th>
                 </tr>
-            @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                @foreach($requests as $request)
+                    <tr>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $request->user_name }}</td>
+                        <td>{{ $request->email }}</td>
+                        <td>{{ $request->contact_number }}</td>
+                        <td>{{ $request->send_to }}</td>
+                        <td>{{ date('Y-m-d', strtotime($request->created_at)) }}</td>
+                        <td>
+                            <a data-toggle="modal" data-target="#msgModal" data-msg="{{ base64_encode($request->message) }}" class="btn btn-info admin-msg-btn">View Message</a>
+                        </td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 
