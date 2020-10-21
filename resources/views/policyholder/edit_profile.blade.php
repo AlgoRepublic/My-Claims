@@ -56,7 +56,7 @@
                 </div>
                 <div class="form-group col-md-6">
                     <label for=" ">Email</label>
-                    <input type="email" class="form-control" value="{{ old('email', $userData->email) }}" placeholder="john_deo@xyz.com" name="email">
+                    <input type="email" class="form-control" value="{{ old('email', $userData->email) }}" id="reg-email" placeholder="john_deo@xyz.com" name="email">
                 </div>
                 <div class="form-group col-md-6">
                     <label for=" ">South African Identity Document Number<span class="error-text">*</span></label>
@@ -83,8 +83,9 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label>Billing Type<span class="error-text">*</span></label>
-                    <select class="form-control" name="payment_method" required>
+                    <select class="form-control" name="payment_method" id="bill-type" required>
                         <option value="">-Select Type-</option>
+                        <option value="manual" {{ (!empty($userData->payment->payment_method) && $userData->payment->payment_method == 'manual') ? 'selected' : '' }}>Manual Transfer</option>
                         <option value="eft" {{ (!empty($userData->payment->payment_method) && $userData->payment->payment_method == 'eft') ? 'selected' : '' }}>EFT</option>
                         <option value="cc" {{ (!empty($userData->payment->payment_method) && $userData->payment->payment_method == 'cc') ? 'selected' : '' }}>Credit Card</option>
                     </select>
