@@ -62,7 +62,7 @@ class PolicyHolderController extends Controller
         // Now check if user payment has been made
         if(empty($user->payment)) { // Take user to the payment page for missed payment
 
-            $msg = "Your payment is missing. Keep in mind that beneficiaries will not be able to any documents if your subscription has not been paid.";
+            $msg = "Your monthly/annual subscription has not been paid. Please keep in mind that your beneficiaries will not be able to access your information if your subscription has not been paid.";
             $packages = PaymentPackages::orderBy('amount','ASC')->get();
             return view('policyholder.update_payment')->with(['packages' => $packages, 'msg' => $msg, 'user_id' => $user['id']]);
         }
@@ -80,7 +80,7 @@ class PolicyHolderController extends Controller
 
         if(strtotime(date('Y-m-d')) >= strtotime($expiryDate)) {
 
-            $msg = "Your payment is missing. Keep in mind that beneficiaries will not be able to any documents if your subscription has not been paid.";
+            $msg = "Your monthly/annual subscription has not been paid. Please keep in mind that your beneficiaries will not be able to access your information if your subscription has not been paid.";
             $packages = PaymentPackages::orderBy('amount','ASC')->get();
             return  view('policyholder.update_payment')->with(['packages' => $packages, 'msg' => $msg, 'user_id' => $user['id'], 'sub_again' => 1]);
         }
@@ -108,7 +108,7 @@ class PolicyHolderController extends Controller
         $subAgain = !empty($postData['sub_again']) ? 1 : 0;
         $package = PaymentPackages::find($postData['package']);
         $htmlForm = $this->payfastPayment($package['amount'], $user['name'], $user['surname'], $user['mobile'], 'Show My Claims', $package['frequency'], $user['id'], $package['id'], $package['period'], $postData['payment_method'], $subAgain);
-        $msg = "Your payment is missing. Keep in mind that beneficiaries will not be able to any documents if your subscription has not been paid.";
+        $msg = "Your monthly/annual subscription has not been paid. Please keep in mind that your beneficiaries will not be able to access your information if your subscription has not been paid.";
         return view('policyholder.payfast_pay')->with(['htmlForm' => $htmlForm, 'msg' => $msg]);
     }
 
