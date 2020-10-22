@@ -13,5 +13,8 @@
         {!! $bankDetails !!}
     </b>
 </p>
+<p>
+    <b><i>Please use your ID number as a reference.</i></b>
+</p>
 </body>
 </html>
