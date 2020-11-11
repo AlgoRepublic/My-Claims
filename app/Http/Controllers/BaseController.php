@@ -210,14 +210,14 @@ class BaseController extends Controller
             'email' => $postData['user_email'],
             'contact_number' => $postData['contact_number'],
             'message' => $postData['msg'],
-            'send_to' => 'salman.rahimi@algorepublic.com',
+            'send_to' => 'info@showmyclaims.com',
         );
 
         Contact::create($data);
         Mail::send('mail_contact_us', $postData, function($message) {
-            $message->to('claims@showmyclaims.com', 'Show My Claims')->subject
+            $message->to('info@showmyclaims.com', 'Show My Claims')->subject
             ('Contact Request - Show My Claims');
-            $message->from('info@myclaims.com','My Claims');
+            $message->from('info@showmyclaims.com','My Claims');
         });
 
         Session::flash('message', 'Your contact request has been sent!');

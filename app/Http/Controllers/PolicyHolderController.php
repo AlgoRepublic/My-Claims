@@ -159,8 +159,13 @@ class PolicyHolderController extends Controller
                 Mail::send('mail_manual_payment', ['bankDetails' => $bankDetails], function($message) use ($to, $toName) {
                     $message->to($to, $toName)->subject
                     ('Banking Details for Manual Payment - Show My Claims');
-                    $message->from('info@myclaims.com','My Claims');
+                    $message->from('info@showmyclaims.com','My Claims');
                 });
+                /*Mail::send('mail_manual_payment', ['bankDetails' => $bankDetails], function($message) use ($to, $toName) {
+                    $message->to($to, $toName)->subject
+                    ('Banking Details for Manual Payment - Show My Claims');
+                    $message->from('info@myclaims.com','My Claims');
+                });*/
             }
 
             // Substracting one day from current date because we have added cushion of one day while logging in
@@ -445,11 +450,20 @@ class PolicyHolderController extends Controller
 
         $postFields = array(
             'key' => 'gHWVUW15',
-            'type' => 'text',
+            "type" => "text",
+            'contacts' => ($postData['cell_number'][0] == "0" ? "27" . substr($postData['cell_number'], 1) : "27" . $postData['cell_number']),
+            'senderid' => 'Witsprep',
+            'msg' => $message
+        );
+
+        //Old
+        /*$postFields = array(
+            'key' => 'gHWVUW15',
+            "type" => "text",
             'contacts' => $postData['cell_number'],
             'senderid' => 'WITSPREP',
             'msg' => $message
-        );
+        );*/
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL,"http://148.251.196.36/app/smsjsonapi");
@@ -502,8 +516,49 @@ class PolicyHolderController extends Controller
 
         return view('policyholder.change_password')->with(['id' => $user['id']]);
     }*/
-
+    
+    
     public function updatePassword(Request $request)
+    {
+        $postData = $request->input();
+        if (empty($postData['user_id'])) {
+            Session::flash('message', 'Oops, something went wrong!');
+            Session::flash('alert-class', 'alert-danger');
+            return redirect('/forgot-password');
+        }
+
+        if($postData['password'] != $postData['cn_password']){
+            Session::flash('message', 'Oops, password and confirm password not matching!');
+            Session::flash('alert-class', 'alert-danger');
+            return redirect('/forgot-password');
+        }
+
+        $where = array('id' => $postData['user_id'], 'reset_password_token' => $postData['verification_code']);
+        $user = User::where($where)->first();
+        if(empty($user)) {
+            $errors = array('error' => "Oops, wrong token provided!");
+            return redirect()->to('/forgot-password')->withInput()->withErrors($errors);
+        }
+
+        $tokenTime = new \DateTime($user['reset_password_token_date']);
+        $difference = $tokenTime->diff(new \DateTime(date('Y-m-d H:i:s')));
+        if($difference->i > 15) {
+            $errors = array('error' => "Oops, your token has been expired. Please request it again!");
+            return redirect()->to('/forgot-password')->withInput()->withErrors($errors);
+        }
+
+        $user = User::where('id', $postData['user_id'])->update(array('password' => md5($postData['password'])));
+        if ($user) {
+            Session::flash('message', 'Your password has been updated successfully!');
+            Session::flash('alert-class', 'alert-success');
+        } else {
+            Session::flash('message', 'Oops, something went wrong!');
+            Session::flash('alert-class', 'alert-danger');
+        }
+        return redirect('policyHolder/login');
+    }
+
+    /*public function updatePassword(Request $request)
     {
 
         $postData = $request->input();
@@ -523,7 +578,7 @@ class PolicyHolderController extends Controller
             Session::flash('alert-class', 'alert-danger');
         }
         return redirect('policyHolder/login');
-    }
+    }*/
 
     public function verifyToken(Request $request)
     {

@@ -23,9 +23,14 @@ class AdminController extends Controller
     public function index(Request $request)
     {
         // Get data for counter cards
-        $users = User::with('roles')->whereHas('roles', function($q){
+        $users = User::with('roles')->where('archived', 0)->whereHas('roles', function($q){
             $q->where('role_name','=','policyholder');
         })->get();
+
+        //Both Active and Inactive PolicyHolder...
+        /*$users = User::with('roles')->whereHas('roles', function($q){
+            $q->where('role_name','=','policyholder');
+        })->get();*/
 
         // Get total monthly claims
         $claims = Beneficiaries::whereBetween('beneficiary_request_date',[date('Y-m-01'), date('Y-m-t')])->get();
@@ -103,6 +108,39 @@ class AdminController extends Controller
             'policyHolders' => $policyHolders
         );
         return view('admin.policy_holders')->with($data);
+    }
+    
+    public function deletedPolicyHolder(Request $request)
+    {
+
+        $deletedPolicyHolders = User::with('roles')->where('archived', 1)->whereHas('roles', function ($q) {
+            $q->where('role_name', '=', 'policyholder');
+        })->get();
+
+        $data = array(
+            'deletedPolicyHolders' => $deletedPolicyHolders
+        );
+        return view('admin.deleted_policy_holders')->with($data);
+    }
+
+    public function permanentlyDeletePolicyHolder(Request $request)
+    {
+        $postData = $request->input();
+
+        if (empty($postData['id'])) {
+            $errors = array('error' => "Oops, wrong user id supplied!");
+            return redirect()->back()->withInput()->withErrors($errors);
+        } else {
+            $result = User::find($postData['id'])->delete();
+            if ($result) {
+                Session::flash('message', 'User successfully deleted!');
+                Session::flash('alert-class', 'alert-success');
+            } else {
+                Session::flash('message', 'Oops, something went wrong!');
+                Session::flash('alert-class', 'alert-danger');
+            }
+        }
+        return redirect()->back();
     }
 
     public function beneficiaries(Request $request)
@@ -301,7 +339,9 @@ class AdminController extends Controller
         $data = array(
             'title' => $postData['title'],
             'content' => $postData['content'],
-            'added_by' => Auth::user()->id
+            'added_by' => Auth::user()->id,
+            'status' => ($postData['status'] == '1' ? 1 : 0)
+
         );
 
         if(!empty($blogImage))

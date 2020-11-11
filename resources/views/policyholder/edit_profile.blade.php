@@ -87,7 +87,7 @@
                         <option value="">-Select Type-</option>
                         <option value="manual" {{ (!empty($userData->payment->payment_method) && $userData->payment->payment_method == 'manual') ? 'selected' : '' }}>Manual Transfer</option>
                         <option value="eft" {{ (!empty($userData->payment->payment_method) && $userData->payment->payment_method == 'eft') ? 'selected' : '' }}>EFT</option>
-                        <option value="cc" {{ (!empty($userData->payment->payment_method) && $userData->payment->payment_method == 'cc') ? 'selected' : '' }}>Credit Card</option>
+                        <option value="cc" {{ (!empty($userData->payment->payment_method) && $userData->payment->payment_method == 'cc') ? 'selected' : '' }}>Card Payment</option>
                     </select>
                 </div>
                 <div class="form-group col-md-6">

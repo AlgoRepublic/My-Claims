@@ -132,6 +132,7 @@
                             <div class="submenu-content">
                                 <a href="{{ url('admin/policyHolders') }}" class="menu-item">Policyholders</a>
                                 <a href="{{ url('admin/policyHolders/manualPaymentRequests') }}" class="menu-item">Unverified Manual Payments</a>
+                                <a href="{{ url('admin/deletedPolicyHolders') }}" class="menu-item">Deleted Policyholders</a>
                             </div>
                         </div>
 

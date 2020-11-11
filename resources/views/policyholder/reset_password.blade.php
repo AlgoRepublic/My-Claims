@@ -58,7 +58,7 @@
                     <div class="form-row">
                         <div class="form-group col-md-12">
                             <label for=" ">Confirm New Password</label>
-                            <input type="password" name="verification_code" id="reset-re-password" class="form-control" id="verificaion-token" required>
+                            <input type="password" name="cn_password" id="reset-re-password" class="form-control" id="verificaion-token" required>
                             <p id="reset-re-password-error"></p>
                         </div>
                         <input type="hidden" name="user_id" value="{{ $id }}" />
@@ -66,7 +66,7 @@
                     <div class="form-row justify-content-center">
                         <div class="form-group">
                             <a class="btn btn-lg custom_btn_delete" href="{{ url('/') }}">Back</a>
-                            <input type="submit" id="token-verify-btn" class="btn custom_btn_form" value="Verify" disabled />
+                            <input type="submit" id="token-verify-btn" class="btn custom_btn_form" value="Verify" />
                         </div>
                     </div>
                     <hr>
@@ -83,6 +83,7 @@
 <script src="{{ asset('/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <!-- Custom JS -->
 <script src="{{ asset('/js/main.min.js') }}"></script>
-<script src="{{ asset('/js/reset.js') }}"></script>
+{{--<script src="{{ asset('/js/reset.js') }}"></script>--}}
 </body>
 </html>
+

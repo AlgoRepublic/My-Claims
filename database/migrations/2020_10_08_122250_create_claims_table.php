@@ -22,7 +22,7 @@ class CreateClaimsTable extends Migration
             $table->integer('approved_by')->nullable();
             $table->string('email_preference');
             $table->timestamp('approved_date')->nullable();
-            $table->timestamp('beneficiary_request_date');
+            $table->timestamp('beneficiary_request_date')->nullable()->default(null);
             $table->timestamps();
         });
     }

@@ -44,6 +44,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
     Route::get('/addPolicy', 'AdminController@addPolicyView')->name('addPolAdmin');
     Route::post('/addPolicy', 'PolicyHolderController@addPolicy');
     //Route::get('/blogs', 'AdminController@blogs')->name('blogs');
+    Route::get('/deletedPolicyHolders', 'AdminController@deletedPolicyHolder');
+    Route::get('/permanently-delete-policyholder', 'AdminController@permanentlyDeletePolicyHolder')->name('permanentlyDeletePolicyHolder');
 });
 
 Route::group(['prefix' => 'policyHolder', 'middleware' => 'policyholder'], function() {
@@ -117,4 +119,8 @@ Route::post('/policyHolder/checkCell/', "PolicyHolderController@checkCell");
 Route::get('/payfast-success', 'PolicyHolderController@paymentSuccess');
 Route::get('/payfast-cancel', 'PolicyHolderController@paymentCancel');
 Route::post('/payfast-notify', 'PolicyHolderController@paymentNotify');
+
+Route::get('/storage-link', function () {
+    Artisan::call('storage:link');
+});
 

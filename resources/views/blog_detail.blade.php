@@ -9,7 +9,7 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <img src="{{ $blog['image'] }}" width="100%">
+                    <img src="{{ asset(parse_url($blog['image'])['path']) }}" width="100%">
                 </div>
                 <div class="col-md-12">
                     <br>

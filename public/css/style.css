@@ -732,3 +732,9 @@ ul.social-buttons li a:active, ul.social-buttons li a:focus, ul.social-buttons l
 @media only screen and (min-width: 600px) {
   .custom-nav-log{margin: 10px 5px;}
 }
+
+@media only screen and (max-width: 810px) {
+    .custom_header_btn {
+        display: inline-grid;
+    }
+}

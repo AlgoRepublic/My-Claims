@@ -125,7 +125,7 @@
                                                         <td>{{ $policy->name }}</td>
                                                         <td>{{ ucfirst(str_replace('_',' ', $policy->type)) }}</td>
                                                         <td>
-                                                            <a href="{{ \Illuminate\Support\Facades\URL::to('/').\Illuminate\Support\Facades\Storage::url($policy->document) }}" download>
+                                                            <a href="{{ \Illuminate\Support\Facades\URL::to('/').'/public/'.\Illuminate\Support\Facades\Storage::url($policy->document) }}" download>
                                                                 <p class="font-weight-bold mb-0">{{ $policy->document_original_name }}</p>
                                                             </a>
                                                         </td>

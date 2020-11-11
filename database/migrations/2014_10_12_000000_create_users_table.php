@@ -22,7 +22,6 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('identity_document_number');
             $table->integer('role_id');
-            $table->rememberToken();
             $table->string('reset_password_token', 10);
             $table->timestamp('reset_password_token_date');
             $table->integer('payment_verified')->default(0);

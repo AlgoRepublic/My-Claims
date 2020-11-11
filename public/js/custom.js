@@ -83,7 +83,7 @@ $(document).ready(function() {
         // Send ajax request to check email
         $.ajax({
             method : 'POST',
-            url : '/policyHolder/checkCell/',
+            url : '/policyHolder/checkCell',
             data : {col_value : cellNumber, _token : csrf, type: type, ben: ben},
             dataType : 'JSON',
             success : function (result){

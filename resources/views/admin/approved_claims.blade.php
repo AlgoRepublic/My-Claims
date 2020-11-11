@@ -35,8 +35,8 @@
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $claim->user->identity_document_number ?? 'Null' }}</td>
-                        <td><a class="text-blue" href="{{ \Illuminate\Support\Facades\URL::to('/').\Illuminate\Support\Facades\Storage::url($claim->beneficiary_identity) }}" download>Beneficiary Proof</a></td>
-                        <td><a class="text-blue" href="{{ \Illuminate\Support\Facades\URL::to('/').\Illuminate\Support\Facades\Storage::url($claim->policyholder_death_proof) }}" download>PolicyHolder Death Proof</a></td>
+                        <td><a class="text-blue" href="{{ \Illuminate\Support\Facades\URL::to('/public/').\Illuminate\Support\Facades\Storage::url($claim->beneficiary_identity) }}" download>Beneficiary Proof</a></td>
+                        <td><a class="text-blue" href="{{ \Illuminate\Support\Facades\URL::to('/public/').\Illuminate\Support\Facades\Storage::url($claim->policyholder_death_proof) }}" download>PolicyHolder Death Proof</a></td>
                         <td>{{ $claim->email_preference }}</td>
                         <td>{{ date('Y-m-d', strtotime($claim->beneficiary_request_date)) }}</td>
                         <td>{{ date('Y-m-d', strtotime($claim->approved_date)) }}</td>
