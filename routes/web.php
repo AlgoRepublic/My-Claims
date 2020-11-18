@@ -53,7 +53,16 @@ Route::group(['prefix' => 'policyHolder', 'middleware' => 'policyholder'], funct
     Route::get('/addPolicy', 'PolicyHolderController@addPolicyView');
     Route::post('/addPolicy', 'PolicyHolderController@addPolicy');
     Route::get('/edit', function() {
-        return view('policyholder.edit_profile', ['userData' => \Illuminate\Support\Facades\Auth::user(),'packages' => \App\PaymentPackages::orderBy('amount','ASC')->get()]);
+        $packages = \App\PaymentPackages::orderBy('amount','ASC')->get();
+        foreach ($packages as $key => $package)
+        {
+            if($package->type === 'free_trail')
+            {
+                unset($packages[$key]);
+                break;
+            }
+        }
+        return view('policyholder.edit_profile', ['userData' => \Illuminate\Support\Facades\Auth::user(),'packages' => $packages]);
     });
 });
 

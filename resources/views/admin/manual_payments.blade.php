@@ -66,7 +66,7 @@
                             <div class="form-group col-md-12">
                                 <p><i><b>Please carefully add the date on which client actually paid the bill. Expiration would be set according to the package selected by the client.</b></i></p>
                                 <label for=" ">Funds Received Date:- </label>
-                                <input type="text" class="form-control" name="received_date" placeholder="{{ date('Y-m-d') }}" required />
+                                <input type="date" class="form-control" name="received_date" placeholder="{{ date('Y-m-d') }}" required />
                                 <input type="hidden" class="form-control" id="pol-pay-id" name="policyholder_id" required />
                             </div>
                         </div>

@@ -13,6 +13,11 @@
             <div class="custom_page_heading">
                 <h4>Manage Policy Documents</h4>
             </div>
+            @if(!empty($trail_expiration_date))
+                <div class="alert alert-danger" role="alert">
+                    <strong>{{ "Free Trial will be ending on ".$trail_expiration_date }}</strong>
+                </div>
+            @endif
             <form>
                 <div class="form-row">
                     <div class="form-group col-md-6">

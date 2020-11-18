@@ -38,6 +38,13 @@ class PolicyHolderController extends Controller
             'policies' => $policies,
             'beneficiaries' => $beneficiaries
         );
+        if(!empty($userData->payment))
+        {
+            if($userData->payment->payment_method == 'free_trail')
+            {
+                $data['trail_expiration_date'] = $userData->payment->expiration_date;
+            }
+        }
         return view('policyholder.home')->with($data);
     }
 
@@ -59,6 +66,28 @@ class PolicyHolderController extends Controller
             return redirect()->back()->withInput()->withErrors($errors);
         }
 
+        if(!empty($user->payment))
+        {
+            if($user->payment->payment_method == 'free_trail')
+            {
+                $expiryDate = date('Y-m-d', strtotime($user->payment->expiration_date. ' + 1 days'));
+                if(strtotime(date('Y-m-d')) >= strtotime($expiryDate))
+                { // Free trail has been expired
+                    $msg = 'Oops, Your free trail period is over. To use the application, please proceed to payment.';
+                    $packages = PaymentPackages::orderBy('amount','ASC')->get();
+                    foreach ($packages as $key => $package)
+                    {
+                        if($package->type === 'free_trail')
+                        {
+                            unset($packages[$key]);
+                            break;
+                        }
+                    }
+                    return view('policyholder.update_payment')->with(['packages' => $packages, 'msg' => $msg, 'user_id' => $user['id']]);
+                }
+            }
+        }
+
         // Now check if user payment has been made
         if(empty($user->payment)) { // Take user to the payment page for missed payment
 
@@ -71,7 +100,7 @@ class PolicyHolderController extends Controller
         // Check if user is manual payment user
         if($user->payment->payment_method == 'manual' && $user->payment_verified == 0) {
             if(strtotime(date('Y-m-d')) >= strtotime($expiryDate)) { // Manual Payment has been expired
-                $errorMsg = "Oops, your manual payment has not been verified yet. Please make sure that you have sent us the payment slip at `claims@showmyclaims.com`.";
+                $errorMsg = "Oops, your manual payment has not been verified yet. Please make sure that you have sent us the payment slip at `billing@showmyclaims.com`.";
                 $errorMsg .= " Please contact us in case of any confusion.";
                 $errors = array('error' => $errorMsg);
                 return redirect()->back()->withInput()->withErrors($errors);
@@ -116,6 +145,17 @@ class PolicyHolderController extends Controller
     {
         // Get list of packages added in the system
         $packages = PaymentPackages::orderBy('amount','ASC')->get();
+        // Sorting type 'free_trail' to first index...
+        foreach ($packages as $key => $package)
+        {
+            if($package->type === 'free_trail')
+            {
+                $temp_package = $package;
+                unset($packages[$key]);
+                $packages->prepend($temp_package);
+                break;
+            }
+        }
         return view('policyholder.register')->with(['packages' => $packages]);
     }
 
@@ -147,6 +187,24 @@ class PolicyHolderController extends Controller
 
         $user = User::create($data);
         $user->save();
+
+        if($package['type'] === 'free_trail')
+        {
+            $expiryDate = date('Y-m-d', strtotime(date('Y-m-d'). ' + 7 days'));
+            // Add record in user payment table
+            $userPayment = array(
+                'user_id' => $user->id,
+                'package_id' => $package['id'],
+                'expiration_date' => $expiryDate,
+                'token' => 0,
+                'payment_method' => 'free_trail'
+            );
+
+            UserPayment::create($userPayment);
+            Session::flash('message', 'You are using free trail of 7 days!');
+            Session::flash('alert-class', 'alert-success');
+            return redirect('policyHolder/');
+        }
 
         if($postData['payment_method'] == 'manual') { // If user has selected manual payment then send him an email with account details
 
@@ -516,8 +574,8 @@ class PolicyHolderController extends Controller
 
         return view('policyholder.change_password')->with(['id' => $user['id']]);
     }*/
-    
-    
+
+
     public function updatePassword(Request $request)
     {
         $postData = $request->input();
@@ -767,7 +825,7 @@ class PolicyHolderController extends Controller
         $data['signature'] = $signature;
 
         // If in testing mode make use of either sandbox.payfast.co.za or www.payfast.co.za
-        $testingMode = true;
+        $testingMode = false;
         //$testingMode = false;
         $pfHost = $testingMode ? 'sandbox.payfast.co.za' : 'www.payfast.co.za';
         $htmlForm = '<form id="myForm" action="https://'.$pfHost.'/eng/process" method="post">';
