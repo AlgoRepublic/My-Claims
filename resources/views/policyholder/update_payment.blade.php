@@ -41,8 +41,9 @@
                     <label>Billing Type<span class="error-text">*</span></label>
                     <select class="form-control" name="payment_method" required>
                         <option value="">-Select Type-</option>
+                        <option value="manual">Manual Transfer</option>
                         <option value="eft">EFT</option>
-                        <option value="cc">Credit Card</option>
+                        <option value="cc">Card Payment</option>
                     </select>
                 </div>
                 <div class="form-group col-md-6">

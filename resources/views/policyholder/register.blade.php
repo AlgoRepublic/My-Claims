@@ -71,7 +71,7 @@
                     <input type="text" id="user-idn" data-type="identity_document_number" pattern="\d*" maxlength="13" minlength="13" title="Only dgits are allowed | Length should be 13." class="form-control" value="{{ old('identity_document_number') }}" placeholder="0123456789000" name="identity_document_number" required>
                     <span id="reg-idn-error"></span>
                 </div>
-                <div class="form-group col-md-6">
+                {{--<div class="form-group col-md-6">
                     <label>Billing Package<span class="error-text">*</span></label>
                     <select class="form-control" name="package" id="bill-package" required>
                         <option value="">-Select Package-</option>
@@ -79,9 +79,9 @@
                                 <option value="{{ $package->id }}">{{ $package->name }}</option>
                         @endforeach
                     </select>
-                </div>
+                </div>--}}
             </div>
-            <div class="form-row" id="bill-type-parent">
+            {{--<div class="form-row" id="bill-type-parent">
                 <div class="form-group col-md-6">
                     <label>Billing Type<span class="error-text">*</span></label>
                     <select class="form-control" name="payment_method" id="bill-type" required>
@@ -91,7 +91,7 @@
                         <option value="cc">Card Payment</option>
                     </select>
                 </div>
-            </div>
+            </div>--}}
             <div class="form-row justify-content-center">
                 <div class="form-group">
                     <a class="btn btn-lg custom_btn_delete" href="{{--{{ url('/') }}--}} {{ $_SERVER['HTTP_REFERER'] ?? url('/') }}">Back</a>

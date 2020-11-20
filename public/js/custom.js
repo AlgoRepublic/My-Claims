@@ -172,7 +172,7 @@ $(document).ready(function() {
         $(this).parent().parent().html('');
     });
 
-    // Remove the Billing type if Free trail selected
+    /*// Remove the Billing type if Free trail selected
     $("#bill-type-parent").hide();
     $(document).on('change', '#bill-package', function() {
         if($("#bill-package option:selected").text() === 'Free Trial (7 Days)') {
@@ -182,6 +182,6 @@ $(document).ready(function() {
             $("#bill-type-parent").show();
             $("#bill-type").attr('required', true);
         }
-    });
+    });*/
 
 });

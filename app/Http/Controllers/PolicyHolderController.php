@@ -38,13 +38,13 @@ class PolicyHolderController extends Controller
             'policies' => $policies,
             'beneficiaries' => $beneficiaries
         );
-        if(!empty($userData->payment))
+        /*if(!empty($userData->payment))
         {
             if($userData->payment->payment_method == 'free_trail')
             {
                 $data['trail_expiration_date'] = $userData->payment->expiration_date;
             }
-        }
+        }*/
         return view('policyholder.home')->with($data);
     }
 
@@ -66,7 +66,7 @@ class PolicyHolderController extends Controller
             return redirect()->back()->withInput()->withErrors($errors);
         }
 
-        if(!empty($user->payment))
+        /*if(!empty($user->payment))
         {
             if($user->payment->payment_method == 'free_trail')
             {
@@ -86,17 +86,17 @@ class PolicyHolderController extends Controller
                     return view('policyholder.update_payment')->with(['packages' => $packages, 'msg' => $msg, 'user_id' => $user['id']]);
                 }
             }
-        }
+        }*/
 
         // Now check if user payment has been made
-        if(empty($user->payment)) { // Take user to the payment page for missed payment
+        /*if(empty($user->payment)) { // Take user to the payment page for missed payment
 
             $msg = "Your monthly/annual subscription has not been paid. Please keep in mind that your beneficiaries will not be able to access your information if your subscription has not been paid.";
             $packages = PaymentPackages::orderBy('amount','ASC')->get();
             return view('policyholder.update_payment')->with(['packages' => $packages, 'msg' => $msg, 'user_id' => $user['id']]);
-        }
+        }*/
 
-        $expiryDate = date('Y-m-d', strtotime($user->payment->expiration_date. ' + 1 days'));
+        /*$expiryDate = date('Y-m-d', strtotime($user->payment->expiration_date. ' + 1 days'));
         // Check if user is manual payment user
         if($user->payment->payment_method == 'manual' && $user->payment_verified == 0) {
             if(strtotime(date('Y-m-d')) >= strtotime($expiryDate)) { // Manual Payment has been expired
@@ -105,14 +105,14 @@ class PolicyHolderController extends Controller
                 $errors = array('error' => $errorMsg);
                 return redirect()->back()->withInput()->withErrors($errors);
             }
-        }
+        }*/
 
-        if(strtotime(date('Y-m-d')) >= strtotime($expiryDate)) {
+        /*if(strtotime(date('Y-m-d')) >= strtotime($expiryDate)) {
 
             $msg = "Your monthly/annual subscription has not been paid. Please keep in mind that your beneficiaries will not be able to access your information if your subscription has not been paid.";
             $packages = PaymentPackages::orderBy('amount','ASC')->get();
             return  view('policyholder.update_payment')->with(['packages' => $packages, 'msg' => $msg, 'user_id' => $user['id'], 'sub_again' => 1]);
-        }
+        }*/
 
         // Authenticate user here
         Auth::login($user);
@@ -134,38 +134,6 @@ class PolicyHolderController extends Controller
             Session::flash('alert-class', 'alert-danger');
             return redirect('policyHolder/login');
         }
-        $subAgain = !empty($postData['sub_again']) ? 1 : 0;
-        $package = PaymentPackages::find($postData['package']);
-        $htmlForm = $this->payfastPayment($package['amount'], $user['name'], $user['surname'], $user['mobile'], 'Show My Claims', $package['frequency'], $user['id'], $package['id'], $package['period'], $postData['payment_method'], $subAgain);
-        $msg = "Your monthly/annual subscription has not been paid. Please keep in mind that your beneficiaries will not be able to access your information if your subscription has not been paid.";
-        return view('policyholder.payfast_pay')->with(['htmlForm' => $htmlForm, 'msg' => $msg]);
-    }
-
-    public function registerView()
-    {
-        // Get list of packages added in the system
-        $packages = PaymentPackages::orderBy('amount','ASC')->get();
-        // Sorting type 'free_trail' to first index...
-        foreach ($packages as $key => $package)
-        {
-            if($package->type === 'free_trail')
-            {
-                $temp_package = $package;
-                unset($packages[$key]);
-                $packages->prepend($temp_package);
-                break;
-            }
-        }
-        return view('policyholder.register')->with(['packages' => $packages]);
-    }
-
-    public function register(Request $request)
-    {
-        $postData = $request->input();
-        if($postData['password'] !== $postData['re_pwd']) {
-            $errors = array('error' => "Password and Confirm Password fields doesn't match!");
-            return redirect()->back()->withInput()->withErrors($errors);
-        }
 
         $package = PaymentPackages::find($postData['package']);
         if(empty($package)) {
@@ -173,57 +141,18 @@ class PolicyHolderController extends Controller
             return redirect()->back()->withInput()->withErrors($errors);
         }
 
-        $data = array(
-            'name' => $postData['name'],
-            'surname' => $postData['surname'],
-            'mobile' => $postData['mobile'],
-            'email' => !empty($postData['email']) ? $postData['email'] : NULL,
-            'role_id' => 2,
-            'password' => md5($postData['password']),
-            'identity_document_number' => $postData['identity_document_number'],
-            'payment_verified' => 0,
-            'package_id' => $package['id']
-        );
-
-        $user = User::create($data);
-        $user->save();
-
-        if($package['type'] === 'free_trail')
-        {
-            $expiryDate = date('Y-m-d', strtotime(date('Y-m-d'). ' + 7 days'));
-            // Add record in user payment table
-            $userPayment = array(
-                'user_id' => $user->id,
-                'package_id' => $package['id'],
-                'expiration_date' => $expiryDate,
-                'token' => 0,
-                'payment_method' => 'free_trail'
-            );
-
-            UserPayment::create($userPayment);
-            Session::flash('message', 'You are using free trail of 7 days!');
-            Session::flash('alert-class', 'alert-success');
-            return redirect('policyHolder/');
-        }
-
         if($postData['payment_method'] == 'manual') { // If user has selected manual payment then send him an email with account details
 
-            if(!empty($postData['email'])) {
+            if(!empty($user->email)) {
                 $settings = Settings::first();
                 $bankDetails = $settings['bank_details'];
-                $to = $postData['email'];
-                $toName = $postData['name'].' '.$postData['surname'];
-
+                $to = $user->email;
+                $toName = $user->name.' '.$user->surname;
                 Mail::send('mail_manual_payment', ['bankDetails' => $bankDetails], function($message) use ($to, $toName) {
                     $message->to($to, $toName)->subject
                     ('Banking Details for Manual Payment - Show My Claims');
                     $message->from('info@showmyclaims.com','My Claims');
                 });
-                /*Mail::send('mail_manual_payment', ['bankDetails' => $bankDetails], function($message) use ($to, $toName) {
-                    $message->to($to, $toName)->subject
-                    ('Banking Details for Manual Payment - Show My Claims');
-                    $message->from('info@myclaims.com','My Claims');
-                });*/
             }
 
             // Substracting one day from current date because we have added cushion of one day while logging in
@@ -243,8 +172,118 @@ class PolicyHolderController extends Controller
             return redirect('policyHolder/');
         }
 
-        $htmlForm = $this->payfastPayment($package['amount'], $postData['name'], $postData['surname'], $postData['mobile'], 'Show My Claims', $package['frequency'], $user->id, $package['id'], $package['period'], $postData['payment_method']);
-        return view('policyholder.payfast_pay')->with(['htmlForm' => $htmlForm]);
+        $subAgain = !empty($postData['sub_again']) ? 1 : 0;
+        $package = PaymentPackages::find($postData['package']);
+        $htmlForm = $this->payfastPayment($package['amount'], $user['name'], $user['surname'], $user['mobile'], 'Show My Claims', $package['frequency'], $user['id'], $package['id'], $package['period'], $postData['payment_method'], $subAgain);
+        $msg = "Your monthly/annual subscription has not been paid. Please keep in mind that your beneficiaries will not be able to access your information if your subscription has not been paid.";
+        return view('policyholder.payfast_pay')->with(['htmlForm' => $htmlForm, 'msg' => $msg]);
+    }
+
+    public function registerView()
+    {
+        // Get list of packages added in the system
+        $packages = PaymentPackages::orderBy('amount','ASC')->get();
+        // Sorting type 'free_trail' to first index...
+        /*foreach ($packages as $key => $package)
+        {
+            if($package->type === 'free_trail')
+            {
+                $temp_package = $package;
+                unset($packages[$key]);
+                $packages->prepend($temp_package);
+                break;
+            }
+        }*/
+        return view('policyholder.register')->with(['packages' => $packages]);
+    }
+
+    public function register(Request $request)
+    {
+        $postData = $request->input();
+        if($postData['password'] !== $postData['re_pwd']) {
+            $errors = array('error' => "Password and Confirm Password fields doesn't match!");
+            return redirect()->back()->withInput()->withErrors($errors);
+        }
+
+        /*$package = PaymentPackages::find($postData['package']);
+        if(empty($package)) {
+            $errors = array('error' => "Oops, invalid package selected!");
+            return redirect()->back()->withInput()->withErrors($errors);
+        }*/
+
+        $data = array(
+            'name' => $postData['name'],
+            'surname' => $postData['surname'],
+            'mobile' => $postData['mobile'],
+            'email' => !empty($postData['email']) ? $postData['email'] : NULL,
+            'role_id' => 2,
+            'password' => md5($postData['password']),
+            'identity_document_number' => $postData['identity_document_number'],
+            'payment_verified' => 0,
+//            'package_id' => $package['id']
+        );
+
+        $user = User::create($data);
+        $user->save();
+        return redirect('policyHolder/');
+
+        /*if($package['type'] === 'free_trail')
+        {
+            $expiryDate = date('Y-m-d', strtotime(date('Y-m-d'). ' + 7 days'));
+            // Add record in user payment table
+            $userPayment = array(
+                'user_id' => $user->id,
+                'package_id' => $package['id'],
+                'expiration_date' => $expiryDate,
+                'token' => 0,
+                'payment_method' => 'free_trail'
+            );
+
+            UserPayment::create($userPayment);
+            Session::flash('message', 'You are using free trail of 7 days!');
+            Session::flash('alert-class', 'alert-success');
+            return redirect('policyHolder/');
+        }*/
+
+//        if($postData['payment_method'] == 'manual') { // If user has selected manual payment then send him an email with account details
+//
+//            if(!empty($postData['email'])) {
+//                $settings = Settings::first();
+//                $bankDetails = $settings['bank_details'];
+//                $to = $postData['email'];
+//                $toName = $postData['name'].' '.$postData['surname'];
+//
+//                Mail::send('mail_manual_payment', ['bankDetails' => $bankDetails], function($message) use ($to, $toName) {
+//                    $message->to($to, $toName)->subject
+//                    ('Banking Details for Manual Payment - Show My Claims');
+//                    $message->from('info@showmyclaims.com','My Claims');
+//                });
+//                /*Mail::send('mail_manual_payment', ['bankDetails' => $bankDetails], function($message) use ($to, $toName) {
+//                    $message->to($to, $toName)->subject
+//                    ('Banking Details for Manual Payment - Show My Claims');
+//                    $message->from('info@myclaims.com','My Claims');
+//                });*/
+//            }
+//
+//            // Substracting one day from current date because we have added cushion of one day while logging in
+//            $expiryDate = date('Y-m-d', strtotime(date('Y-m-d'). ' - 1 days'));
+//            // Add record in user payment table
+//            $userPayment = array(
+//                'user_id' => $user->id,
+//                'package_id' => $package['id'],
+//                'expiration_date' => $expiryDate,
+//                'token' => 0,
+//                'payment_method' => 'manual'
+//            );
+//
+//            UserPayment::create($userPayment);
+//            Session::flash('message', 'An email with the banking details have been sent successfully. Please pay the manual fee to proceed!');
+//            Session::flash('alert-class', 'alert-success');
+//            return redirect('policyHolder/');
+//        }
+
+        /*$htmlForm = $this->payfastPayment($package['amount'], $postData['name'], $postData['surname'], $postData['mobile'], 'Show My Claims', $package['frequency'], $user->id, $package['id'], $package['period'], $postData['payment_method']);
+        return view('policyholder.payfast_pay')->with(['htmlForm' => $htmlForm]);*/
     }
 
     public function checkCell(Request $request)
@@ -266,6 +305,44 @@ class PolicyHolderController extends Controller
         else
             print_r(json_encode(array('status' => 'success', 'msg' => 'Verified!')));
         die;
+    }
+
+    public function addBeneficiaryOrPolicy(Request $request)
+    {
+        $user = Auth::user();
+        $postData = $request->input();
+        // Now check if user payment has been made
+        if(empty($user->payment)) { // Take user to the payment page for missed payment
+            $msg = "To upload a policy document or add a beneficiary, please pay your monthly or annual subscription.";
+            $packages = PaymentPackages::orderBy('amount','ASC')->get();
+            return view('policyholder.update_payment')->with(['packages' => $packages, 'msg' => $msg, 'user_id' => $user['id']]);
+        }
+
+        $expiryDate = date('Y-m-d', strtotime($user->payment->expiration_date. ' + 1 days'));
+        // Check if user is manual payment user
+        if($user->payment->payment_method == 'manual' && $user->payment_verified == 0) {
+            if(strtotime(date('Y-m-d')) >= strtotime($expiryDate)) { // Manual Payment has been expired
+                $errorMsg = "Oops, your manual payment has not been verified yet. Please make sure that you have sent us the payment slip at `billing@showmyclaims.com`.";
+                $errorMsg .= " Please contact us in case of any confusion.";
+                $errors = array('error' => $errorMsg);
+                return redirect()->back()->withInput()->withErrors($errors);
+            }
+        }
+
+        if(strtotime(date('Y-m-d')) >= strtotime($expiryDate)) {
+            $msg = "To upload a policy document or add a beneficiary, please pay your monthly or annual subscription.";
+            $packages = PaymentPackages::orderBy('amount','ASC')->get();
+            return  view('policyholder.update_payment')->with(['packages' => $packages, 'msg' => $msg, 'user_id' => $user['id'], 'sub_again' => 1]);
+        }
+
+        if($postData['request_for'] == 'policy') {
+            return view('policyholder.add_policy');
+        }else {
+            if($postData['request_for'] == 'beneficiary'){
+                return view('beneficiary.add_beneficiary');
+            }
+        }
+        return 0;
     }
 
     public function addPolicy(Request $request)
@@ -785,10 +862,10 @@ class PolicyHolderController extends Controller
         //$cartTotal = 10.00;// This amount needs to be sourced from your application
         $data = array(
             // Merchant details
-            //'merchant_id' => '16311179',
-            //'merchant_key' => 'moxa3jyzm5ubx',
-            'merchant_id' => '10012141', // test
-            'merchant_key' => '7goueleoh3b0m', // test
+            'merchant_id' => '16311179',
+            'merchant_key' => 'moxa3jyzm5ubx',
+//            'merchant_id' => '10012141', // test
+//            'merchant_key' => '7goueleoh3b0m', // test
             'return_url' => $baseUrl . '/payfast-success',
             'cancel_url' => $baseUrl . '/payfast-cancel',
             'notify_url' => $baseUrl . '/payfast-notify',
@@ -820,8 +897,8 @@ class PolicyHolderController extends Controller
             $data['cycles'] = 0;
         }
 
-        $signature = $this->generateSignature($data, 'Testpassphrase123');
-        //$signature = $this->generateSignature($data);
+//        $signature = $this->generateSignature($data, 'Testpassphrase123');
+        $signature = $this->generateSignature($data);
         $data['signature'] = $signature;
 
         // If in testing mode make use of either sandbox.payfast.co.za or www.payfast.co.za
@@ -845,8 +922,8 @@ class PolicyHolderController extends Controller
 
         if($action == 'update') {
             $pfData = array(
-                //'merchant-id' => '16311179',
-                'merchant-id' => '10012141', // Sandbox Account Merchant
+                'merchant-id' => '16311179',
+//                'merchant-id' => '10012141', // Sandbox Account Merchant
                 'amount' => (int) $amount,
                 'item_name' => $itemName,
                 'item_description' => '',
@@ -865,8 +942,8 @@ class PolicyHolderController extends Controller
         }
         elseif($action == 'cancel') {
             $pfData = array(
-                //'merchant-id' => '16311179',
-                'merchant-id' => '10012141', // Sandbox Account Merchant
+                'merchant-id' => '16311179',
+//                'merchant-id' => '10012141', // Sandbox Account Merchant
                 'token' => $token,
                 'version' => 'v1',
                 'passphrase' => 'Testpassphrase123',

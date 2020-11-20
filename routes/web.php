@@ -46,6 +46,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
     //Route::get('/blogs', 'AdminController@blogs')->name('blogs');
     Route::get('/deletedPolicyHolders', 'AdminController@deletedPolicyHolder');
     Route::get('/permanently-delete-policyholder', 'AdminController@permanentlyDeletePolicyHolder')->name('permanentlyDeletePolicyHolder');
+    Route::get('/expired-subscriptions', 'AdminController@expiredSubscriptionView')->name('expiredSubscriptionView');
+    Route::get('/expired-subscriptions-send-sms', 'AdminController@expiredSubscriptionSendSMS')->name('expiredSubscriptionSendSMS');
+
 });
 
 Route::group(['prefix' => 'policyHolder', 'middleware' => 'policyholder'], function() {
@@ -54,16 +57,18 @@ Route::group(['prefix' => 'policyHolder', 'middleware' => 'policyholder'], funct
     Route::post('/addPolicy', 'PolicyHolderController@addPolicy');
     Route::get('/edit', function() {
         $packages = \App\PaymentPackages::orderBy('amount','ASC')->get();
-        foreach ($packages as $key => $package)
+        /*foreach ($packages as $key => $package)
         {
             if($package->type === 'free_trail')
             {
                 unset($packages[$key]);
                 break;
             }
-        }
+        }*/
         return view('policyholder.edit_profile', ['userData' => \Illuminate\Support\Facades\Auth::user(),'packages' => $packages]);
     });
+    Route::post('add-beneficiary-or-policy', 'PolicyHolderController@addBeneficiaryOrPolicy');
+
 });
 
 /*Route::group(['prefix' => 'beneficiary', 'middleware' => 'beneficiary'], function() {
@@ -91,6 +96,9 @@ Route::post('/beneficiary/edit', 'BaseController@updateBen');
 Route::get('/beneficiary', 'BaseController@beneficiary');
 Route::post('/beneficiary/find-policy', 'BaseController@findPolicy');
 Route::post('/beneficiary/policy-request', 'BaseController@policyRequest');
+/*Route::get('/beneficiary/add', function(){
+    return view('beneficiary.add_beneficiary');
+});*/
 Route::get('/beneficiary/add', function(){
     return view('beneficiary.add_beneficiary');
 });

@@ -47,10 +47,10 @@
                             <div class="notifications-wrap">
                                 <a href="#" class="media">
                                             <span class="d-flex">
-                                                <i class="ik ik-check"></i> 
+                                                <i class="ik ik-check"></i>
                                             </span>
                                     <span class="media-body">
-                                                <span class="heading-font-family media-heading">Invitation accepted</span> 
+                                                <span class="heading-font-family media-heading">Invitation accepted</span>
                                                 <span class="media-content">Your have been Invited ...</span>
                                             </span>
                                 </a>
@@ -59,16 +59,16 @@
                                                 <img src="{{ url('storage/theme/img/users/1.jpg') }}" class="rounded-circle" alt="">
                                             </span>
                                     <span class="media-body">
-                                                <span class="heading-font-family media-heading">Steve Smith</span> 
+                                                <span class="heading-font-family media-heading">Steve Smith</span>
                                                 <span class="media-content">I slowly updated projects</span>
                                             </span>
                                 </a>
                                 <a href="#" class="media">
                                             <span class="d-flex">
-                                                <i class="ik ik-calendar"></i> 
+                                                <i class="ik ik-calendar"></i>
                                             </span>
                                     <span class="media-body">
-                                                <span class="heading-font-family media-heading">To Do</span> 
+                                                <span class="heading-font-family media-heading">To Do</span>
                                                 <span class="media-content">Meeting with Nathan on Friday 8 AM ...</span>
                                             </span>
                                 </a>
@@ -133,6 +133,7 @@
                                 <a href="{{ url('admin/policyHolders') }}" class="menu-item">Policyholders</a>
                                 <a href="{{ url('admin/policyHolders/manualPaymentRequests') }}" class="menu-item">Unverified Manual Payments</a>
                                 <a href="{{ url('admin/deletedPolicyHolders') }}" class="menu-item">Deleted Policyholders</a>
+                                <a href="{{ url('admin/expired-subscriptions') }}" class="menu-item">Expired Subscriptions</a>
                             </div>
                         </div>
 

@@ -13,12 +13,17 @@
             <div class="custom_page_heading">
                 <h4>Manage Policy Documents</h4>
             </div>
-            @if(!empty($trail_expiration_date))
+            @error('error')
+            <div class="alert alert-danger" role="alert">
+                <strong>{{ $message }}</strong>
+            </div>
+            @enderror
+            {{--@if(!empty($trail_expiration_date))
                 <div class="alert alert-danger" role="alert">
                     <strong>{{ "Free Trial will be ending on ".$trail_expiration_date }}</strong>
                 </div>
-            @endif
-            <form>
+            @endif--}}
+            <div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for=" ">Policyholder Name</label>
@@ -49,8 +54,12 @@
                             <div class="form-row">
                                 <div class="form-group col-md-12">
                                     <div class="custom_btn_row text-right">
+                                        <form method="post" action="{{ url('policyHolder/add-beneficiary-or-policy') }}">
+                                            @csrf
+                                            <input type="hidden" name="request_for" value="beneficiary">
+                                            <input type="submit" class="custom_btn_add btn btn-sm custom-resp-btn" value="Add Beneficiary">
+                                        </form>
                                         <br>
-                                        <a href="{{ url('/beneficiary/add') }}" class="custom_btn_add btn btn-sm custom-resp-btn">Add Beneficiary</a>
                                     </div>
                                 </div>
                             </div>
@@ -103,8 +112,13 @@
                             <div class="form-row">
                                 <div class="form-group col-md-12">
                                     <div class="custom_btn_row text-right">
-                                        <br>
-                                        <a href="{{ url('/policyHolder/addPolicy') }}" class="custom_btn_add btn btn-sm custom-resp-btn">Add Policy</a>
+                                        <form method="post" action="{{ url('policyHolder/add-beneficiary-or-policy') }}">
+                                            @csrf
+                                            <input type="hidden" name="request_for" value="policy">
+                                            <input type="submit" class="custom_btn_add btn btn-sm custom-resp-btn" value="Add Policy">
+                                        </form>
+                                        {{--<br>
+                                        <a href="{{ url('/policyHolder/addPolicy') }}" class="custom_btn_add btn btn-sm custom-resp-btn">Add Policy</a>--}}
                                     </div>
                                 </div>
                             </div>
@@ -155,7 +169,7 @@
                         </div>
                     </div>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
 @endsection
@@ -166,10 +180,16 @@
         $(document).ready(function() {
 
             $("#manage-policy-tbl").DataTable({
-                "bFilter": false
+                "bFilter": false,
+                "language": {
+                    "emptyTable": "No policies added"
+                }
             });
             $("#manage-bene-tbl").DataTable({
-                "bFilter": false
+                "bFilter": false,
+                "language": {
+                    "emptyTable": "No beneficiaries added"
+                }
             });
         });
     </script>

@@ -109,7 +109,7 @@ class AdminController extends Controller
         );
         return view('admin.policy_holders')->with($data);
     }
-    
+
     public function deletedPolicyHolder(Request $request)
     {
 
@@ -138,6 +138,95 @@ class AdminController extends Controller
             } else {
                 Session::flash('message', 'Oops, something went wrong!');
                 Session::flash('alert-class', 'alert-danger');
+            }
+        }
+        return redirect()->back();
+    }
+
+    public function expiredSubscriptionView(Request $request)
+    {
+
+        $expired_subscription_users = User::with('roles', 'payment')->where('archived', 0)->whereHas('roles', function ($q) {
+            $q->where('role_name', '=', 'policyholder');
+        })->get();
+
+        foreach ($expired_subscription_users as $k => $u)
+        {
+            if(!empty($u->payment)){
+                $expiration_date = $u->payment->expiration_date;
+                $expiryDate = date('Y-m-d', strtotime($expiration_date));
+                if(strtotime(date('Y-m-d')) <= strtotime($expiryDate)) {
+                    unset($expired_subscription_users[$k]);
+                }
+
+            }else {
+                unset($expired_subscription_users[$k]);
+            }
+
+        }
+
+        /*foreach ($expired_subscription_users as $key => $value)
+        {
+            echo '<pre>';
+            echo $value->payment->expiration_date;
+            echo '<br>';
+
+        }
+        die;*/
+        $data = array(
+            'expired_subscription_users' => $expired_subscription_users
+        );
+        return view('admin.subscriptions_expired')->with($data);
+    }
+
+    public function expiredSubscriptionSendSMS(Request $request)
+    {
+        $postData = $request->input();
+        if (empty($postData['id'])) {
+            $errors = array('error' => "Oops, wrong user id supplied!");
+            return redirect()->back()->withInput()->withErrors($errors);
+        } else {
+            $userData = User::find($postData['id']);
+            /*--------------------------SENDING SMS---------------------------------*/
+            $message = "Dear Policyholder,\n
+                        Please note that your monthly or annual subscription has not been paid to Show My Claims and as a result, your account has been suspended.\n
+                        Please remember to pay your subscription at your earliest convenience because your beneficiaries will not be able to access your policy information until your subscription has been paid.\n
+                        Thank you,\n
+                        Show My Claims Team";
+            $message = urlencode($message);
+
+            $postFields = array(
+                'key' => 'gHWVUW15',
+                "type" => "text",
+                'contacts' => ($userData->mobile[0] == "0" ? "27" . substr($userData->mobile, 1) : "27" . $userData->mobile),
+                'senderid' => 'Witsprep',
+                'msg' => $message
+            );
+
+            //Old
+            /*$postFields = array(
+                'key' => 'gHWVUW15',
+                "type" => "text",
+                'contacts' => $postData['cell_number'],
+                'senderid' => 'WITSPREP',
+                'msg' => $message
+            );*/
+
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL,"http://148.251.196.36/app/smsjsonapi");
+            curl_setopt($ch, CURLOPT_POST, 1);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($postFields));
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            $response = curl_exec($ch);
+            curl_close ($ch);
+            $response = json_decode($response, true);
+
+            if(empty($response[0]->status) || $response[0]->status !== 'success') {
+                Session::flash('message', 'Oops, something went wrong!');
+                Session::flash('alert-class', 'alert-danger');
+            } else{
+                Session::flash('message', 'SMS successfully sent!');
+                Session::flash('alert-class', 'alert-success');
             }
         }
         return redirect()->back();
