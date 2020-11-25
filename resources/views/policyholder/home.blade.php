@@ -130,28 +130,30 @@
                                                 <thead>
                                                 <tr>
                                                     <th>#</th>
-                                                    <th>Document Name</th>
-                                                    <th>Type</th>
-                                                    <th>Document</th>
-                                                    <th>Added Date</th>
-                                                    <th>Action</th>
+                                                    <th>Name of Institution</th>
+                                                    <th>Type of policy</th>
+                                                    <th>Policy Number</th>
+                                                    <th>Policy Document</th>
+                                                    {{--<th>Action</th>--}}
                                                 </tr>
                                                 </thead>
                                                 <tbody>
                                                 @foreach($policies as $policy)
                                                     <tr>
                                                         <td>{{ $loop->iteration }}</td>
-                                                        <td>{{ $policy->name }}</td>
-                                                        <td>{{ ucfirst(str_replace('_',' ', $policy->type)) }}</td>
+                                                        <td>{{ $policy->institute_name }}</td>
+                                                        <td>{{ $policy->type }}</td>
+{{--                                                        <td>{{ ucfirst(str_replace('_',' ', $policy->type)) }}</td>--}}
+                                                        <td>{{$policy->policy_number}}</td>
                                                         <td>
                                                             <a href="{{ \Illuminate\Support\Facades\URL::to('/').'/public/'.\Illuminate\Support\Facades\Storage::url($policy->document) }}" download>
                                                                 <p class="font-weight-bold mb-0">{{ $policy->document_original_name }}</p>
                                                             </a>
                                                         </td>
-                                                        <td>{{ date('Y-m-d', strtotime($policy->created_at)) }}</td>
-                                                        <td>
+{{--                                                        <td>{{ date('Y-m-d', strtotime($policy->created_at)) }}</td>--}}
+                                                        {{--<td>
                                                             <a onclick="return confirm('Are you sure you would like to delete this document?')" href="{{ route('deletePolicy',['id' => $policy->id]) }}" class="btn btn-sm btn-danger">Delete</a>
-                                                        </td>
+                                                        </td>--}}
                                                     </tr>
                                                 @endforeach
                                                 </tbody>

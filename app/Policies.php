@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Policies extends Model
 {
-    protected $fillable = ['name', 'type', 'document', 'document_original_name', 'added_by', 'added_by_type'];
+    protected $fillable = ['name', 'type', 'document', 'document_original_name', 'added_by', 'added_by_type', 'institute_name', 'policy_number'];
 
     public function User()
     {

@@ -11,11 +11,19 @@
                 @csrf
                 <div class="custom_form_heading"><span>Enter Name of the Institution and Type of Policy</span></div>
                 <div class="form-row">
-                    <div class="form-group col-md-6">
+                    {{--<div class="form-group col-md-6">
                         <label for=" ">Document Name<span class="text-danger"><b>*</b></span></label>
                         <input type="text" class="form-control" name="doc_name" placeholder="Enter Document Name" required>
+                    </div>--}}
+                    <div class="form-group col-md-6">
+                        <label for=" ">Name of institution<span class="text-danger"><b>*</b></span></label>
+                        <input type="text" class="form-control" name="institute_name" placeholder="Enter Name of institution" required>
                     </div>
                     <div class="form-group col-md-6">
+                        <label>Type of policy<span class="text-danger"><b>*</b></span></label>
+                        <input type="text" class="form-control" name="policy_type" required>
+                    </div>
+                    {{--<div class="form-group col-md-6">
                         <label>Select Policy Type<span class="text-danger"><b>*</b></span></label>
                         <select class="form-control" name="policy_type">
                             <option value="" selected disabled>-Select Type-</option>
@@ -25,16 +33,21 @@
                             <option value="will">Will</option>
                             <option value="other">Other</option>
                         </select>
-                    </div>
+                    </div>--}}
                 </div>
-                <div class="custom_form_heading"><span>Upload Policy Document</span></div>
+                <div class="custom_form_heading"><span>Enter Policy number Upload Policy Document</span></div>
                 <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label>Policy number<span class="text-danger"><b>*</b></span></label>
+                        <input type="text" class="form-control" name="policy_number">
+                    </div>
                     <div class="form-group col-md-6">
                         {{--<div class="custom-file">
                             <input type="file" class="custom-file-input" name="doc_file" id="upPolicyDoc" required>
                             <label class="custom-file-label" for="upPolicyDoc">Choose file...</label>
                         </div>--}}
-                        <input type="file" class="form-control custom-up" name="doc_file" accept=".png,.jpg,.jepg,.pdf,.doc,.docx" required>
+                        <label>Upload a policy document<span class="text-danger"><b>*</b></span></label>
+                        <input type="file" class="form-control custom-up" name="doc_file" accept=".png,.jpg,.jepg,.pdf,.doc,.docx">
                     </div>
                 </div>
 
@@ -59,6 +72,9 @@
                     </div>
                 </div>
             </form>
+            <div class="alert alert-info" role="alert">
+                If you don’t know what your <strong>policy number</strong> is, please call the institution you have the policy with and request them to give it to you.
+            </div>
         </div>
     </div>
 @endsection

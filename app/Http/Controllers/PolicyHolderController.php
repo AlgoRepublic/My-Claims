@@ -384,10 +384,14 @@ class PolicyHolderController extends Controller
             }
         }
 
+
+
         //$allBeneficiaries = array_merge($postData['beneficiaries'],$benIDs);
         $data = array(
-            'name' => $postData['doc_name'],
+            'name' => 'null',
+            'institute_name' => $postData['institute_name'],
             'type' => $postData['policy_type'],
+            'policy_number' => $postData['policy_number'],
             'document' => $path,
             'document_original_name' => $_FILES['doc_file']['name'],
             'added_by' => $addedBy,
@@ -412,6 +416,74 @@ class PolicyHolderController extends Controller
         Session::flash('alert-class', 'alert-success');
         return redirect($redirect);
     }
+
+//    public function addPolicy(Request $request)
+//    {
+//        $postData = $request->input();
+//        $path = '';
+//        $beneficiaryData = $policyBen = array();
+//        $benIDs = array();
+//
+//        if(!empty($postData['source']) && $postData['source'] == 'admin') {
+//            if(empty($postData['policyholder_id'])) {
+//                Session::flash('message', 'Oops, something went wrong!');
+//                Session::flash('alert-class', 'alert-danger');
+//                return redirect('admin/addPolicy');
+//            }
+//            $addedBy = $postData['policyholder_id'];
+//            $addedByType = 'admin';
+//            $redirect = 'admin/policyHolders';
+//        }
+//        else {
+//            $addedBy = Auth::user()->id;
+//            $addedByType = 'policyholder';
+//            $redirect = 'policyHolder/';
+//        }
+//
+//        if(!empty($_FILES['doc_file']['name']))
+//            $path = $request->file('doc_file')->store('public/policies');//$path = Storage::putFile('public/policies', $request->file('doc_file'));
+//
+//        if(!empty($postData['bene_name'])) {
+//
+//            for($i=0; $i < count($postData['bene_name']); $i++) {
+//                $beneficiaryData['name'] = $postData['bene_name'][$i];
+//                $beneficiaryData['surname'] = $postData['bene_surname'][$i];
+//                $beneficiaryData['identity_document_number'] = $postData['bene_document_number'][$i];
+//                $beneficiaryData['cell_number'] = $postData['bene_cell_number'][$i];
+//                $beneficiaryData['added_by'] = Auth::user()->id;
+//                $beneficiary = Beneficiaries::create($beneficiaryData);
+//                $benIDs[] = $beneficiary->id;
+//            }
+//        }
+//
+//        //$allBeneficiaries = array_merge($postData['beneficiaries'],$benIDs);
+//        $data = array(
+//            'name' => $postData['doc_name'],
+//            'type' => $postData['policy_type'],
+//            'document' => $path,
+//            'document_original_name' => $_FILES['doc_file']['name'],
+//            'added_by' => $addedBy,
+//            'added_by_type' => $addedByType
+//        );
+//
+//        $newPolicy = Policies::create($data);
+//        $newPolicy->save();
+//
+//        /*$policyID = $newPolicy->id;
+//        $n = 0;
+//        foreach ($allBeneficiaries as $ben) {
+//            $policyBen[$n]['policy_id'] = $policyID;
+//            $policyBen[$n]['beneficiary_id'] = $ben;
+//            $n++;
+//        }
+//
+//        if(!empty($policyBen))
+//            beneficiary_policy::insert($policyBen);*/
+//
+//        Session::flash('message', 'Policy added successfully!');
+//        Session::flash('alert-class', 'alert-success');
+//        return redirect($redirect);
+//    }
 
     public function addPolicyView()
     {
