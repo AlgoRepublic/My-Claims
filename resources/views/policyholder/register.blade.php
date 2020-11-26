@@ -34,33 +34,33 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for=" ">Name<span class="error-text">*</span></label>
-                    <input type="text" class="form-control" pattern="[A-Za-z0-9\s]+" title="Only alphanumeric characters are allowed." value="{{ old('name') }}" placeholder="John Deo" name="name" required>
+                    <input type="text" class="form-control" pattern="[A-Za-z0-9\s]+" title="Only alphanumeric characters are allowed." value="{{ old('name') }}" name="name" required>
                 </div>
                 <div class="form-group col-md-6">
                     <label for=" ">Surname<span class="error-text">*</span></label>
-                    <input type="text" class="form-control" pattern="[A-Za-z0-9\s]+" title="Only alphanumeric characters are allowed." value="{{ old('surname') }}" placeholder="Deo Smith" name="surname" required>
+                    <input type="text" class="form-control" pattern="[A-Za-z0-9\s]+" title="Only alphanumeric characters are allowed." value="{{ old('surname') }}" name="surname" required>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for=" ">Cell Number<span class="error-text">*</span></label>
-                    <input type="text" pattern="\d*" maxlength="10" minlength="10" title="10 digits minimum | Only positive digits are allowed" class="form-control" data-type="mobile" id="reg-contact-no" value="{{ old('mobile') }}" placeholder="0123456789" name="mobile" required>
+                    <input type="text" pattern="\d*" maxlength="10" minlength="10" title="10 digits minimum | Only positive digits are allowed" class="form-control" data-type="mobile" id="reg-contact-no" value="{{ old('mobile') }}" name="mobile" required>
                     <span id="reg-contact-error"></span>
                 </div>
                 <div class="form-group col-md-6">
                     <label for=" ">Email</label>
-                    <input type="email" class="form-control" value="{{ old('email') }}" placeholder="john_deo@xyz.com" id="reg-email" name="email">
+                    <input type="email" class="form-control" value="{{ old('email') }}" id="reg-email" name="email">
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for=" ">Password<span class="error-text">*</span></label>
-                    <input type="password" pattern=".{6,}" title="6 characters minimum" class="form-control" id="reg-pass" placeholder="********" name="password" required>
+                    <input type="password" pattern=".{6,}" title="6 characters minimum" class="form-control" id="reg-pass" name="password" required>
                     <span toggle="#reg-pass" class="fa fa-fw fa-eye field-icon toggle-password"></span>
                 </div>
                 <div class="form-group col-md-6">
                     <label for=" ">Confirm Password<span class="error-text">*</span></label>
-                    <input type="password" pattern=".{6,}" title="6 characters minimum" class="form-control" id="reg-re-pass" placeholder="********" name="re_pwd" required>
+                    <input type="password" pattern=".{6,}" title="6 characters minimum" class="form-control" id="reg-re-pass" name="re_pwd" required>
                     <span toggle="#reg-re-pass" class="fa fa-fw fa-eye field-icon toggle-password"></span>
                     <span id="reg-pass-error"></span>
                 </div>
@@ -68,7 +68,7 @@
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for=" ">South African Identity Document Number<span class="error-text">*</span></label>
-                    <input type="text" id="user-idn" data-type="identity_document_number" pattern="\d*" maxlength="13" minlength="13" title="Only dgits are allowed | Length should be 13." class="form-control" value="{{ old('identity_document_number') }}" placeholder="0123456789000" name="identity_document_number" required>
+                    <input type="text" id="user-idn" data-type="identity_document_number" pattern="\d*" maxlength="13" minlength="13" title="Only dgits are allowed | Length should be 13." class="form-control" value="{{ old('identity_document_number') }}" name="identity_document_number" required>
                     <span id="reg-idn-error"></span>
                 </div>
                 {{--<div class="form-group col-md-6">

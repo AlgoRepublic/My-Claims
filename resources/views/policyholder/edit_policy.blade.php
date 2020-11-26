@@ -34,7 +34,7 @@
                     </div>--}}
                     <div class="form-group col-md-6">
                         <label for=" ">Name of institution<span class="text-danger"><b>*</b></span></label>
-                        <input type="text" class="form-control" name="institute_name" value="{{$policy->institute_name}}" placeholder="" required>
+                        <input type="text" class="form-control" name="institute_name" value="{{$policy->institute_name}}" required>
                     </div>
                     <div class="form-group col-md-6">
                         <label>Type of policy<span class="text-danger"><b>*</b></span></label>
@@ -104,6 +104,9 @@
         </div>
     </div>
 
+@endsection
+
+@section('Page-JS')
     <script>
         function deleteDocument()
         {
@@ -133,4 +136,3 @@
         }
     </script>
 @endsection
-

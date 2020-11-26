@@ -94,7 +94,8 @@ class BaseController extends Controller
         }*/
 
         $data = array(
-            'policy_type' => $policyType,
+            'policy_type' => [],
+//            'policy_type' => $policyType,
             'name' => $user->name .' '. $user->surname,
             'policyholder_number' => $postData['policyholder_number'],
             'policyholderID' => $user->id

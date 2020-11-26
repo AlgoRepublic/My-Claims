@@ -226,6 +226,38 @@ class PolicyHolderController extends Controller
 
         $user = User::create($data);
         $user->save();
+
+        /*--------------------------SENDING SMS ALERT(TEMP CODE) STARTS---------------------------------*/
+        $message = "Welcome\n
+                    Thank you for signing up to Show My Claims. By signing up, you acknowledge that you signed up willingly. You also acknowledge that any policy information you add is true, correct and updated. Show my claims will not be held accountable for inactive policies.";
+        $message = urlencode($message);
+
+        $postFields = array(
+            'key' => '9kBnMC7U',
+            "type" => "text",
+            'contacts' => ($postData['mobile'][0] == "0" ? "27" . substr($postData['mobile'], 1) : "27" . $postData['mobile']),
+            'senderid' => 'SHOWMYCLAIMS',
+            'msg' => $message
+        );
+
+        //Old
+        /*$postFields = array(
+            'key' => 'gHWVUW15',
+            "type" => "text",
+            'contacts' => $postData['cell_number'],
+            'senderid' => 'WITSPREP',
+            'msg' => $message
+        );*/
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL,"http://148.251.196.36/app/smsjsonapi");
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($postFields));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $response = curl_exec($ch);
+        curl_close ($ch);
+        $response = json_decode($response, true);
+
         return redirect('policyHolder/');
 
         /*if($package['type'] === 'free_trail')
@@ -523,18 +555,9 @@ class PolicyHolderController extends Controller
             $benIDs = array();
 
             if(!empty($postData['source']) && $postData['source'] == 'admin') {
-                if(empty($postData['policyholder_id'])) {
-                    Session::flash('message', 'Oops, something went wrong!');
-                    Session::flash('alert-class', 'alert-danger');
-                    return redirect('admin/addPolicy');
-                }
-                $addedBy = $postData['policyholder_id'];
-                $addedByType = 'admin';
                 $redirect = 'admin/policyHolders';
             }
             else {
-                $addedBy = Auth::user()->id;
-                $addedByType = 'policyholder';
                 $redirect = 'policyHolder/';
             }
 
@@ -558,8 +581,6 @@ class PolicyHolderController extends Controller
             $policy->institute_name = $postData['institute_name'];
             $policy->type = $postData['policy_type'];
             $policy->policy_number = $postData['policy_number'];
-            $policy->added_by = $addedBy;
-            $policy->added_by_type = $addedByType;
             if(!empty($path) && !empty($_FILES['doc_file']['name'])){
                 $policy->document = $path;
                 $policy->document_original_name = $_FILES['doc_file']['name'];

@@ -43,6 +43,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
     Route::get('/delete-blog', 'AdminController@deleteBlog')->name('deleteBlog');
     Route::get('/addPolicy', 'AdminController@addPolicyView')->name('addPolAdmin');
     Route::post('/addPolicy', 'PolicyHolderController@addPolicy');
+    Route::get('/editPolicy', 'AdminController@editPolicyView')->name('editPolAdmin');
+    Route::post('/editPolicy', 'PolicyHolderController@editPolicy');
+    Route::post('/deletePolicyDocument', 'PolicyHolderController@deletePolicyDocument')->name('delPolDocAdmin');;
     //Route::get('/blogs', 'AdminController@blogs')->name('blogs');
     Route::get('/deletedPolicyHolders', 'AdminController@deletedPolicyHolder');
     Route::get('/permanently-delete-policyholder', 'AdminController@permanentlyDeletePolicyHolder')->name('permanentlyDeletePolicyHolder');

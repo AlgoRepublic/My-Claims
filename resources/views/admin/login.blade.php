@@ -49,11 +49,11 @@
                     <form action="{{ url('admin/login') }}" method="post">
                         @csrf
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Email" name="email" value="{{ old('email') }}" required>
+                            <input type="text" class="form-control" name="email" value="{{ old('email') }}" required>
                             <i class="ik ik-user"></i>
                         </div>
                         <div class="form-group">
-                            <input type="password" class="form-control" placeholder="Password" name="password" value="{{ old('password') }}" required="">
+                            <input type="password" class="form-control" name="password" value="{{ old('password') }}" required="">
                             <i class="ik ik-lock"></i>
                         </div>
                         <div class="row">

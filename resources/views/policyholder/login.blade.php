@@ -45,13 +45,14 @@
                     <div class="form-row">
                         <div class="form-group col-md-12">
                             <label for=" ">Cell Number<span class="error-text">*</span></label>
-                            <input type="number" value="{{ old('cell_number') }}" name="cell_number" class="form-control" minlength="9" maxlength="9" placeholder="123456789" required>
+                            <input type="number" value="{{ old('cell_number') }}" name="cell_number" class="form-control" minlength="9" maxlength="9" required>
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-12">
                             <label for=" ">Password<span class="error-text">*</span></label>
-                            <input type="password" name="password" class="form-control" id=" " placeholder="**********" required>
+                            <input type="password" pattern=".{6,}" title="6 characters minimum" class="form-control" id="reg-pass" name="password" required>
+                            <span toggle="#reg-pass" class="fa fa-fw fa-eye field-icon toggle-password"></span>
                             <span class="custom_forgot_password"><a href="{{ url('/forgot-password') }}"> Forgot Password?</a></span>
                         </div>
                     </div>
@@ -75,5 +76,7 @@
 <script src="{{ asset('/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <!-- Custom JS -->
 <script src="{{ asset('/js/main.min.js') }}"></script>
+<script src="{{ asset('/js/custom.js') }}"></script>
+
 </body>
 </html>

@@ -34,12 +34,12 @@
                 <div class="tab-content" id="pills-tabContent">
                     <div class="tab-pane fade show active" id="pills-beneficiaries" role="tabpanel" aria-labelledby="pills-home-tab">
                         <div class="custom_form_heading text-center"><span class="custom-mid-head">All Beneficiaries</span></div>
-                        @if(Session::has('message'))
+                        {{--@if(Session::has('message'))
                             <div class="alert {{ Session::get('alert-class', 'alert-info') }} alert-dismissible">
                                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                                 {{ Session::get('message') }}
                             </div>
-                        @endif
+                        @endif--}}
                         <div class="container">
                             <div class="row">
                                 <div class="col-12">
@@ -95,6 +95,7 @@
                                                 <th>Type of Policy</th>
                                                 <th>Policy Number</th>
                                                 <th>Policy Document</th>
+                                                <th>Action</th>
                                             </tr>
                                             </thead>
                                             <tbody>
@@ -111,6 +112,10 @@
                                                         </a>
                                                     </td>
 {{--                                                <td>{{ date('Y-m-d', strtotime($policy->created_at)) }}</td>--}}
+                                                    <td>
+                                                        <a href="{{ route('editPolAdmin',['id' => $policy->id]) }}" class="btn btn-sm btn-info custom-width">Edit</a>&nbsp;&nbsp;
+                                                        <a onclick="return confirm('Are you sure you would like to delete this document?')" href="{{ route('deletePolicy',['id' => $policy->id]) }}" class="btn btn-sm btn-danger">Delete</a>
+                                                    </td>
                                                 </tr>
                                             @endforeach
                                             </tbody>
@@ -136,6 +141,9 @@
             $("#manage-bene-tbl").DataTable({
                 "bFilter": false
             });
+
+
+
         });
     </script>
 @endsection

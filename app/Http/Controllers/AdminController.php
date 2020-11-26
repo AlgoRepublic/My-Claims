@@ -354,6 +354,18 @@ class AdminController extends Controller
         return view('admin.add_policy')->with(['policyholder_id' => $postData['id']]);
     }
 
+    public function editPolicyView(Request $request)
+    {
+        $postData = $request->input();
+        if(!empty($postData['id'])){
+            $policy = Policies::find($postData['id']);
+            return view('admin.edit_policy')->with('policy', $policy);
+        }
+        Session::flash('message', 'Oops, invalid request!');
+        Session::flash('alert-class', 'alert-success');
+        return redirect()->back();
+    }
+
     public function manualPaymentRequests(Request $request)
     {
         $users = User::with('payment')->where('payment_verified', 0)->whereHas('payment', function($q){
