@@ -23,7 +23,7 @@
                     <div class="form-row">
                         <div class="form-group col-md-12">
                             <label for=" ">Enter Policyholder’s Identity Number<span class="error-text">*</span></label>
-                            <input type="text" class="form-control" name="policyholder_number" placeholder="5453453643" required>
+                            <input type="text" class="form-control" name="policyholder_number" placeholder="" required>
                         </div>
                     </div>
                     <div class="form-row justify-content-center">

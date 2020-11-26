@@ -26,7 +26,7 @@
             </div>
             <form method="POST" action="{{ url('/policyHolder/editPolicy') }}" enctype="multipart/form-data">
                 @csrf
-                <div class="custom_form_heading"><span>Enter Name of the Institution and Type of Policy</span></div>
+                <div class="custom_form_heading"><span>Add your policies</span></div>
                 <div class="form-row">
                     {{--<div class="form-group col-md-6">
                         <label for=" ">Document Name<span class="text-danger"><b>*</b></span></label>
@@ -34,7 +34,7 @@
                     </div>--}}
                     <div class="form-group col-md-6">
                         <label for=" ">Name of institution<span class="text-danger"><b>*</b></span></label>
-                        <input type="text" class="form-control" name="institute_name" value="{{$policy->institute_name}}" placeholder="Enter Name of institution" required>
+                        <input type="text" class="form-control" name="institute_name" value="{{$policy->institute_name}}" placeholder="" required>
                     </div>
                     <div class="form-group col-md-6">
                         <label>Type of policy<span class="text-danger"><b>*</b></span></label>
@@ -52,7 +52,6 @@
                         </select>
                     </div>--}}
                 </div>
-                <div class="custom_form_heading"><span>Enter Policy number Upload Policy Document</span></div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label>Policy number</label>
@@ -63,7 +62,7 @@
                             <input type="file" class="custom-file-input" name="doc_file" id="upPolicyDoc" required>
                             <label class="custom-file-label" for="upPolicyDoc">Choose file...</label>
                         </div>--}}
-                        <label>Upload a policy document</label>
+                        <label>Upload a policy document (Optional)</label>
                         <input type="file" class="form-control custom-up custom-upload-input" name="doc_file" accept=".png,.jpg,.jepg,.pdf,.doc,.docx" value="{{ \Illuminate\Support\Facades\URL::to('/').'/public/'.\Illuminate\Support\Facades\Storage::url($policy->document) }}">
                         @if($policy->document_original_name)
                             <div id="policyDocument" class="custom-upload-input-row">
@@ -113,7 +112,7 @@
                 let token = $("input[name='_token']").val()
                 $.ajax({
                     method : 'POST',
-                    url : 'deletePolicyDocument',
+                    url : '/policyHolder/deletePolicyDocument',
                     data : {policy_id : "{{$policy->id}}", _token : token },
                     dataType : 'JSON',
                     success: function (data) {

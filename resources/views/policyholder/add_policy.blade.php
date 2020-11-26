@@ -9,7 +9,7 @@
             </div>
             <form method="POST" action="{{ url('/policyHolder/addPolicy') }}" enctype="multipart/form-data">
                 @csrf
-                <div class="custom_form_heading"><span>Enter Name of the Institution and Type of Policy</span></div>
+                <div class="custom_form_heading"><span>Add your policies</span></div>
                 <div class="form-row">
                     {{--<div class="form-group col-md-6">
                         <label for=" ">Document Name<span class="text-danger"><b>*</b></span></label>
@@ -17,7 +17,7 @@
                     </div>--}}
                     <div class="form-group col-md-6">
                         <label for=" ">Name of institution<span class="text-danger"><b>*</b></span></label>
-                        <input type="text" class="form-control" name="institute_name" placeholder="Enter Name of institution" required>
+                        <input type="text" class="form-control" name="institute_name" placeholder="" required>
                     </div>
                     <div class="form-group col-md-6">
                         <label>Type of policy<span class="text-danger"><b>*</b></span></label>
@@ -35,7 +35,6 @@
                         </select>
                     </div>--}}
                 </div>
-                <div class="custom_form_heading"><span>Enter Policy number Upload Policy Document</span></div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label>Policy number</label>
@@ -46,7 +45,7 @@
                             <input type="file" class="custom-file-input" name="doc_file" id="upPolicyDoc" required>
                             <label class="custom-file-label" for="upPolicyDoc">Choose file...</label>
                         </div>--}}
-                        <label>Upload a policy document</label>
+                        <label>Upload a policy document (Optional)</label>
                         <input type="file" class="form-control custom-up" name="doc_file" accept=".png,.jpg,.jepg,.pdf,.doc,.docx">
                     </div>
                 </div>
