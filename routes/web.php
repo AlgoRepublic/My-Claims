@@ -55,6 +55,9 @@ Route::group(['prefix' => 'policyHolder', 'middleware' => 'policyholder'], funct
     Route::get('/', 'PolicyHolderController@index');
     Route::get('/addPolicy', 'PolicyHolderController@addPolicyView');
     Route::post('/addPolicy', 'PolicyHolderController@addPolicy');
+    Route::get('/editPolicy', 'PolicyHolderController@editPolicyView')->name('editPolicy');;
+    Route::post('/editPolicy', 'PolicyHolderController@editPolicy');
+    Route::post('/deletePolicyDocument', 'PolicyHolderController@deletePolicyDocument');
     Route::get('/edit', function() {
         $packages = \App\PaymentPackages::orderBy('amount','ASC')->get();
         /*foreach ($packages as $key => $package)

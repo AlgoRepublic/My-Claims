@@ -19,6 +19,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\URL;
+use function Psy\bin;
 
 class PolicyHolderController extends Controller
 {
@@ -352,6 +353,13 @@ class PolicyHolderController extends Controller
         $beneficiaryData = $policyBen = array();
         $benIDs = array();
 
+        if(empty($postData['institute_name']) || empty($postData['policy_type']))
+        {
+            Session::flash('message', 'Oops, something went wrong!');
+            Session::flash('alert-class', 'alert-danger');
+            return redirect('policyHolder');
+        }
+
         if(!empty($postData['source']) && $postData['source'] == 'admin') {
             if(empty($postData['policyholder_id'])) {
                 Session::flash('message', 'Oops, something went wrong!');
@@ -490,6 +498,103 @@ class PolicyHolderController extends Controller
         // Get the beneficiaries list to show to user
         $benList = Beneficiaries::where('added_by', Auth::user()->id)->get();
         return view('policyholder.add_policy')->with('benList', $benList);
+    }
+
+    public function editPolicyView(Request $request)
+    {
+        $postData = $request->input();
+        if(!empty($postData['id'])){
+            $policy = Policies::find($postData['id']);
+            return view('policyholder.edit_policy')->with('policy', $policy);
+        }
+        Session::flash('message', 'The selected policy has been deleted successfully!');
+        Session::flash('alert-class', 'alert-success');
+        return redirect()->back();
+    }
+
+    public function editPolicy(Request $request)
+    {
+        $postData = $request->input();
+
+        if(!empty($postData['id']) && !empty($postData['institute_name']) && !empty($postData['policy_type']))
+        {
+            $path = '';
+            $beneficiaryData = $policyBen = array();
+            $benIDs = array();
+
+            if(!empty($postData['source']) && $postData['source'] == 'admin') {
+                if(empty($postData['policyholder_id'])) {
+                    Session::flash('message', 'Oops, something went wrong!');
+                    Session::flash('alert-class', 'alert-danger');
+                    return redirect('admin/addPolicy');
+                }
+                $addedBy = $postData['policyholder_id'];
+                $addedByType = 'admin';
+                $redirect = 'admin/policyHolders';
+            }
+            else {
+                $addedBy = Auth::user()->id;
+                $addedByType = 'policyholder';
+                $redirect = 'policyHolder/';
+            }
+
+            if(!empty($_FILES['doc_file']['name']))
+                $path = $request->file('doc_file')->store('public/policies');//$path = Storage::putFile('public/policies', $request->file('doc_file'));
+
+            if(!empty($postData['bene_name'])) {
+
+                for($i=0; $i < count($postData['bene_name']); $i++) {
+                    $beneficiaryData['name'] = $postData['bene_name'][$i];
+                    $beneficiaryData['surname'] = $postData['bene_surname'][$i];
+                    $beneficiaryData['identity_document_number'] = $postData['bene_document_number'][$i];
+                    $beneficiaryData['cell_number'] = $postData['bene_cell_number'][$i];
+                    $beneficiaryData['added_by'] = Auth::user()->id;
+                    $beneficiary = Beneficiaries::create($beneficiaryData);
+                    $benIDs[] = $beneficiary->id;
+                }
+            }
+
+            $policy = Policies::find($postData['id']);
+            $policy->institute_name = $postData['institute_name'];
+            $policy->type = $postData['policy_type'];
+            $policy->policy_number = $postData['policy_number'];
+            $policy->added_by = $addedBy;
+            $policy->added_by_type = $addedByType;
+            if(!empty($path) && !empty($_FILES['doc_file']['name'])){
+                $policy->document = $path;
+                $policy->document_original_name = $_FILES['doc_file']['name'];
+            }
+            $policy->save();
+
+            /*$policyID = $newPolicy->id;
+            $n = 0;
+            foreach ($allBeneficiaries as $ben) {
+                $policyBen[$n]['policy_id'] = $policyID;
+                $policyBen[$n]['beneficiary_id'] = $ben;
+                $n++;
+            }
+
+            if(!empty($policyBen))
+                beneficiary_policy::insert($policyBen);*/
+
+            Session::flash('message', 'Policy edit successfully!');
+            Session::flash('alert-class', 'alert-success');
+            return redirect($redirect);
+        }else{
+            Session::flash('message', 'Oops, something went wrong!');
+            Session::flash('alert-class', 'alert-danger');
+            return redirect('policyHolder');
+        }
+    }
+
+    public function deletePolicyDocument(Request $request)
+    {
+        $postData = $request->input();
+        $policy = Policies::find($postData['policy_id']);
+        $policy->document = "";
+        $policy->document_original_name = "";
+        $policy->save();
+        return response()->json(["message" => "Document Deleted"]);
     }
 
     public function deletePolicy(Request $request)
@@ -656,10 +761,10 @@ class PolicyHolderController extends Controller
         $message = urlencode($message);
 
         $postFields = array(
-            'key' => 'gHWVUW15',
+            'key' => '9kBnMC7U',
             "type" => "text",
             'contacts' => ($postData['cell_number'][0] == "0" ? "27" . substr($postData['cell_number'], 1) : "27" . $postData['cell_number']),
-            'senderid' => 'Witsprep',
+            'senderid' => 'SHOWMYCLAIMS',
             'msg' => $message
         );
 

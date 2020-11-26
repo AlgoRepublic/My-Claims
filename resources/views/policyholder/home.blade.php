@@ -134,7 +134,7 @@
                                                     <th>Type of policy</th>
                                                     <th>Policy Number</th>
                                                     <th>Policy Document</th>
-                                                    {{--<th>Action</th>--}}
+                                                    <th>Action</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
@@ -151,9 +151,10 @@
                                                             </a>
                                                         </td>
 {{--                                                        <td>{{ date('Y-m-d', strtotime($policy->created_at)) }}</td>--}}
-                                                        {{--<td>
+                                                        <td>
+                                                            <a href="{{ route('editPolicy',['id' => $policy->id]) }}" class="btn btn-sm btn-info custom-width">Edit</a>&nbsp;&nbsp;
                                                             <a onclick="return confirm('Are you sure you would like to delete this document?')" href="{{ route('deletePolicy',['id' => $policy->id]) }}" class="btn btn-sm btn-danger">Delete</a>
-                                                        </td>--}}
+                                                        </td>
                                                     </tr>
                                                 @endforeach
                                                 </tbody>
