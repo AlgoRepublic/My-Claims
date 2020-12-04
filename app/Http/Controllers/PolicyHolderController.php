@@ -168,7 +168,7 @@ class PolicyHolderController extends Controller
             );
 
             UserPayment::create($userPayment);
-            Session::flash('message', 'An email with the banking details have been sent successfully. Please pay the manual fee to proceed!');
+            Session::flash('message', 'An email with the banking details has been sent successfully. Please pay the manual fee to proceed!');
             Session::flash('alert-class', 'alert-success');
             return redirect('policyHolder/');
         }
@@ -310,7 +310,7 @@ class PolicyHolderController extends Controller
 //            );
 //
 //            UserPayment::create($userPayment);
-//            Session::flash('message', 'An email with the banking details have been sent successfully. Please pay the manual fee to proceed!');
+//            Session::flash('message', 'An email with the banking details has been sent successfully. Please pay the manual fee to proceed!');
 //            Session::flash('alert-class', 'alert-success');
 //            return redirect('policyHolder/');
 //        }
@@ -725,7 +725,7 @@ class PolicyHolderController extends Controller
 
                 UserPayment::where('user_id', $postData['id'])->update($userPayment);
                 User::where('id', $postData['id'])->update(['payment_verified' => 0]);
-                Session::flash('message', 'An email with the banking details have been sent successfully. Please pay the manual fee to proceed!');
+                Session::flash('message', 'An email with the banking details has been sent successfully. Please pay the manual fee to proceed!');
                 Session::flash('alert-class', 'alert-success');
                 return redirect('policyHolder/');
             }
