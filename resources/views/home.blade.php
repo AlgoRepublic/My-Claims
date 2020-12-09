@@ -3,7 +3,14 @@
 @section('mainbody')
     <header class="masthead">
         <div class="container">
+            <div>
+
+            </div>
             <div class="intro-text">
+
+                <a class="btn nav-link custom_nav_btn custom-nav-log"
+                   style="width: fit-content; float: right; padding: 100px;" href="https://sacoronavirus.co.za/"
+                   target="_blank">SA Covid-19 info</a>
                 <div class="intro-lead-in">Helping you claim what is due to you</div>
                 <div class="intro-heading">Don’t let your beneficiaries struggle while you have worked all your life to
                     take care of them. Make sure they claim from all the policies they are beneficiaries to.
