@@ -22,12 +22,12 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for=" ">South African Identity Document Number<span class="text-danger"><b>*</b></span></label>
-                            <input type="text" id="user-idn" pattern="\d*" data-original="{{ $beneficiary->identity_document_number }}" data-type="identity_document_number" data-source="beneficiary" maxlength="13" minlength="13" title="Only dgits are allowed | Length should be 13." class="form-control" name="bene_document_number" value="{{ $beneficiary->identity_document_number }}" placeholder="" required="">
+                            <input type="text" id="user-idn-ben" pattern="\d*" data-original="{{ $beneficiary->identity_document_number }}" data-type="identity_document_number" data-source="beneficiary" maxlength="13" minlength="13" title="Only dgits are allowed | Length should be 13." class="form-control" name="bene_document_number" value="{{ $beneficiary->identity_document_number }}" placeholder="" required="">
                             <span id="reg-idn-error"></span>
                         </div>
                         <div class="form-group col-md-6">
                             <label for=" ">Cell Phone Number<span class="text-danger"><b>*</b></span></label>
-                            <input type="text" data-type="mobile" id="reg-contact-no" data-original="{{ $beneficiary->cell_number }}" data-source="beneficiary" pattern="\d*" maxlength="10" minlength="10" title="10 digits minimum | Only positive digits are allowed" class="form-control" name="bene_cell_number" value="{{ $beneficiary->cell_number }}" placeholder="" required="">
+                            <input type="text" data-type="mobile" id="reg-contact-no-ben" data-original="{{ $beneficiary->cell_number }}" data-source="beneficiary" pattern="\d*" maxlength="10" minlength="10" title="10 digits minimum | Only positive digits are allowed" class="form-control" name="bene_cell_number" value="{{ $beneficiary->cell_number }}" placeholder="" required="">
                             <span id="reg-contact-error"></span>
                         </div>
                         <input type="hidden" value="{{ $beneficiary->id }}" name="ben_id" />

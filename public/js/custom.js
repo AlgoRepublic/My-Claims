@@ -50,9 +50,9 @@ $(document).ready(function() {
         // Composer url for ajax request
         var hostName = $(location).attr('hostname');
         if(hostName == 'localhost') {
-            var url = $(location).attr('protocol')+'//'+ hostName +'/dollieInc/home/checkUser';
+            var url = '/show_my_claims/policyHolder/checkCell';
         } else {
-            var url = $(location).attr('protocol')+'//'+ hostName +'/home/checkUser';
+            var url = '/policyHolder/checkCell';
         }
         var msgSelector = '';
         if(type === 'mobile') {
@@ -83,8 +83,93 @@ $(document).ready(function() {
         // Send ajax request to check email
         $.ajax({
             method : 'POST',
-            url : '/policyHolder/checkCell',
+            url : url,
             data : {col_value : cellNumber, _token : csrf, type: type, ben: ben},
+            dataType : 'JSON',
+            success : function (result){
+                if(result == ''){
+                    return FALSE;
+                }
+                if(result.status == 'error') {
+                    $(fieldSelector).css('border', "2px solid red");
+                    $(msgSelector).html(result.msg); // Show error msg
+                    $(msgSelector).css('color', "red");
+
+                    $("#reg-sub-btn").attr('disabled', true); // Disable Submit button
+                    $("#reg-sub-btn").css('cursor', 'not-allowed');
+                } else {
+                    $(fieldSelector).css('border', "2px solid green");
+                    $(msgSelector).html(''); // Show error msg
+                    $(msgSelector).css('color', "red");
+
+                    if($("#reg-pass-error").text().length == 0 && $("#reg-contact-error").text().length == 0 && $("#reg-idn-error").text().length == 0) {
+                        $("#reg-sub-btn").attr('disabled', false); // Disable Submit button
+                        $("#reg-sub-btn").css('cursor', 'pointer');
+                    }
+                }
+            }
+        });
+    });
+
+    // Check beneficiary cell number & IDN uniqueness
+    $(document).on('keyup',"#reg-contact-no-ben, #user-idn-ben",function(){
+
+        var cellNumber = $(this).val();
+        var type = $(this).data('type');
+        var original = $(this).data('original');
+
+        var csrf = $("input[name='_token']").val();
+        // Composer url for ajax request
+        var hostName = $(location).attr('hostname');
+        if(hostName == 'localhost') {
+            var url = '/show_my_claims/policyHolder/checkBeneficiary';
+        } else {
+            var url = '/policyHolder/checkBeneficiary';
+        }
+        var msgSelector = '';
+        if(type === 'mobile') {
+            msgSelector = "#reg-contact-error";
+            fieldSelector = "#reg-contact-no";
+        }
+        else if(type === 'identity_document_number') {
+            msgSelector = "#reg-idn-error";
+            fieldSelector = "#user-idn";
+        }
+
+        // if(original != null) { // Edit case; return from here if new value is equal to previous value
+        //     $(fieldSelector).css('border', "2px solid green");
+        //     $(msgSelector).html(''); // Show error msg
+        //     $(msgSelector).css('color', "red");
+        //
+        //     if($("#reg-pass-error").text().length == 0 && $("#reg-contact-error").text().length == 0 && $("#reg-idn-error").text().length == 0) {
+        //         $("#reg-sub-btn").attr('disabled', false); // Disable Submit button
+        //         $("#reg-sub-btn").css('cursor', 'pointer');
+        //     }
+        //     return;
+        // }
+
+        if(original == cellNumber) { // Edit case; return from here if new value is equal to previous value
+            $(fieldSelector).css('border', "2px solid green");
+            $(msgSelector).html(''); // Show error msg
+            $(msgSelector).css('color', "red");
+
+            if($("#reg-pass-error").text().length == 0 && $("#reg-contact-error").text().length == 0 && $("#reg-idn-error").text().length == 0) {
+                $("#reg-sub-btn").attr('disabled', false); // Disable Submit button
+                $("#reg-sub-btn").css('cursor', 'pointer');
+            }
+            console.log("equal")
+            return;
+        }
+
+        var ben = 0;
+        if($(this).data('source') == 'beneficiary')
+            ben = 1;
+
+        // Send ajax request to check email
+        $.ajax({
+            method : 'POST',
+            url : url,
+            data : {col_value : cellNumber, _token : csrf, type: type, ben: ben, original: original},
             dataType : 'JSON',
             success : function (result){
                 if(result == ''){

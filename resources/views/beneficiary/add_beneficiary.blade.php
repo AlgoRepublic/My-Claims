@@ -22,12 +22,12 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for=" ">Beneficiary South African Identity Document Number<span class="text-danger"><b>*</b></span></label>
-                            <input type="text" id="user-idn" data-type="identity_document_number" data-source="beneficiary" pattern="\d*" maxlength="13" minlength="13" title="Only dgits are allowed | Length should be 13." class="form-control" name="bene_document_number" placeholder="" required="">
+                            <input type="text" id="user-idn-ben" data-type="identity_document_number" data-source="beneficiary" pattern="\d*" maxlength="13" minlength="13" title="Only dgits are allowed | Length should be 13." class="form-control" name="bene_document_number" placeholder="" required="">
                             <span id="reg-idn-error"></span>
                         </div>
                         <div class="form-group col-md-6">
                             <label for=" ">Beneficiary Cell Phone Number<span class="text-danger"><b>*</b></span></label>
-                            <input type="text" data-type="mobile" id="reg-contact-no" data-source="beneficiary" pattern="\d*" maxlength="10" minlength="10" title="Length should be 10 digits | Only positive digits are allowed" class="form-control" name="bene_cell_number" placeholder="" required="">
+                            <input type="text" data-type="mobile" id="reg-contact-no-ben" data-source="beneficiary" pattern="\d*" maxlength="10" minlength="10" title="Length should be 10 digits | Only positive digits are allowed" class="form-control" name="bene_cell_number" placeholder="" required="">
                             <span id="reg-contact-error"></span>
                         </div>
                     </div>

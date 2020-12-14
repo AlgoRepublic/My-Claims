@@ -340,6 +340,33 @@ class PolicyHolderController extends Controller
         die;
     }
 
+    public function checkBeneficiary(Request $request)
+    {
+        $postData = $request->input();
+
+        if(empty($postData) || empty($postData['type']) || empty($postData['col_value'])) {
+            print_r(json_encode(array('status' => 'error', 'msg' => 'Required!')));
+            die;
+        }
+
+        $benCol = ($postData['type'] == 'mobile') ? 'cell_number' : $postData['type'];
+
+        $user = Auth::user();
+
+        if($postData['col_value'] == $user[$postData['type']] ) {
+            print_r(json_encode(array('status' => 'error', 'msg' => 'Sorry, you can not add yourself as Beneficiary!')));
+            die;
+        }
+
+        $beneficiaries = $user->beneficiaries()->where([$benCol => $postData['col_value']])->get();
+
+        if(count($beneficiaries) > 0)
+            print_r(json_encode(array('status' => 'error', 'msg' => 'User with this number already exists!')));
+        else
+            print_r(json_encode(array('status' => 'success', 'msg' => 'Verified!')));
+        die;
+    }
+
     public function addBeneficiaryOrPolicy(Request $request)
     {
         $user = Auth::user();

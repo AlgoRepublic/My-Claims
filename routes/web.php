@@ -52,6 +52,14 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
     Route::get('/expired-subscriptions', 'AdminController@expiredSubscriptionView')->name('expiredSubscriptionView');
     Route::get('/expired-subscriptions-send-sms', 'AdminController@expiredSubscriptionSendSMS')->name('expiredSubscriptionSendSMS');
 
+    //Company...
+    Route::get('/companies', 'AdminController@company')->name('companyAdmin');
+    Route::get('/addCompany', 'AdminController@addCompanyView')->name('addCompanyViewAdmin');
+    Route::get('/editCompany', 'AdminController@editCompanyView')->name('editCompanyViewAdmin');
+    Route::post('/addCompany', 'AdminController@addCompany')->name('addCompanyAdmin');
+    Route::post('/editCompany', 'AdminController@editCompany')->name('editCompanyAdmin');
+    Route::get('/deleteCompany', 'AdminController@deleteCompany')->name('deleteCompanyAdmin');
+
 });
 
 Route::group(['prefix' => 'policyHolder', 'middleware' => 'policyholder'], function() {
@@ -138,6 +146,7 @@ Route::post('/policyHolder/updatePassword/', "PolicyHolderController@updatePassw
 
 Route::post('/policyHolder/register/', "PolicyHolderController@register");
 Route::post('/policyHolder/checkCell/', "PolicyHolderController@checkCell");
+Route::post('/policyHolder/checkBeneficiary/', "PolicyHolderController@checkBeneficiary");
 
 Route::get('/payfast-success', 'PolicyHolderController@paymentSuccess');
 Route::get('/payfast-cancel', 'PolicyHolderController@paymentCancel');
