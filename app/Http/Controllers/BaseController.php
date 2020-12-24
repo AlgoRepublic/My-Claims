@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Beneficiaries;
 use App\beneficiary_policy;
 use App\Blogs;
+use App\BuUser;
 use App\Claims;
 use App\Contact;
 use App\Mail\BeneficiaryVerification;
@@ -13,6 +14,7 @@ use App\Settings;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
@@ -283,5 +285,95 @@ class BaseController extends Controller
     public function info()
     {
         phpinfo();
+    }
+
+//    public function buVerifyToken(Request $request){
+//        $postData = $request->input();
+//        $bu_user = BuUser::where("reset_password_token", $postData['reset_token'])->first();
+//
+//        if(!empty($bu_user)){
+//            return view('business_change_password', ['reset_token' => $postData['reset_token']]);
+//        }else{
+//            Session::flash('message', 'Oops, Invalid Token!');
+//            Session::flash('alert-class', 'alert-danger');
+//            return redirect()->back()->withInput();
+//        }
+//    }
+
+    public function buChangePasswordView(Request $request){
+        return view('business.change_password', ['reset_token'=> $request->input('reset_token')]);
+    }
+
+    public function buChangePassword(Request $request){
+
+        $postData = $request->input();
+        if( empty($postData['reset_token']) ){
+            Session::flash('message', 'Oops, Invalid Token!');
+            Session::flash('alert-class', 'alert-danger');
+            return redirect()->back()->withInput();
+        }
+        $bu_user = BuUser::where("reset_password_token", $postData['reset_token'])->first();
+        if(!empty($bu_user)){
+
+            if( empty($postData['password']) || empty($postData['confirm_password']) ){
+                Session::flash('message', 'Please fill all fields!');
+                Session::flash('alert-class', 'alert-danger');
+                return redirect()->back()->withInput();
+            }
+
+            if($postData['password'] !== $postData['confirm_password']){
+                Session::flash('message', 'New Password and Confirm Password are not same!');
+                Session::flash('alert-class', 'alert-danger');
+                return redirect()->back()->withInput();
+            }
+
+            if( strlen($postData['password']) < 6  ){
+                Session::flash('message', 'Password length should be 6 or more!');
+                Session::flash('alert-class', 'alert-danger');
+                return redirect()->back()->withInput();
+            }
+
+            $bu_user->password = Hash::make($postData['password']);
+            $bu_user->reset_password_token = null;
+            $bu_user->reset_password_token_date = null;
+            $bu_user->save();
+            Session::flash('message', 'Password changed successfully!');
+            Session::flash('alert-class', 'alert-success');
+            return redirect()->route('buLoginView');
+        }else{
+            Session::flash('message', 'Oops, Invalid Token!');
+            Session::flash('alert-class', 'alert-danger');
+            return redirect()->route('buChangePasswordView')->withInput();
+        }
+    }
+
+    public function buLoginView(Request $request)
+    {
+        if(Auth::guard('business')->check()){
+            $user =  Auth::guard('business')->user();
+            if ($user->role->role_name === "admin") {
+                return redirect()->route('buAdmin');
+            }elseif ($user->role->role_name === "manager"){
+                return redirect()->route('buManger');
+            }
+        }
+        return view('business.login');
+    }
+
+    public function buLogin(Request $request)
+    {
+        $credentials = $request->only('email', 'password');
+        $credentials['status'] = 1;
+        if (Auth::guard('business')->attempt($credentials)) {
+            $user =  Auth::guard('business')->user();
+            if ($user->role->role_name === "admin") {
+                return redirect()->route('buAdmin');
+            }elseif ($user->role->role_name === "manager"){
+                return redirect()->route('buManger');
+            }
+        }
+        Session::flash('message', 'Oops, Invalid User!');
+        Session::flash('alert-class', 'alert-danger');
+        return redirect()->back();
     }
 }

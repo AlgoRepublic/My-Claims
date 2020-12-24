@@ -41,6 +41,11 @@ return [
             'provider' => 'users',
         ],
 
+        'business' => [
+            'driver' => 'session',
+            'provider' => 'bu',
+        ],
+
         'api' => [
             'driver' => 'token',
             'provider' => 'users',
@@ -71,6 +76,11 @@ return [
             'model' => App\User::class,
         ],
 
+        'bu' => [
+            'driver' => 'eloquent',
+            'model' => App\BuUser::class,
+        ],
+
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
@@ -95,6 +105,12 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'bu' => [
+            'provider' => 'bu',
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,

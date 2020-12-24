@@ -67,5 +67,7 @@ class Kernel extends HttpKernel
         'admin' => \App\Http\Middleware\Admin::class,
         'policyholder' => \App\Http\Middleware\PolicyHolder::class,
         'beneficiary' => \App\Http\Middleware\Beneficiary::class,
+        'bu.admin' => \App\Http\Middleware\BuAdmin::class,
+        'bu.manager' => \App\Http\Middleware\BuManager::class,
     ];
 }

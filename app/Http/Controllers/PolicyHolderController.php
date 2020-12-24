@@ -354,7 +354,7 @@ class PolicyHolderController extends Controller
         $user = Auth::user();
 
         if($postData['col_value'] == $user[$postData['type']] ) {
-            print_r(json_encode(array('status' => 'error', 'msg' => 'Sorry, you can not add yourself as Beneficiary!')));
+            print_r(json_encode(array('status' => 'error', 'msg' => 'Sorry, you can not add your self as Beneficiary!')));
             die;
         }
 

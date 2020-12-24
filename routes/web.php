@@ -14,11 +14,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'BaseController@index');
-Route::get('/login', function() {
+Route::get('/login', function () {
     return view('login');
 })->name('login');
 
-Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
+Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('/', 'AdminController@index');
     Route::get('/policyHolders', 'AdminController@policyHolder');
     Route::get('/policyHolders', 'AdminController@policyHolder')->name('policyHoldersDetail');
@@ -36,7 +36,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
     Route::get('/policyHolders/manualPaymentRequests', 'AdminController@manualPaymentRequests');
     Route::post('/verifyPayment', 'AdminController@verifyPayment');
     Route::get('/delete-policyholder', 'AdminController@deletePolicyHolder')->name('deletePolicyHolder');
-    Route::get('/add-blog', function() {
+    Route::get('/add-blog', function () {
         return view('admin.add_blog');
     });
     Route::post('/add-blog', 'AdminController@addBlog');
@@ -60,17 +60,25 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
     Route::post('/editCompany', 'AdminController@editCompany')->name('editCompanyAdmin');
     Route::get('/deleteCompany', 'AdminController@deleteCompany')->name('deleteCompanyAdmin');
 
+    Route::get('/company/{company}/users', 'AdminController@companyUser')->name('companyUsersAdmin');
+    Route::get('/company/{company}/addUser', 'AdminController@companyAddUserView')->name('companyAddUserViewAdmin');
+    Route::post('/company/{company}/addUser', 'AdminController@companyAddUser')->name('companyAddUserAdmin');
+    Route::get('/company/{company}/editUser/{user}', 'AdminController@companyEditUserView')->name('companyEditUserViewAdmin');
+    Route::post('/company/{company}/editUser/{user}', 'AdminController@companyEditUser')->name('companyEditUserAdmin');
+    Route::get('/company/{company}/deleteUser/{user}', 'AdminController@companyDeleteUser')->name('companyDeleteUserAdmin');
+
+
 });
 
-Route::group(['prefix' => 'policyHolder', 'middleware' => 'policyholder'], function() {
+Route::group(['prefix' => 'policyHolder', 'middleware' => 'policyholder'], function () {
     Route::get('/', 'PolicyHolderController@index');
     Route::get('/addPolicy', 'PolicyHolderController@addPolicyView');
     Route::post('/addPolicy', 'PolicyHolderController@addPolicy');
     Route::get('/editPolicy', 'PolicyHolderController@editPolicyView')->name('editPolicy');;
     Route::post('/editPolicy', 'PolicyHolderController@editPolicy');
     Route::post('/deletePolicyDocument', 'PolicyHolderController@deletePolicyDocument');
-    Route::get('/edit', function() {
-        $packages = \App\PaymentPackages::orderBy('amount','ASC')->get();
+    Route::get('/edit', function () {
+        $packages = \App\PaymentPackages::orderBy('amount', 'ASC')->get();
         /*foreach ($packages as $key => $package)
         {
             if($package->type === 'free_trail')
@@ -79,7 +87,7 @@ Route::group(['prefix' => 'policyHolder', 'middleware' => 'policyholder'], funct
                 break;
             }
         }*/
-        return view('policyholder.edit_profile', ['userData' => \Illuminate\Support\Facades\Auth::user(),'packages' => $packages]);
+        return view('policyholder.edit_profile', ['userData' => \Illuminate\Support\Facades\Auth::user(), 'packages' => $packages]);
     });
     Route::post('add-beneficiary-or-policy', 'PolicyHolderController@addBeneficiaryOrPolicy');
 
@@ -90,17 +98,17 @@ Route::group(['prefix' => 'policyHolder', 'middleware' => 'policyholder'], funct
 });*/
 Route::post('policyHolder/edit', 'PolicyHolderController@editProfile');
 
-Route::get('/admin/login', function() {
+Route::get('/admin/login', function () {
     return view('admin.login');
 })->name('adminLogin');
 Route::post('/admin/login', 'AdminController@login');
 
 Route::get('/policyHolder/delete', 'PolicyHolderController@deletePolicy')->name('deletePolicy');
-Route::get('/policyHolder/login', function() {
+Route::get('/policyHolder/login', function () {
     return view('policyholder.login');
 })->name('policyLogin');
 
-Route::get('/beneficiary/login', function() {
+Route::get('/beneficiary/login', function () {
     return view('beneficiary.login');
 })->name('beneficiaryLogin');
 
@@ -113,7 +121,7 @@ Route::post('/beneficiary/policy-request', 'BaseController@policyRequest');
 /*Route::get('/beneficiary/add', function(){
     return view('beneficiary.add_beneficiary');
 });*/
-Route::get('/beneficiary/add', function(){
+Route::get('/beneficiary/add', function () {
     return view('beneficiary.add_beneficiary');
 });
 Route::post('/beneficiary/add', 'BaseController@addBeneficiary');
@@ -126,7 +134,7 @@ Route::get('/what-we-do', 'BaseController@whatWeDo');
 Route::get('/blog', 'BaseController@blog');
 Route::get('/blog', 'BaseController@blog')->name('blog-detail');
 
-Route::get('/contact-us', function(){
+Route::get('/contact-us', function () {
     return view('contact_us');
 });
 Route::post('/contact-us', 'BaseController@contactUs');
@@ -144,6 +152,9 @@ Route::post('/policyHolder/forgotPassword/', "PolicyHolderController@forgotPassw
 Route::post('/policyHolder/verifyToken/', "PolicyHolderController@verifyToken");
 Route::post('/policyHolder/updatePassword/', "PolicyHolderController@updatePassword");
 
+Route::get('/business/change-password', "BaseController@buChangePasswordView")->name('buChangePasswordView');
+Route::post('/business/change-password', "BaseController@buChangePassword")->name('buChangePassword');
+
 Route::post('/policyHolder/register/', "PolicyHolderController@register");
 Route::post('/policyHolder/checkCell/', "PolicyHolderController@checkCell");
 Route::post('/policyHolder/checkBeneficiary/', "PolicyHolderController@checkBeneficiary");
@@ -151,6 +162,20 @@ Route::post('/policyHolder/checkBeneficiary/', "PolicyHolderController@checkBene
 Route::get('/payfast-success', 'PolicyHolderController@paymentSuccess');
 Route::get('/payfast-cancel', 'PolicyHolderController@paymentCancel');
 Route::post('/payfast-notify', 'PolicyHolderController@paymentNotify');
+
+Route::get('business/login', 'BaseController@buLoginView')->name('buLoginView');
+Route::post('business/login', 'BaseController@buLogin')->name('buLogin');
+Route::group(['prefix' => 'business'], function () {
+
+    Route::group(['prefix' => 'manager', 'middleware' => 'bu.manager'], function () {
+        Route::get('/', 'Business\ManagerController@index')->name('buManger');
+    });
+
+    Route::group(['prefix' => 'admin', 'middleware' => 'bu.admin'], function () {
+        Route::get('/', 'Business\AdminController@index')->name('buAdmin');
+    });
+
+});
 
 Route::get('/storage-link', function () {
     Artisan::call('storage:link');

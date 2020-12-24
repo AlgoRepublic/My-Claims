@@ -72,6 +72,9 @@
                     <li class="nav-item">
                         <a class="btn nav-link custom_nav_btn custom-nav-log" style="" href="{{ url('policyHolder/register') }}">REGISTER</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="btn nav-link custom_nav_btn custom-nav-log" style="" href="{{ route('buLoginView') }}">BUSINESS</a>
+                    </li>
                 @endif
             </ul>
         </div>
