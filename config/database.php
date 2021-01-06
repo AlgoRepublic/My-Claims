@@ -46,11 +46,11 @@ return [
         'mysql' => [
             'driver' => 'mysql',
             'url' => env('DATABASE_URL'),
-            'host' => env('DB_HOST', '127.0.0.1'),
+            'host' => ($_SERVER['HTTP_HOST'] === "showmyclaims.herokuapp.com") ? "klbcedmmqp7w17ik.cbetxkdyhwsb.us-east-1.rds.amazonaws.com" : env('DB_HOST', '127.0.0.1'),
             'port' => env('DB_PORT', '3306'),
-            'database' => env('DB_DATABASE', 'forge'),
-            'username' => env('DB_USERNAME', 'forge'),
-            'password' => env('DB_PASSWORD', ''),
+            'database' => ($_SERVER['HTTP_HOST'] === "showmyclaims.herokuapp.com") ? "xdqp6xq32f5kg8ca" : env('DB_DATABASE', 'forge'),
+            'username' => ($_SERVER['HTTP_HOST'] === "showmyclaims.herokuapp.com") ? "jhrrim5tdm8xal9o" : env('DB_USERNAME', 'forge'),
+            'password' => ($_SERVER['HTTP_HOST'] === "showmyclaims.herokuapp.com") ? "zfkn58be15y0zp4m" : env('DB_PASSWORD', ''),
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => 'utf8mb4',
             'collation' => 'utf8mb4_unicode_ci',
@@ -123,7 +123,7 @@ return [
 
         'options' => [
             'cluster' => env('REDIS_CLUSTER', 'redis'),
-            'prefix' => env('REDIS_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_').'_database_'),
+            'prefix' => env('REDIS_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_') . '_database_'),
         ],
 
         'default' => [
